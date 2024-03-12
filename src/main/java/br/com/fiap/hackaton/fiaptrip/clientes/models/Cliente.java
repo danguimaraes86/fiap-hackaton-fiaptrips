@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Cliente {
@@ -29,7 +31,8 @@ public class Cliente {
     private String email;
     private String endereco;
 
-    public Cliente(String nomeComleto, String paisOrigem, LocalDate dataNascimento, String cpf, String passaporte, String telefone, String email, String endereco) {
+    public Cliente(String nomeComleto, String paisOrigem, LocalDate dataNascimento,
+                   String cpf, String passaporte, String telefone, String email, String endereco) {
         this.nomeComleto = nomeComleto;
         this.paisOrigem = paisOrigem;
         this.dataNascimento = dataNascimento;

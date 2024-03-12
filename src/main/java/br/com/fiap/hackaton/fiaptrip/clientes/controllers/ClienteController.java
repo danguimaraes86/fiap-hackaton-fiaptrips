@@ -18,8 +18,9 @@ public class ClienteController {
     private final ClienteService clienteService;
 
     @GetMapping
-    public ResponseEntity<Page<ClienteDTO>> findAllClientes(Pageable pageable) {
-        return ResponseEntity.ok(clienteService.findAllClientes(pageable).map(Cliente::convertToDTO));
+    public ResponseEntity<Page<Cliente>> findAllClientes(Pageable pageable) {
+        Page<Cliente> clientes = clienteService.findAllClientes(pageable);
+        return ResponseEntity.ok(clientes);
     }
 
     @GetMapping("/busca")

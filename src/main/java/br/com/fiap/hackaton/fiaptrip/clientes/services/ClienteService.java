@@ -24,14 +24,14 @@ public class ClienteService {
 
     public Cliente findClienteByEmail(String email) {
         return clienteRepository.findClienteByEmailContainingIgnoreCase(email).orElseThrow(
-                () -> new NoSuchElementException("cliente_email não encontrado")
+                () -> new NoSuchElementException(format("cliente_email [%s] não encontrado", email))
         );
     }
 
     public Cliente createCliente(ClienteDTO novoCliente) {
         clienteRepository.findClienteByEmailContainingIgnoreCase(novoCliente.email()).ifPresent(
                 cliente -> {
-                    throw new IllegalArgumentException(format("%s já cadastrado", cliente.getEmail()));
+                    throw new IllegalArgumentException(format("cliente_email [%s] já cadastrado", cliente.getEmail()));
                 }
         );
 
@@ -45,7 +45,7 @@ public class ClienteService {
 
     public Cliente updateCliente(Long clienteId, ClienteDTO clienteDTO) {
         Cliente cliente = clienteRepository.findById(clienteId).orElseThrow(
-                () -> new NoSuchElementException("cliente_id não encontrado")
+                () -> new NoSuchElementException(format("cliente_id [%d] não encontrado", clienteId))
         );
         cliente.update(clienteDTO);
         return clienteRepository.save(cliente);
@@ -54,7 +54,7 @@ public class ClienteService {
     public void deleteCliente(Long clienteId) {
         clienteRepository.delete(
                 clienteRepository.findById(clienteId).orElseThrow(
-                        () -> new NoSuchElementException("cliente_id não encontrado")
+                        () -> new NoSuchElementException(format("cliente_id [%d] não encontrado", clienteId))
                 )
         );
     }

@@ -1,6 +1,7 @@
 package br.com.fiap.hackaton.fiaptrip.clientes.services;
 
 import br.com.fiap.hackaton.fiaptrip.clientes.models.Cliente;
+import br.com.fiap.hackaton.fiaptrip.clientes.models.ClienteDTO;
 import br.com.fiap.hackaton.fiaptrip.clientes.repositories.ClienteRepository;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.AfterEach;
@@ -8,22 +9,40 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
-import java.util.Locale;
+import java.util.*;
 
+import static java.lang.String.format;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 public class ClienteServiceTest {
 
     private static final Faker faker = new Faker(Locale.forLanguageTag("pt_BR"));
 
-    AutoCloseable mocks;
+    private AutoCloseable mocks;
     private ClienteService clienteService;
     @Mock
     private ClienteRepository clienteRepository;
 
-    private static Cliente getUsuarioMock() {
-        return new Cliente();
+    private static Cliente getClienteMock() {
+        return new Cliente(
+                new Random().nextLong(),
+                faker.witcher().witcher(),
+                faker.country().countryCode3(),
+                faker.date().birthdayLocalDate(),
+                faker.cpf().valid(),
+                faker.passport().valid(),
+                faker.phoneNumber().phoneNumber(),
+                faker.internet().emailAddress(),
+                faker.address().fullAddress()
+        );
     }
 
     @BeforeEach
@@ -42,14 +61,49 @@ public class ClienteServiceTest {
 
         @Test
         void deveBuscarClientes_retornaPageableVazio() {
+            Page<Cliente> clientesMock = new PageImpl<>(Collections.emptyList());
+            when(clienteRepository.findAll(any(Pageable.class))).thenReturn(clientesMock);
+
+            Page<Cliente> clientes = clienteService.findAllClientes(Pageable.unpaged());
+            verify(clienteRepository, times(1)).findAll(Pageable.unpaged());
+            assertThat(clientes).isInstanceOf(Page.class);
+            assertThat(clientes.getContent()).isEmpty();
         }
 
         @Test
         void deveBuscarClientes_retornaPageable() {
+            Page<Cliente> clientesMock = new PageImpl<>(List.of(
+                    mock(Cliente.class),
+                    mock(Cliente.class),
+                    mock(Cliente.class)));
+            when(clienteRepository.findAll(any(Pageable.class))).thenReturn(clientesMock);
+
+            Page<Cliente> clientes = clienteService.findAllClientes(Pageable.unpaged());
+            verify(clienteRepository, times(1)).findAll(Pageable.unpaged());
+            assertThat(clientes).isInstanceOf(Page.class);
+            assertThat(clientes.getContent()).isNotEmpty().hasSize(clientesMock.getSize());
         }
 
         @Test
         void deveBuscarClientes_porEmail() {
+            Cliente clienteMock = getClienteMock();
+            String mockEmail = clienteMock.getEmail();
+            when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString()))
+                    .thenReturn(Optional.of(clienteMock));
+
+            Cliente clienteByEmail = clienteService.findClienteByEmail(mockEmail);
+            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(mockEmail);
+
+            assertThat(clienteByEmail).isNotNull().isEqualTo(clienteMock);
+            assertThat(clienteByEmail.getId()).isEqualTo(clienteMock.getId());
+            assertThat(clienteByEmail.getNomeComleto()).isEqualTo(clienteMock.getNomeComleto());
+            assertThat(clienteByEmail.getPaisOrigem()).isEqualTo(clienteMock.getPaisOrigem());
+            assertThat(clienteByEmail.getDataNascimento()).isEqualTo(clienteMock.getDataNascimento());
+            assertThat(clienteByEmail.getCpf()).isEqualTo(clienteMock.getCpf());
+            assertThat(clienteByEmail.getPassaporte()).isEqualTo(clienteMock.getPassaporte());
+            assertThat(clienteByEmail.getTelefone()).isEqualTo(clienteMock.getTelefone());
+            assertThat(clienteByEmail.getEmail()).isEqualTo(clienteMock.getEmail());
+            assertThat(clienteByEmail.getEndereco()).isEqualTo(clienteMock.getEndereco());
         }
     }
 
@@ -58,6 +112,24 @@ public class ClienteServiceTest {
 
         @Test
         void deveInserirCliente() {
+            Cliente clienteMock = getClienteMock();
+            ClienteDTO clienteDTO = clienteMock.convertToDTO();
+            when(clienteRepository.save(any(Cliente.class))).thenReturn(clienteMock);
+            when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString())).thenReturn(Optional.empty());
+
+            Cliente cliente = clienteService.createCliente(clienteDTO);
+            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(clienteDTO.email());
+            verify(clienteRepository, times(1)).save(any(Cliente.class));
+
+            assertThat(cliente).isNotNull();
+            assertThat(cliente.getNomeComleto()).isEqualTo(clienteDTO.nomeComleto());
+            assertThat(cliente.getPaisOrigem()).isEqualTo(clienteDTO.paisOrigem());
+            assertThat(cliente.getDataNascimento()).isEqualTo(clienteDTO.dataNascimento());
+            assertThat(cliente.getCpf()).isEqualTo(clienteDTO.cpf().orElse(null));
+            assertThat(cliente.getPassaporte()).isEqualTo(clienteDTO.passaporte().orElse(null));
+            assertThat(cliente.getTelefone()).isEqualTo(clienteDTO.telefone());
+            assertThat(cliente.getEmail()).isEqualTo(clienteDTO.email());
+            assertThat(cliente.getEndereco()).isEqualTo(clienteDTO.endereco());
         }
     }
 
@@ -66,109 +138,99 @@ public class ClienteServiceTest {
 
         @Test
         void deveAtualizarCliente() {
+            Cliente clienteMock = getClienteMock();
+            Long clienteId = clienteMock.getId();
+            ClienteDTO clienteAlterado = getClienteMock().convertToDTO();
+            when(clienteRepository.findById(anyLong())).thenReturn(Optional.of(clienteMock));
+            clienteMock.update(clienteAlterado);
+            when(clienteRepository.save(any(Cliente.class))).thenReturn(clienteMock);
+
+            Cliente cliente = clienteService.updateCliente(clienteId, clienteAlterado);
+            verify(clienteRepository, times(1)).findById(clienteId);
+            verify(clienteRepository, times(1)).save(any(Cliente.class));
+
+            assertThat(cliente).isNotNull();
+            assertThat(cliente.getNomeComleto()).isEqualTo(clienteAlterado.nomeComleto());
+            assertThat(cliente.getPaisOrigem()).isEqualTo(clienteAlterado.paisOrigem());
+            assertThat(cliente.getDataNascimento()).isEqualTo(clienteAlterado.dataNascimento());
+            assertThat(cliente.getCpf()).isEqualTo(clienteAlterado.cpf().orElse(null));
+            assertThat(cliente.getPassaporte()).isEqualTo(clienteAlterado.passaporte().orElse(null));
+            assertThat(cliente.getEmail()).isEqualTo(clienteAlterado.email());
+            assertThat(cliente.getEndereco()).isEqualTo(clienteAlterado.endereco());
         }
     }
 
+    @Nested
+    class DeletarClientes {
 
+        @Test
+        void deveDeletarCliente() {
+            Cliente clienteMock = getClienteMock();
+            Long clienteId = clienteMock.getId();
+            when(clienteRepository.findById(anyLong())).thenReturn(Optional.of(clienteMock));
+            doNothing().when(clienteRepository).delete(any(Cliente.class));
+
+            clienteService.deleteCliente(clienteId);
+            verify(clienteRepository, times(1)).findById(clienteId);
+            verify(clienteRepository, times(1)).delete(any(Cliente.class));
+        }
+    }
+
+    @Nested
+    class Exceptions {
+
+        @Test
+        void deveLancarExcecao_buscarClientePorEmail_emailNaoEncontrado() {
+            Cliente clienteMock = getClienteMock();
+            String clienteEmail = clienteMock.getEmail();
+            when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString())).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> clienteService.findClienteByEmail(clienteEmail))
+                    .isInstanceOf(NoSuchElementException.class)
+                    .hasMessage(format("cliente_email [%s] não encontrado", clienteEmail));
+            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(anyString());
+        }
+
+        @Test
+        void deveLancarExcecao_inserirCliente_emailJaCadastrado() {
+            Cliente clienteMock = getClienteMock();
+            ClienteDTO clienteDTO = clienteMock.convertToDTO();
+            String clienteEmail = clienteMock.getEmail();
+            when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString()))
+                    .thenReturn(Optional.of(clienteMock));
+
+            assertThatThrownBy(() -> clienteService.createCliente(clienteDTO))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage(format("cliente_email [%s] já cadastrado", clienteEmail));
+            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(anyString());
+            verify(clienteRepository, never()).save(any(Cliente.class));
+        }
+
+        @Test
+        void deveLancarExcecao_alterarCliente_naoEncontrado() {
+            Cliente clienteMock = getClienteMock();
+            Long clienteId = clienteMock.getId();
+            ClienteDTO clienteDTO = clienteMock.convertToDTO();
+            when(clienteRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> clienteService.updateCliente(clienteId, clienteDTO))
+                    .isInstanceOf(NoSuchElementException.class)
+                    .hasMessage(format("cliente_id [%d] não encontrado", clienteId));
+            verify(clienteRepository, times(1)).findById(anyLong());
+            verify(clienteRepository, never()).save(any(Cliente.class));
+        }
+
+        @Test
+        void deveLancarExcecao_deletarCliente_naoEncontrado() {
+            Cliente clienteMock = getClienteMock();
+            Long clienteId = clienteMock.getId();
+            when(clienteRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> clienteService.deleteCliente(clienteId))
+                    .isInstanceOf(NoSuchElementException.class)
+                    .hasMessage(format("cliente_id [%d] não encontrado", clienteId));
+            verify(clienteRepository, times(1)).findById(anyLong());
+            verify(clienteRepository, never()).delete(any(Cliente.class));
+        }
+    }
 }
-
-
-//
-//@Nested
-//class BuscarUsuarios {
-//
-//    @Test
-//    void deveBuscarUsuarios_RetornaPageableVazio() {
-//        Page<Usuario> usuarioPageFake = new PageImpl<>(Collections.emptyList());
-//        when(usuarioRespository.findAll(any(Pageable.class))).thenReturn(usuarioPageFake);
-//
-//        Page<Usuario> usuarioPage = usuarioService.findUsuarioByEmailOrNome(
-//                Pageable.unpaged(), "", "");
-//        verify(usuarioRespository, times(1)).findAll(Pageable.unpaged());
-//
-//        assertThat(usuarioPage).isInstanceOf(Page.class);
-//        assertThat(usuarioPage.getContent()).isEmpty();
-//    }
-//
-//    @Test
-//    void deveBuscarUsuarios_RetornaPageable() {
-//        Page<Usuario> usuarioPageFake = new PageImpl<>(List.of(
-//                getUsuarioMock(),
-//                getUsuarioMock(),
-//                getUsuarioMock()
-//        ));
-//        when(usuarioRespository.findByEmailContainingIgnoreCaseOrNomeContainingIgnoreCase(
-//                any(Pageable.class), anyString(), anyString())).thenReturn(usuarioPageFake);
-//
-//        Page<Usuario> usuarioPage = usuarioService.findUsuarioByEmailOrNome(
-//                Pageable.unpaged(), "teste", "teste");
-//        verify(usuarioRespository, times(1))
-//                .findByEmailContainingIgnoreCaseOrNomeContainingIgnoreCase(
-//                        Pageable.unpaged(), "teste", "teste");
-//
-//        assertThat(usuarioPage).isInstanceOf(Page.class);
-//        assertThat(usuarioPage.getTotalElements()).isEqualTo(usuarioPageFake.getTotalElements());
-//        assertThat(usuarioPage.getContent()).isEqualTo(usuarioPageFake.getContent());
-//    }
-//
-//    @Test
-//    void deveBuscarUsuarioPorEmail_comSucesso() {
-//        Usuario usuarioMock = getUsuarioMock();
-//        String email = usuarioMock.getEmail();
-//        when(usuarioRespository.findById(anyString())).thenReturn(Optional.of(usuarioMock));
-//
-//        Optional<Usuario> usuario = usuarioService.findUsuarioByEmail(email);
-//        verify(usuarioRespository, times(1)).findById(email);
-//
-//        assertThat(usuario).isNotEmpty().isEqualTo(Optional.of(usuarioMock));
-//        assertThat(usuario.get().getEmail()).isEqualTo(usuarioMock.getEmail());
-//        assertThat(usuario.get().getNome()).isEqualTo(usuarioMock.getNome());
-//        assertThat(usuario.get().getPassword()).isEqualTo(usuarioMock.getPassword());
-//        assertThat(usuario.get().getRole()).isEqualTo(Role.USER);
-//    }
-//
-//    @Test
-//    void deveBuscarUsuarioPorEmail_optionalVazio() {
-//        String email = faker.internet().emailAddress();
-//        when(usuarioRespository.findById(anyString())).thenReturn(Optional.empty());
-//
-//        Optional<Usuario> usuario = usuarioService.findUsuarioByEmail(email);
-//        verify(usuarioRespository, times(1)).findById(email);
-//        assertThat(usuario).isEmpty();
-//    }
-//}
-//
-//@Nested
-//class InserirUsuario {
-//
-//    @Test
-//    void deveInserirUsuario_comSucesso() {
-//        Usuario usuarioMock = getUsuarioMock();
-//        UsuarioDTO usuarioDTO = usuarioMock.toUsuarioDTO();
-//        when(usuarioRespository.save(any(Usuario.class))).thenReturn(usuarioMock);
-//
-//        Usuario usuario = usuarioService.createUsuario(usuarioDTO);
-//        verify(usuarioRespository, times(1)).save(any(Usuario.class));
-//
-//        assertThat(usuario.getEmail()).isEqualTo(usuarioMock.getEmail());
-//        assertThat(usuario.getNome()).isEqualTo(usuarioMock.getNome());
-//        assertThat(usuario.getPassword()).isEqualTo(usuarioMock.getPassword());
-//        assertThat(usuario.getRole()).isEqualTo(usuarioMock.getRole());
-//    }
-//}
-//
-//@Nested
-//class Exceptions {
-//
-//    @Test
-//    void deveLancarExcecao_inserirUsuario_usuarioJaCadastrado() {
-//        Usuario usuarioMock = getUsuarioMock();
-//        UsuarioDTO usuarioDTO = usuarioMock.toUsuarioDTO();
-//        when(usuarioRespository.findById(anyString())).thenReturn(Optional.of(usuarioMock));
-//
-//        assertThatThrownBy(() -> usuarioService.createUsuario(usuarioDTO))
-//                .isInstanceOf(UsuarioJaCadastradoException.class)
-//                .hasMessage(String.format("usario_email %s já existe", usuarioDTO.email()));
-//        verify(usuarioRespository, times(1)).findById(anyString());
-//    }
-//}
