@@ -4,4 +4,11 @@ public enum ItemsDoQuarto {
 
     TV,
     ARCONDICIONADO,
+    FRIGOBAR,
+    SOFA,
+    POLTRONA,
+    BANHEIRA,
+    MESAESCRITORIO,
+    VARANDA,
+
 }
