@@ -1,19 +1,20 @@
 package br.com.fiap.hackaton.fiaptrip.adicionais.dto;
 
 import br.com.fiap.hackaton.fiaptrip.adicionais.enumerator.ItensEnum;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class ItensDTO {
 
-    private Double valor;
+public record ItensDTO (
 
-    private String servicoItem;
+
+        Long id,
+
+        @NotBlank Double valor,
+
+        @NotBlank String servicoItem,
+
+        @NotBlank ItensEnum itensEnum
+
+        ){
 
 }

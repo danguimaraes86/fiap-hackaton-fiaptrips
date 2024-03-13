@@ -1,5 +1,7 @@
 package br.com.fiap.hackaton.fiaptrip.adicionais.model;
 
+import br.com.fiap.hackaton.fiaptrip.adicionais.dto.ItensDTO;
+import br.com.fiap.hackaton.fiaptrip.adicionais.enumerator.ItensEnum;
 import br.com.fiap.hackaton.fiaptrip.adicionais.enumerator.ServicosEnum;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,5 +27,15 @@ public class Itens {
 
     private String servicoItem;
 
-    private ServicosEnum servicosEnum;
+    private ItensEnum itensEnum;
+
+    public Itens(Double valor, String servicoItem, ItensEnum itensEnum) {
+        this.valor = valor;
+        this.servicoItem = servicoItem;
+        this.itensEnum = itensEnum;
+    }
+
+    public ItensDTO toDTO(){
+        return new ItensDTO(this.id, this.valor, this.servicoItem, this.itensEnum);
+    }
 }
