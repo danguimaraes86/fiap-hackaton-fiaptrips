@@ -14,9 +14,10 @@ public class DatasDisponiveis {
 
     @Id
     private Long id;
-    private LocalDate data;
-    private boolean CheckInDisponibilidade;
-    private boolean CheckOutDisponibilidade;
+    private LocalDate date;
+    private boolean CheckOutDisponivel;
+    private boolean CheckInDisponivel;
+
     @ManyToOne
     private Quarto quarto;
     @ManyToOne

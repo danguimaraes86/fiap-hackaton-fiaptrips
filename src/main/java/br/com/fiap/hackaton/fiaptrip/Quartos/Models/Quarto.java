@@ -2,10 +2,7 @@ package br.com.fiap.hackaton.fiaptrip.Quartos.Models;
 
 import br.com.fiap.hackaton.fiaptrip.Quartos.Models.Adjs.Camas;
 import br.com.fiap.hackaton.fiaptrip.Quartos.Models.Adjs.ItemsDoQuarto;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -25,10 +22,13 @@ public class Quarto {
     @ManyToOne
     private Torre torre;
     private String categoriaDeQuarto;
+    @OneToMany
     private List<Camas> camas;
+    @ManyToMany
     private List<ItemsDoQuarto> itemsDoQuarto;
     private int quantidadeDePessoas;
     private String descricao;
+    private Double precoDaDiaria;
 
     public Quarto(UUID id, String quarto, Torre torre, String categoriaDeQuarto, List<Camas> camas, List<ItemsDoQuarto> itemsDoQuarto, String descricao) {
         this.id = id;

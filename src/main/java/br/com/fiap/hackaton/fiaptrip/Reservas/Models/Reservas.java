@@ -3,12 +3,11 @@ package br.com.fiap.hackaton.fiaptrip.Reservas.Models;
 import br.com.fiap.hackaton.fiaptrip.Quartos.Models.Localidade;
 import br.com.fiap.hackaton.fiaptrip.Quartos.Models.Quarto;
 import br.com.fiap.hackaton.fiaptrip.adicionais.model.Itens;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import br.com.fiap.hackaton.fiaptrip.clientes.models.Cliente;
+import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -21,12 +20,24 @@ public class Reservas {
 
     @Id
     private Long id;
-    private LocalDateTime dataCheckIn;
-    private LocalDateTime dataCheckOut;
+    @ManyToOne
+    private Cliente cliente;
     @ManyToOne
     private Quarto quarto;
     @ManyToOne
     private Localidade localidade;
+    private LocalDate dataCheckIn;
+    private LocalDate dataCheckOut;
+    private Long totalDiarias;
+    private Long totalHospedes;
+    @OneToMany
     private List<Itens> itensAdicionais;
-    private Long precoFinal;
+    private Double precoFinal;
+
+    public void calcularPrecoFinal() {
+        Double precoFinal = (quarto.getPrecoDaDiaria() * totalDiarias);
+        precoFinal += itensAdicionais.stream().mapToDouble(Itens::getValor).sum();
+
+        this.precoFinal = precoFinal;
+    }
 }

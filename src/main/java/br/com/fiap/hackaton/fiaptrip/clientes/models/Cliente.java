@@ -1,15 +1,14 @@
 package br.com.fiap.hackaton.fiaptrip.clientes.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import br.com.fiap.hackaton.fiaptrip.Reservas.Models.Reservas;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
@@ -30,6 +29,8 @@ public class Cliente {
     private String telefone;
     private String email;
     private String endereco;
+    @OneToMany
+    private Set<Reservas> reservas;
 
     public Cliente(String nomeComleto, String paisOrigem, LocalDate dataNascimento,
                    String cpf, String passaporte, String telefone, String email, String endereco) {
