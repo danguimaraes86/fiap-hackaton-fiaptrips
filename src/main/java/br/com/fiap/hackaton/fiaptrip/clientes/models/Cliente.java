@@ -72,7 +72,7 @@ public class Cliente {
         }
     }
 
-    public ClienteDTO convertToDTO() {
+    public ClienteDTO toClienteDTO() {
         return new ClienteDTO(
                 this.id, this.nomeComleto, this.paisOrigem.getDisplayCountry(), this.dataNascimento.toString(),
                 this.cpf, this.passaporte, this.telefone, this.email, this.endereco

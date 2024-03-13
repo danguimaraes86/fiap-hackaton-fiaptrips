@@ -25,18 +25,18 @@ public class ClienteController {
 
     @GetMapping("/busca")
     public ResponseEntity<ClienteDTO> findClienteByEmail(@RequestParam String email) {
-        return ResponseEntity.ok(clienteService.findClienteByEmail(email).convertToDTO());
+        return ResponseEntity.ok(clienteService.findClienteByEmail(email).toClienteDTO());
     }
 
     @PostMapping("/novo")
     public ResponseEntity<ClienteDTO> createNovoCliente(@RequestBody @Valid ClienteDTO cliente) {
-        return ResponseEntity.ok(clienteService.createCliente(cliente).convertToDTO());
+        return ResponseEntity.ok(clienteService.createCliente(cliente).toClienteDTO());
     }
 
     @PutMapping("/{clienteId}")
     public ResponseEntity<ClienteDTO> updateClienteById(
             @PathVariable Long clienteId, @RequestBody @Valid ClienteDTO clienteDTO) {
-        return ResponseEntity.ok(clienteService.updateCliente(clienteId, clienteDTO).convertToDTO());
+        return ResponseEntity.ok(clienteService.updateCliente(clienteId, clienteDTO).toClienteDTO());
     }
 
     @DeleteMapping("/{clienteId}")

@@ -231,7 +231,7 @@ public class ClienteServiceTest {
         void deveLancarExcecao_alterarCliente_naoEncontrado() {
             Cliente clienteMock = getClienteMock();
             Long clienteId = clienteMock.getId();
-            ClienteDTO clienteDTO = clienteMock.convertToDTO();
+            ClienteDTO clienteDTO = clienteMock.toClienteDTO();
             when(clienteRepository.findById(anyLong())).thenReturn(Optional.empty());
 
             assertThatThrownBy(() -> clienteService.updateCliente(clienteId, clienteDTO))
