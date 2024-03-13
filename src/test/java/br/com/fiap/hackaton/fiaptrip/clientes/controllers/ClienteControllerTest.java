@@ -1,11 +1,11 @@
 package br.com.fiap.hackaton.fiaptrip.clientes.controllers;
 
 import br.com.fiap.hackaton.fiaptrip.clientes.models.Cliente;
+import br.com.fiap.hackaton.fiaptrip.clientes.models.ClienteDTO;
 import br.com.fiap.hackaton.fiaptrip.clientes.services.ClienteService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import net.datafaker.Faker;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -16,40 +16,27 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.Collections;
-import java.util.Locale;
+import java.util.List;
 import java.util.Random;
 
+import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.getClienteMock;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class ClienteControllerTest {
 
-    private static final Faker faker = new Faker(Locale.forLanguageTag("pt_BR"));
     AutoCloseable mock;
     private MockMvc mockMvc;
     @Mock
     private ClienteService clienteService;
-
-    private static Cliente getClienteMock() {
-        return new Cliente(
-                new Random().nextLong(),
-                faker.witcher().witcher(),
-                faker.country().countryCode3(),
-                faker.date().birthdayLocalDate(),
-                faker.cpf().valid(),
-                faker.passport().valid(),
-                faker.phoneNumber().phoneNumber(),
-                faker.internet().emailAddress(),
-                faker.address().fullAddress()
-        );
-    }
 
     public static String convertToJson(Object object) throws JsonProcessingException {
         return new ObjectMapper()
@@ -76,8 +63,11 @@ class ClienteControllerTest {
     class BuscarClientes {
 
         @Test
-        void deveRetornarListaVazia() throws Exception {
-            Page<Cliente> clientesMock = new PageImpl<>(Collections.emptyList());
+        void deveRetornarLista() throws Exception {
+            Page<Cliente> clientesMock = new PageImpl<>(List.of(
+                    mock(Cliente.class),
+                    mock(Cliente.class),
+                    mock(Cliente.class)));
             when(clienteService.findAllClientes(any(Pageable.class)))
                     .thenReturn(clientesMock);
 
@@ -86,6 +76,78 @@ class ClienteControllerTest {
                     .andExpect(content().json(convertToJson(clientesMock)));
             verify(clienteService, times(1))
                     .findAllClientes(any(Pageable.class));
+        }
+
+        @Test
+        void deveBuscarClientePorEmail() throws Exception {
+            Cliente clienteMock = getClienteMock();
+            String email = clienteMock.getEmail();
+            ClienteDTO clienteDTO = clienteMock.toClienteDTO();
+            when(clienteService.findClienteByEmail(anyString()))
+                    .thenReturn(clienteMock);
+
+            mockMvc.perform(get("/clientes/busca")
+                            .param("email", email))
+                    .andExpect(status().isOk())
+                    .andExpect(content().json(convertToJson(clienteDTO)));
+            verify(clienteService, times(1))
+                    .findClienteByEmail(anyString());
+        }
+    }
+
+    @Nested
+    class InserirCliente {
+
+        @Test
+        void deveInserirCliente() throws Exception {
+            Cliente clienteMock = getClienteMock();
+            ClienteDTO clienteDTO = clienteMock.toClienteDTO();
+            when(clienteService.createCliente(any(ClienteDTO.class)))
+                    .thenReturn(clienteMock);
+
+            mockMvc.perform(post("/clientes/novo")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(convertToJson(clienteDTO)))
+                    .andExpect(status().isOk())
+                    .andExpect(content().json(convertToJson(clienteDTO)));
+            verify(clienteService, times(1))
+                    .createCliente(any(ClienteDTO.class));
+        }
+    }
+
+    @Nested
+    class AlterarCliente {
+
+        @Test
+        void deveAlterarCliente() throws Exception {
+            Cliente clienteMock = getClienteMock();
+            ClienteDTO clienteDTO = clienteMock.toClienteDTO();
+            Long clienteId = clienteMock.getId();
+            when(clienteService.updateCliente(anyLong(), any(ClienteDTO.class)))
+                    .thenReturn(clienteMock);
+
+            mockMvc.perform(put("/clientes/{id}", clienteId)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(convertToJson(clienteDTO)))
+                    .andExpect(status().isOk())
+                    .andExpect(content().json(convertToJson(clienteDTO)));
+            verify(clienteService, times(1))
+                    .updateCliente(anyLong(), any(ClienteDTO.class));
+        }
+    }
+
+    @Nested
+    class ExcluirCliente {
+
+        @Test
+        void deveExcluirCliente() throws Exception {
+            Long clienteId = new Random().nextLong();
+            doNothing().when(clienteService).deleteCliente(anyLong());
+
+            mockMvc.perform(delete("/clientes/{id}", clienteId))
+                    .andExpect(status().isAccepted());
+            verify(clienteService, times(1))
+                    .deleteCliente(anyLong());
         }
     }
 }

@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.5</version>
+        <version>3.1.9</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>br.com.fiap.hackaton</groupId>
@@ -51,15 +51,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/net.datafaker/datafaker -->
-        <dependency>
-            <groupId>net.datafaker</groupId>
-            <artifactId>datafaker</artifactId>
-            <version>2.1.0</version>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
     <build>

@@ -3,7 +3,6 @@ package br.com.fiap.hackaton.fiaptrip.clientes.services;
 import br.com.fiap.hackaton.fiaptrip.clientes.models.Cliente;
 import br.com.fiap.hackaton.fiaptrip.clientes.models.ClienteDTO;
 import br.com.fiap.hackaton.fiaptrip.clientes.repositories.ClienteRepository;
-import net.datafaker.Faker;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -13,8 +12,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
+import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.getClienteDtoMock;
+import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.getClienteMock;
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -24,26 +28,10 @@ import static org.mockito.MockitoAnnotations.openMocks;
 
 public class ClienteServiceTest {
 
-    private static final Faker faker = new Faker(Locale.forLanguageTag("pt_BR"));
-
     private AutoCloseable mocks;
     private ClienteService clienteService;
     @Mock
     private ClienteRepository clienteRepository;
-
-    private static Cliente getClienteMock() {
-        return new Cliente(
-                new Random().nextLong(),
-                faker.witcher().witcher(),
-                faker.country().countryCode3(),
-                faker.date().birthdayLocalDate(),
-                faker.cpf().valid(),
-                faker.passport().valid(),
-                faker.phoneNumber().phoneNumber(),
-                faker.internet().emailAddress(),
-                faker.address().fullAddress()
-        );
-    }
 
     @BeforeEach
     void setup() {
@@ -113,23 +101,23 @@ public class ClienteServiceTest {
         @Test
         void deveInserirCliente() {
             Cliente clienteMock = getClienteMock();
-            ClienteDTO clienteDTO = clienteMock.convertToDTO();
+            ClienteDTO clienteDTO = getClienteDtoMock();
             when(clienteRepository.save(any(Cliente.class))).thenReturn(clienteMock);
             when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString())).thenReturn(Optional.empty());
 
             Cliente cliente = clienteService.createCliente(clienteDTO);
-            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(clienteDTO.email());
+            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(anyString());
             verify(clienteRepository, times(1)).save(any(Cliente.class));
 
             assertThat(cliente).isNotNull();
-            assertThat(cliente.getNomeComleto()).isEqualTo(clienteDTO.nomeComleto());
-            assertThat(cliente.getPaisOrigem()).isEqualTo(clienteDTO.paisOrigem());
-            assertThat(cliente.getDataNascimento()).isEqualTo(clienteDTO.dataNascimento());
-            assertThat(cliente.getCpf()).isEqualTo(clienteDTO.cpf().orElse(null));
-            assertThat(cliente.getPassaporte()).isEqualTo(clienteDTO.passaporte().orElse(null));
-            assertThat(cliente.getTelefone()).isEqualTo(clienteDTO.telefone());
-            assertThat(cliente.getEmail()).isEqualTo(clienteDTO.email());
-            assertThat(cliente.getEndereco()).isEqualTo(clienteDTO.endereco());
+            assertThat(cliente.getNomeComleto()).isEqualTo(clienteMock.getNomeComleto());
+            assertThat(cliente.getPaisOrigem()).isEqualTo(clienteMock.getPaisOrigem());
+            assertThat(cliente.getDataNascimento()).isEqualTo(clienteMock.getDataNascimento());
+            assertThat(cliente.getCpf()).isEqualTo(clienteMock.getCpf());
+            assertThat(cliente.getPassaporte()).isEqualTo(clienteMock.getPassaporte());
+            assertThat(cliente.getTelefone()).isEqualTo(clienteMock.getTelefone());
+            assertThat(cliente.getEmail()).isEqualTo(clienteMock.getEmail());
+            assertThat(cliente.getEndereco()).isEqualTo(clienteMock.getEndereco());
         }
     }
 
@@ -140,23 +128,22 @@ public class ClienteServiceTest {
         void deveAtualizarCliente() {
             Cliente clienteMock = getClienteMock();
             Long clienteId = clienteMock.getId();
-            ClienteDTO clienteAlterado = getClienteMock().convertToDTO();
+            ClienteDTO clienteDTO = getClienteDtoMock();
             when(clienteRepository.findById(anyLong())).thenReturn(Optional.of(clienteMock));
-            clienteMock.update(clienteAlterado);
             when(clienteRepository.save(any(Cliente.class))).thenReturn(clienteMock);
 
-            Cliente cliente = clienteService.updateCliente(clienteId, clienteAlterado);
-            verify(clienteRepository, times(1)).findById(clienteId);
+            Cliente cliente = clienteService.updateCliente(clienteId, clienteDTO);
+            verify(clienteRepository, times(1)).findById(anyLong());
             verify(clienteRepository, times(1)).save(any(Cliente.class));
 
             assertThat(cliente).isNotNull();
-            assertThat(cliente.getNomeComleto()).isEqualTo(clienteAlterado.nomeComleto());
-            assertThat(cliente.getPaisOrigem()).isEqualTo(clienteAlterado.paisOrigem());
-            assertThat(cliente.getDataNascimento()).isEqualTo(clienteAlterado.dataNascimento());
-            assertThat(cliente.getCpf()).isEqualTo(clienteAlterado.cpf().orElse(null));
-            assertThat(cliente.getPassaporte()).isEqualTo(clienteAlterado.passaporte().orElse(null));
-            assertThat(cliente.getEmail()).isEqualTo(clienteAlterado.email());
-            assertThat(cliente.getEndereco()).isEqualTo(clienteAlterado.endereco());
+            assertThat(cliente.getNomeComleto()).isEqualTo(clienteMock.getNomeComleto());
+            assertThat(cliente.getPaisOrigem()).isEqualTo(clienteMock.getPaisOrigem());
+            assertThat(cliente.getDataNascimento()).isEqualTo(clienteMock.getDataNascimento());
+            assertThat(cliente.getCpf()).isEqualTo(clienteMock.getCpf());
+            assertThat(cliente.getPassaporte()).isEqualTo(clienteMock.getPassaporte());
+            assertThat(cliente.getEmail()).isEqualTo(clienteMock.getEmail());
+            assertThat(cliente.getEndereco()).isEqualTo(clienteMock.getEndereco());
         }
     }
 
@@ -194,7 +181,7 @@ public class ClienteServiceTest {
         @Test
         void deveLancarExcecao_inserirCliente_emailJaCadastrado() {
             Cliente clienteMock = getClienteMock();
-            ClienteDTO clienteDTO = clienteMock.convertToDTO();
+            ClienteDTO clienteDTO = getClienteDtoMock();
             String clienteEmail = clienteMock.getEmail();
             when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString()))
                     .thenReturn(Optional.of(clienteMock));
@@ -207,10 +194,44 @@ public class ClienteServiceTest {
         }
 
         @Test
+        void deveLancarExcecao_inserirCliente_brasileiroSemCpf() {
+            ClienteDTO clienteDTO = new ClienteDTO(
+                    null, "teste", "pt_br",
+                    "2020-01-01", null, null,
+                    "99-9999-8888", "teste@teste.com", "endereco"
+            );
+            when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString()))
+                    .thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> clienteService.createCliente(clienteDTO))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("cpf não pode estar vazio para clientes brasileiros");
+            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(anyString());
+            verify(clienteRepository, never()).save(any(Cliente.class));
+        }
+
+        @Test
+        void deveLancarExcecao_inserirCliente_estrangeiroSemPassaporte() {
+            ClienteDTO clienteDTO = new ClienteDTO(
+                    null, "teste", "en-US",
+                    "2020-01-01", null, null,
+                    "99-9999-8888", "teste@teste.com", "endereco"
+            );
+            when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString()))
+                    .thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> clienteService.createCliente(clienteDTO))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("passaporte não pode estar vazio para clientes estrangeiros");
+            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(anyString());
+            verify(clienteRepository, never()).save(any(Cliente.class));
+        }
+
+        @Test
         void deveLancarExcecao_alterarCliente_naoEncontrado() {
             Cliente clienteMock = getClienteMock();
             Long clienteId = clienteMock.getId();
-            ClienteDTO clienteDTO = clienteMock.convertToDTO();
+            ClienteDTO clienteDTO = clienteMock.toClienteDTO();
             when(clienteRepository.findById(anyLong())).thenReturn(Optional.empty());
 
             assertThatThrownBy(() -> clienteService.updateCliente(clienteId, clienteDTO))
