@@ -24,13 +24,17 @@ public class DatasDisponiveisServices {
         // Aqui precisamos verificar se na data de inicio o checkIn está disponível
         DatasDisponiveis dataInicioDisponivel = datasDisponiveisRepository.findByDate(dataInicio);
         Boolean estaDisponivel = dataInicioDisponivel.isCheckInDisponivel();
+        if (!estaDisponivel) return false;
 
         // Aqui precisamos verificar de as datas entre o checkIn e o checkOut estão disponíveis
-        estaDisponivel = entreCheckInCheckOut.stream().anyMatch(x -> x.isCheckInDisponivel() && x.isCheckOutDisponivel());
+        estaDisponivel = entreCheckInCheckOut.stream()
+                .noneMatch(x -> !x.isCheckInDisponivel() || !x.isCheckOutDisponivel());
+        if (!estaDisponivel) return false;
 
         // Aqui precisamos verificar se na data de inicio o checkOut está disponível
         DatasDisponiveis dataFimDisponivel = datasDisponiveisRepository.findByDate(dataFim);
         estaDisponivel = dataFimDisponivel.isCheckOutDisponivel();
+        if (!estaDisponivel) return false;
 
         return estaDisponivel;
    }
