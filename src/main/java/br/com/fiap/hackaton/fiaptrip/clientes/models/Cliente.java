@@ -1,14 +1,15 @@
 package br.com.fiap.hackaton.fiaptrip.clientes.models;
 
-import br.com.fiap.hackaton.fiaptrip.Reservas.Models.Reservas;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Optional;
-import java.util.Set;
+import java.util.Locale;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
@@ -22,17 +23,17 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nomeComleto;
-    private String paisOrigem;
+    private Locale paisOrigem;
     private LocalDate dataNascimento;
     private String cpf;
     private String passaporte;
     private String telefone;
     private String email;
     private String endereco;
-    @OneToMany
-    private Set<Reservas> reservas;
+//    @OneToMany
+//    private Set<Reservas> reservas;
 
-    public Cliente(String nomeComleto, String paisOrigem, LocalDate dataNascimento,
+    public Cliente(String nomeComleto, Locale paisOrigem, LocalDate dataNascimento,
                    String cpf, String passaporte, String telefone, String email, String endereco) {
         this.nomeComleto = nomeComleto;
         this.paisOrigem = paisOrigem;
@@ -44,21 +45,21 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    public void update(ClienteDTO clienteDTO) {
+    public void update(ClienteDTO clienteDTO, LocalDate dataDeNascimento, Locale paisOrigem) {
         if (!isEmpty(clienteDTO.nomeComleto())) {
             this.nomeComleto = clienteDTO.nomeComleto();
         }
-        if (!isEmpty(clienteDTO.paisOrigem())) {
-            this.paisOrigem = clienteDTO.paisOrigem();
+        if (!isEmpty(paisOrigem)) {
+            this.paisOrigem = paisOrigem;
         }
-        if (!isEmpty(clienteDTO.dataNascimento())) {
-            this.dataNascimento = clienteDTO.dataNascimento();
+        if (!isEmpty(dataDeNascimento)) {
+            this.dataNascimento = dataDeNascimento;
         }
         if (!isEmpty(clienteDTO.cpf())) {
-            this.cpf = clienteDTO.cpf().orElse(null);
+            this.cpf = clienteDTO.cpf();
         }
         if (!isEmpty(clienteDTO.passaporte())) {
-            this.passaporte = clienteDTO.passaporte().orElse(null);
+            this.passaporte = clienteDTO.passaporte();
         }
         if (!isEmpty(clienteDTO.telefone())) {
             this.telefone = clienteDTO.telefone();
@@ -73,8 +74,8 @@ public class Cliente {
 
     public ClienteDTO convertToDTO() {
         return new ClienteDTO(
-                this.id, this.nomeComleto, this.paisOrigem, this.dataNascimento,
-                Optional.of(this.cpf), Optional.of(this.passaporte), this.telefone, this.email, this.endereco
+                this.id, this.nomeComleto, this.paisOrigem.getDisplayCountry(), this.dataNascimento.toString(),
+                this.cpf, this.passaporte, this.telefone, this.email, this.endereco
         );
     }
 }

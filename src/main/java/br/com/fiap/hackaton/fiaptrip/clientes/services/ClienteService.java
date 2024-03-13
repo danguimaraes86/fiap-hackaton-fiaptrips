@@ -8,9 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 
 import static java.lang.String.format;
+import static org.springframework.util.ObjectUtils.isEmpty;
 
 @RequiredArgsConstructor
 @Service
@@ -35,9 +38,12 @@ public class ClienteService {
                 }
         );
 
+        LocalDate dataDeNascimento = getDataDeNascimento(novoCliente);
+        Locale paisOrigem = getPaisOrigem(novoCliente);
+
         Cliente cliente = new Cliente(
-                novoCliente.nomeComleto(), novoCliente.paisOrigem(), novoCliente.dataNascimento(),
-                novoCliente.cpf().orElse(null), novoCliente.passaporte().orElse(null),
+                novoCliente.nomeComleto(), paisOrigem, dataDeNascimento,
+                novoCliente.cpf(), novoCliente.passaporte(),
                 novoCliente.telefone(), novoCliente.email(), novoCliente.endereco()
         );
         return clienteRepository.save(cliente);
@@ -47,7 +53,11 @@ public class ClienteService {
         Cliente cliente = clienteRepository.findById(clienteId).orElseThrow(
                 () -> new NoSuchElementException(format("cliente_id [%d] não encontrado", clienteId))
         );
-        cliente.update(clienteDTO);
+
+        LocalDate dataDeNascimento = isEmpty(clienteDTO.dataNascimento()) ? null : getDataDeNascimento(clienteDTO);
+        Locale paisOrigem = isEmpty(clienteDTO.paisOrigem()) ? null : getPaisOrigem(clienteDTO);
+
+        cliente.update(clienteDTO, dataDeNascimento, paisOrigem);
         return clienteRepository.save(cliente);
     }
 
@@ -57,5 +67,23 @@ public class ClienteService {
                         () -> new NoSuchElementException(format("cliente_id [%d] não encontrado", clienteId))
                 )
         );
+    }
+
+    private LocalDate getDataDeNascimento(ClienteDTO novoCliente) {
+        return LocalDate.parse(novoCliente.dataNascimento());
+    }
+
+    private Locale getPaisOrigem(ClienteDTO novoCliente) {
+        String[] paisOrigemSlipt = novoCliente.paisOrigem().split("[_ -]");
+        Locale paisOrigem = new Locale(paisOrigemSlipt[0], paisOrigemSlipt[1]);
+
+        if (paisOrigem.getCountry().equalsIgnoreCase("br") && (isEmpty(novoCliente.cpf()))) {
+            throw new IllegalArgumentException("cpf não pode estar vazio para clientes brasileiros");
+        }
+
+        if (!paisOrigem.getCountry().equalsIgnoreCase("br") && (isEmpty(novoCliente.passaporte()))) {
+            throw new IllegalArgumentException("passaporte não pode estar vazio para clientes estrangeiros");
+        }
+        return paisOrigem;
     }
 }
