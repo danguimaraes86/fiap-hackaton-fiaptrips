@@ -1,16 +1,15 @@
 package br.com.fiap.hackaton.fiaptrip.adicionais.service;
 
-import br.com.fiap.hackaton.fiaptrip.adicionais.dto.ItensDTO;
-import br.com.fiap.hackaton.fiaptrip.adicionais.dto.ServicosDTO;
-import br.com.fiap.hackaton.fiaptrip.adicionais.model.Itens;
-import br.com.fiap.hackaton.fiaptrip.adicionais.model.Servicos;
-import br.com.fiap.hackaton.fiaptrip.adicionais.repositorie.ItensRepository;
-import br.com.fiap.hackaton.fiaptrip.adicionais.repositorie.ServicosRepository;
+import br.com.fiap.hackaton.fiaptrip.adicionais.models.ItemServicoAdicional;
+import br.com.fiap.hackaton.fiaptrip.adicionais.models.dto.ItemServicoAdicionalDTO;
+import br.com.fiap.hackaton.fiaptrip.adicionais.models.enumerator.TipoAdicional;
+import br.com.fiap.hackaton.fiaptrip.adicionais.repositories.ItemServicoAdicionalRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import static java.lang.String.format;
 
@@ -18,60 +17,36 @@ import static java.lang.String.format;
 @RequiredArgsConstructor
 public class AdicionalService {
 
+    private final ItemServicoAdicionalRepository repository;
 
-    private final ItensRepository itensRepository;
-
-    private final ServicosRepository servicosRepository;
-
-    public Optional<Itens> getItemById(Long id){
-        return itensRepository.findById(id);
+    public Page<ItemServicoAdicional> findAllAdicionais(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
-    public Optional<Servicos> getServicoById(Long id){
-        return servicosRepository.findById(id);
-    }
-
-    public Itens createItem(ItensDTO itensDTO){
-        Itens item = new Itens(itensDTO.valor(), itensDTO.servicoItem(), itensDTO.itensEnum());
-        return itensRepository.save(item);
-    }
-
-    public Servicos createService(ServicosDTO servicosDTO){
-        Servicos servicos = new Servicos(servicosDTO.valor(), servicosDTO.servicoItem(), servicosDTO.servicosEnum());
-        return servicosRepository.save(servicos);
-    }
-
-    public void deleteItem(Long id){
-        itensRepository.delete(
-                itensRepository.findById(id).orElseThrow(
-                        () -> new NoSuchElementException(format("item_id [%d] não encontrado", id))
-                )
+    public ItemServicoAdicional findAdicionalByDescricao(String descricao) {
+        return repository.findItemServicoAdicionalByDescricaoContainingIgnoreCase(descricao).orElseThrow(
+                () -> new NoSuchElementException(format("adicional [%s] não encontrado", descricao))
         );
     }
 
-    public void deleteService(Long id){
-        servicosRepository.delete(
-                servicosRepository.findById(id).orElseThrow(
-                        () -> new NoSuchElementException(format("servicos_id [%d] não encontrado", id))
-                )
+    public ItemServicoAdicional createNovoAdicional(ItemServicoAdicionalDTO adicionalDTO) {
+        TipoAdicional tipoAdicional = TipoAdicional.valueOf(adicionalDTO.tipoAdicional().toUpperCase());
+        return repository.save(
+                new ItemServicoAdicional(adicionalDTO.descricao(), adicionalDTO.valor(), tipoAdicional));
+    }
+
+    public void deleteAdicionalById(Long adicionalId) {
+        repository.delete(
+                repository.findById(adicionalId).orElseThrow(
+                        () -> new NoSuchElementException(format("adicional [%d] não encontrado", adicionalId)))
         );
     }
 
-    public Itens updateItem(ItensDTO itensDTO, Long id){
-        Optional<Itens> itensOptional = itensRepository.findById(id);
-        Itens item = itensOptional.get();
-        item.setValor(itensDTO.valor());
-        item.setServicoItem(itensDTO.servicoItem());
-        item.setItensEnum(itensDTO.itensEnum());
-        return itensRepository.save(item);
-    }
-
-    public Servicos updateService(ServicosDTO servicosDTO, Long id){
-        Optional<Servicos> servicosOptional = servicosRepository.findById(id);
-        Servicos servico = servicosOptional.get();
-        servico.setValor(servicosDTO.valor());
-        servico.setServicoItem(servicosDTO.servicoItem());
-        servico.setServicosEnum(servicosDTO.servicosEnum());
-        return servicosRepository.save(servico);
+    public ItemServicoAdicional updateAdicional(Long adicionalId, ItemServicoAdicionalDTO adicionalDTO) {
+        ItemServicoAdicional adicional = repository.findById(adicionalId).orElseThrow(
+                () -> new NoSuchElementException(format("adicional [%d] não encontrado", adicionalId))
+        );
+        adicional.update(adicionalDTO);
+        return repository.save(adicional);
     }
 }
