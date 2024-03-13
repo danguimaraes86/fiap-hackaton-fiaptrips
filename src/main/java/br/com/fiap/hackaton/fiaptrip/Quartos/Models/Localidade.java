@@ -7,6 +7,7 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -28,5 +29,25 @@ public class Localidade {
     private String longitude;
 
     @OneToMany
-    private List<Torre> torres;
+    private Set<Torre> torres;
+
+    public Localidade(Long id, String nome, String estado, String cidade, String bairro, String rua, String numero, String complemento, String cep, List<String> telefones, String latitude, String longitude, Set<Torre> torres) {
+        this.id = id;
+        this.nome = nome;
+        this.estado = estado;
+        this.cidade = cidade;
+        this.bairro = bairro;
+        this.rua = rua;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.cep = cep;
+        this.telefones = telefones;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.torres = torres;
+    }
+
+    public Localidade() {
+
+    }
 }
