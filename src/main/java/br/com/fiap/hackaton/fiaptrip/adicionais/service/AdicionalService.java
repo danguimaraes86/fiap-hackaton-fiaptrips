@@ -1,9 +1,9 @@
 package br.com.fiap.hackaton.fiaptrip.adicionais.service;
 
-import br.com.fiap.hackaton.fiaptrip.adicionais.models.ItemServicoAdicional;
-import br.com.fiap.hackaton.fiaptrip.adicionais.models.dto.ItemServicoAdicionalDTO;
+import br.com.fiap.hackaton.fiaptrip.adicionais.models.Adicional;
+import br.com.fiap.hackaton.fiaptrip.adicionais.models.dto.AdicionalDTO;
 import br.com.fiap.hackaton.fiaptrip.adicionais.models.enumerator.TipoAdicional;
-import br.com.fiap.hackaton.fiaptrip.adicionais.repositories.ItemServicoAdicionalRepository;
+import br.com.fiap.hackaton.fiaptrip.adicionais.repositories.AdicionalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,22 +17,22 @@ import static java.lang.String.format;
 @RequiredArgsConstructor
 public class AdicionalService {
 
-    private final ItemServicoAdicionalRepository repository;
+    private final AdicionalRepository repository;
 
-    public Page<ItemServicoAdicional> findAllAdicionais(Pageable pageable) {
+    public Page<Adicional> findAllAdicionais(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
-    public ItemServicoAdicional findAdicionalByDescricao(String descricao) {
+    public Adicional findAdicionalByDescricao(String descricao) {
         return repository.findItemServicoAdicionalByDescricaoContainingIgnoreCase(descricao).orElseThrow(
                 () -> new NoSuchElementException(format("adicional [%s] não encontrado", descricao))
         );
     }
 
-    public ItemServicoAdicional createNovoAdicional(ItemServicoAdicionalDTO adicionalDTO) {
+    public Adicional createNovoAdicional(AdicionalDTO adicionalDTO) {
         TipoAdicional tipoAdicional = TipoAdicional.valueOf(adicionalDTO.tipoAdicional().toUpperCase());
         return repository.save(
-                new ItemServicoAdicional(adicionalDTO.descricao(), adicionalDTO.valor(), tipoAdicional));
+                new Adicional(adicionalDTO.descricao(), adicionalDTO.valor(), tipoAdicional));
     }
 
     public void deleteAdicionalById(Long adicionalId) {
@@ -42,8 +42,8 @@ public class AdicionalService {
         );
     }
 
-    public ItemServicoAdicional updateAdicional(Long adicionalId, ItemServicoAdicionalDTO adicionalDTO) {
-        ItemServicoAdicional adicional = repository.findById(adicionalId).orElseThrow(
+    public Adicional updateAdicional(Long adicionalId, AdicionalDTO adicionalDTO) {
+        Adicional adicional = repository.findById(adicionalId).orElseThrow(
                 () -> new NoSuchElementException(format("adicional [%d] não encontrado", adicionalId))
         );
         adicional.update(adicionalDTO);

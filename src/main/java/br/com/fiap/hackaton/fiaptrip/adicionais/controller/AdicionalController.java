@@ -1,7 +1,7 @@
 package br.com.fiap.hackaton.fiaptrip.adicionais.controller;
 
-import br.com.fiap.hackaton.fiaptrip.adicionais.models.ItemServicoAdicional;
-import br.com.fiap.hackaton.fiaptrip.adicionais.models.dto.ItemServicoAdicionalDTO;
+import br.com.fiap.hackaton.fiaptrip.adicionais.models.Adicional;
+import br.com.fiap.hackaton.fiaptrip.adicionais.models.dto.AdicionalDTO;
 import br.com.fiap.hackaton.fiaptrip.adicionais.service.AdicionalService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,24 +18,24 @@ public class AdicionalController {
     private final AdicionalService adicionalService;
 
     @GetMapping
-    public ResponseEntity<Page<ItemServicoAdicionalDTO>> findAllAdicionais(Pageable pageable) {
-        Page<ItemServicoAdicional> adicionais = adicionalService.findAllAdicionais(pageable);
-        return ResponseEntity.ok(adicionais.map(ItemServicoAdicional::toAdicionalDTO));
+    public ResponseEntity<Page<AdicionalDTO>> findAllAdicionais(Pageable pageable) {
+        Page<Adicional> adicionais = adicionalService.findAllAdicionais(pageable);
+        return ResponseEntity.ok(adicionais.map(Adicional::toAdicionalDTO));
     }
 
     @GetMapping("/busca")
-    public ResponseEntity<ItemServicoAdicionalDTO> findAdicionalByDescricao(@RequestParam String descricao) {
+    public ResponseEntity<AdicionalDTO> findAdicionalByDescricao(@RequestParam String descricao) {
         return ResponseEntity.ok(adicionalService.findAdicionalByDescricao(descricao).toAdicionalDTO());
     }
 
     @PostMapping("/novo")
-    public ResponseEntity<ItemServicoAdicionalDTO> createNovoAdicional(@RequestBody @Valid ItemServicoAdicionalDTO adicionalDTO) {
+    public ResponseEntity<AdicionalDTO> createNovoAdicional(@RequestBody @Valid AdicionalDTO adicionalDTO) {
         return ResponseEntity.ok(adicionalService.createNovoAdicional(adicionalDTO).toAdicionalDTO());
     }
 
     @PutMapping("/{adicionalId}")
-    public ResponseEntity<ItemServicoAdicionalDTO> updateAdicionalById(
-            @PathVariable Long adicionalId, @RequestBody @Valid ItemServicoAdicionalDTO adicionalDTO) {
+    public ResponseEntity<AdicionalDTO> updateAdicionalById(
+            @PathVariable Long adicionalId, @RequestBody @Valid AdicionalDTO adicionalDTO) {
         return ResponseEntity.ok(adicionalService.updateAdicional(adicionalId, adicionalDTO).toAdicionalDTO());
     }
 

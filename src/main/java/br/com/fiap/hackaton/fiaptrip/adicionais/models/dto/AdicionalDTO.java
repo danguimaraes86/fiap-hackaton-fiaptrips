@@ -1,6 +1,6 @@
 package br.com.fiap.hackaton.fiaptrip.adicionais.models.dto;
 
-public record ItemServicoAdicionalDTO(
+public record AdicionalDTO(
         Long id,
         String descricao,
         Double valor,
