@@ -1,5 +1,8 @@
 //package br.com.fiap.hackaton.fiaptrip.quartos.controllers;
 //
+//import br.com.fiap.hackaton.fiaptrip.clientes.models.Cliente;
+//import br.com.fiap.hackaton.fiaptrip.quartos.models.Localidade;
+//import br.com.fiap.hackaton.fiaptrip.quartos.models.Torre;
 //import br.com.fiap.hackaton.fiaptrip.quartos.services.LocalidadeService;
 //import com.fasterxml.jackson.core.JsonProcessingException;
 //import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,12 +14,21 @@
 //import org.mockito.Mock;
 //import org.mockito.MockitoAnnotations;
 //import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+//import org.springframework.http.MediaType;
 //import org.springframework.test.web.servlet.MockMvc;
 //import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 //
+//import java.time.LocalDate;
+//import java.util.HashSet;
+//import java.util.List;
+//import java.util.Locale;
+//import java.util.Random;
 //
-//import static org.mockito.Mockito.verify;
-//import static org.mockito.Mockito.when;
+//import static org.mockito.Mockito.*;
+//import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
+//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 //
 //class LocalidadeControllerTest {
 //
@@ -47,58 +59,41 @@
 //    }
 //
 //    @Nested
-//    class BuscarClientes {
+//    class BuscarLocalidades {
 //
 //        @Test
-//        void deveRetornarLista() throws Exception {
-//            Page<Cliente> clientesMock = new PageImpl<>(List.of(
-//                    mock(Cliente.class),
-//                    mock(Cliente.class),
-//                    mock(Cliente.class)));
-//            when(clienteService.findAllClientes(any(Pageable.class)))
-//                    .thenReturn(clientesMock);
+//        public void deveRetornarLocalidade() throws Exception {
+//            Localidade localidadeMock = getLocalidadeMock();
+//            when(localidadeService.findById(anyLong()))
+//                    .thenReturn(localidadeMock);
+//            when(localidadeService.findById(anyLong()))
+//                    .thenReturn(localidadeMock);
 //
-//            mockMvc.perform(get("/clientes"))
+//            mockMvc.perform(get("/localidades"))
 //                    .andExpect(status().isOk())
-//                    .andExpect(content().json(convertToJson(clientesMock)));
-//            verify(clienteService, times(1))
-//                    .findAllClientes(any(Pageable.class));
+//                    .andExpect(content().json(convertToJson(localidadeMock)));
+//            verify(localidadeService, times(1))
+//                    .findById(any(Long.class));
 //        }
 //
-//        @Test
-//        void deveBuscarClientePorEmail() throws Exception {
-//            Cliente clienteMock = getClienteMock();
-//            String email = clienteMock.getEmail();
-//            ClienteDTO clienteDTO = clienteMock.toClienteDTO();
-//            when(clienteService.findClienteByEmail(anyString()))
-//                    .thenReturn(clienteMock);
-//
-//            mockMvc.perform(get("/clientes/busca")
-//                            .param("email", email))
-//                    .andExpect(status().isOk())
-//                    .andExpect(content().json(convertToJson(clienteDTO)));
-//            verify(clienteService, times(1))
-//                    .findClienteByEmail(anyString());
-//        }
 //    }
 //
 //    @Nested
-//    class InserirCliente {
+//    class InserirLocalidade {
 //
 //        @Test
-//        void deveInserirCliente() throws Exception {
-//            Cliente clienteMock = getClienteMock();
-//            ClienteDTO clienteDTO = clienteMock.toClienteDTO();
-//            when(clienteService.createCliente(any(ClienteDTO.class)))
-//                    .thenReturn(clienteMock);
+//        void deveInserirLocalidade() throws Exception {
+//            Localidade localidadeMock = getLocalidadeMock();
+//            when(localidadeService.createLocalidade(any(Localidade.class)))
+//                    .thenReturn(localidadeMock);
 //
-//            mockMvc.perform(post("/clientes/novo")
+//            mockMvc.perform(post("/localidades")
 //                            .contentType(MediaType.APPLICATION_JSON)
-//                            .content(convertToJson(clienteDTO)))
+//                            .content(convertToJson(localidadeMock)))
 //                    .andExpect(status().isOk())
-//                    .andExpect(content().json(convertToJson(clienteDTO)));
-//            verify(clienteService, times(1))
-//                    .createCliente(any(ClienteDTO.class));
+//                    .andExpect(content().json(convertToJson(localidadeMock)));
+//            verify(localidadeService, times(1))
+//                    .createLocalidade(any(Localidade.class));
 //        }
 //    }
 //
@@ -136,5 +131,18 @@
 //            verify(clienteService, times(1))
 //                    .deleteCliente(anyLong());
 //        }
+//    }
+//
+//    public static Localidade getLocalidadeMock() {
+//        return new Localidade(
+//                new Random().nextLong(),
+//                "Localidade Teste",
+//                "Rua teste abençoado, 25 - São Paulo",
+//                new HashSet<>(List.of(
+//                        new Torre(),
+//                        new Torre()
+//                ))
+//
+//        );
 //    }
 //}

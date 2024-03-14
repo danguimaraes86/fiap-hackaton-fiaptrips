@@ -24,16 +24,6 @@ public class LocalidadeService {
         var localidadeFound = localidadeRepository.findById((long) id).orElseThrow(() -> new RuntimeException("Localidade não encontrada"));
 
         localidadeFound.setNome(localidade.getNome());
-        localidadeFound.setEstado(localidade.getEstado());
-        localidadeFound.setCidade(localidade.getCidade());
-        localidadeFound.setBairro(localidade.getBairro());
-        localidadeFound.setRua(localidade.getRua());
-        localidadeFound.setNumero(localidade.getNumero());
-        localidadeFound.setComplemento(localidade.getComplemento());
-        localidadeFound.setCep(localidade.getCep());
-        localidadeFound.setTelefones(localidade.getTelefones());
-        localidadeFound.setLatitude(localidade.getLatitude());
-        localidadeFound.setLongitude(localidade.getLongitude());
 
         localidadeFound.setTorres(localidade.getTorres());
 
