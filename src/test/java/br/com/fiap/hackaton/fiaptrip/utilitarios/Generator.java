@@ -46,5 +46,22 @@ public class Generator {
 
     public static AdicionalDTO gerarAdicionalDTO(){
         return new AdicionalDTO(new Random().nextLong(),"Novo adicionalDTO", 20.0, "PRODUTO");
+    public static Reserva gerarReservaMock() {
+        return new Reserva(
+                UUID.randomUUID(),
+                gerarClienteMock(),
+                List.of(new Quarto()),
+                LocalDate.now(),
+                LocalDate.now().plusDays(5)
+        );
+    }
+
+    public static ReservaDTO gerarReservaDTOMock() {
+        return new ReservaDTO(
+                "email aleatorio",
+                new ArrayList<>(Collections.singleton(1L)),
+                LocalDate.now().toString(),
+                LocalDate.now().plusDays(5).toString()
+        );
     }
 }

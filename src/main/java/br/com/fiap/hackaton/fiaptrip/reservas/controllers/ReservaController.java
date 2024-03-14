@@ -30,15 +30,16 @@ public class ReservaController {
 
     @GetMapping("/cliente/{clienteId}")
     public ResponseEntity<Page<Reserva>> findReservasByClienteId(
-            Pageable pageable,
-            @PathVariable Long clienteId) {
-        return ResponseEntity.ok(reservaService.findReservaByCliente(pageable, clienteId));
+            Pageable pageable, @PathVariable Long clienteId) {
+        return ResponseEntity.ok(reservaService.findReservaByClienteId(pageable, clienteId));
     }
 
     @PostMapping("/novo")
     public ResponseEntity<Reserva> createNovaReserva(@RequestBody ReservaDTO reservaDTO) {
         return ResponseEntity.ok(reservaService.createReserva(reservaDTO));
     }
+
+    // [TODO] reservaUpdateController
 
     @DeleteMapping("/{reservaId}")
     public ResponseEntity<Void> deleteReservaById(@PathVariable UUID reservaId) {

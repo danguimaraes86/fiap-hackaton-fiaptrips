@@ -3,6 +3,7 @@ package br.com.fiap.hackaton.fiaptrip.reservas.models;
 import br.com.fiap.hackaton.fiaptrip.clientes.models.Cliente;
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Quarto;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Reserva {

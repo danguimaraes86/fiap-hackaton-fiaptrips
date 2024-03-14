@@ -37,7 +37,7 @@ public class ReservaService {
         );
     }
 
-    public Page<Reserva> findReservaByCliente(Pageable pageable, Long clienteId) {
+    public Page<Reserva> findReservaByClienteId(Pageable pageable, Long clienteId) {
         return reservaRepository.findAllByCliente_Id(pageable, clienteId);
     }
 
@@ -53,7 +53,7 @@ public class ReservaService {
         return reservaRepository.save(reserva);
     }
 
-    //[TODO] updateReservas
+    // [TODO] updateReservas
 
     public void deleteReservaById(UUID reservaId) {
         reservaRepository.delete(
