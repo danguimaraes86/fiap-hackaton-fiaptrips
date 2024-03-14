@@ -7,6 +7,7 @@ import br.com.fiap.hackaton.fiaptrip.quartos.services.QuartoService;
 import br.com.fiap.hackaton.fiaptrip.reservas.models.Reserva;
 import br.com.fiap.hackaton.fiaptrip.reservas.models.dtos.ReservaDTO;
 import br.com.fiap.hackaton.fiaptrip.reservas.repositories.ReservaRepository;
+import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -144,7 +145,17 @@ public class ReservaServiceTest {
 
         @Test
         void deveAtualizarReserva() {
-            fail("não implementado");
+            Reserva reservaMock = gerarReservaMock();
+            ReservaDTO reservaDTO = gerarReservaDTOMock();
+            UUID reservaId = reservaMock.getId();
+            when(reservaRepository.findById(any(UUID.class))).thenReturn(Optional.of(reservaMock));
+            when(reservaRepository.save(any(Reserva.class))).thenReturn(reservaMock);
+
+            Reserva reserva = reservaService.updateReserva(reservaId, reservaDTO);
+            verify(reservaRepository, times(1)).findById(any(UUID.class));
+            verify(reservaRepository, times(1)).save(any(Reserva.class));
+
+            assertThat(reserva).isNotNull().isEqualTo(reservaMock);
         }
     }
 

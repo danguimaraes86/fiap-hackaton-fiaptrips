@@ -136,14 +136,7 @@ public class ClienteServiceTest {
             verify(clienteRepository, times(1)).findById(anyLong());
             verify(clienteRepository, times(1)).save(any(Cliente.class));
 
-            assertThat(cliente).isNotNull();
-            assertThat(cliente.getNomeComleto()).isEqualTo(clienteMock.getNomeComleto());
-            assertThat(cliente.getPaisOrigem()).isEqualTo(clienteMock.getPaisOrigem());
-            assertThat(cliente.getDataNascimento()).isEqualTo(clienteMock.getDataNascimento());
-            assertThat(cliente.getCpf()).isEqualTo(clienteMock.getCpf());
-            assertThat(cliente.getPassaporte()).isEqualTo(clienteMock.getPassaporte());
-            assertThat(cliente.getEmail()).isEqualTo(clienteMock.getEmail());
-            assertThat(cliente.getEndereco()).isEqualTo(clienteMock.getEndereco());
+            assertThat(cliente).isNotNull().isEqualTo(clienteMock);
         }
     }
 

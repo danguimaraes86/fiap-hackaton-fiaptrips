@@ -3,6 +3,7 @@ package br.com.fiap.hackaton.fiaptrip.reservas.controllers;
 import br.com.fiap.hackaton.fiaptrip.reservas.models.Reserva;
 import br.com.fiap.hackaton.fiaptrip.reservas.models.dtos.ReservaDTO;
 import br.com.fiap.hackaton.fiaptrip.reservas.services.ReservaService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,11 +36,14 @@ public class ReservaController {
     }
 
     @PostMapping("/novo")
-    public ResponseEntity<Reserva> createNovaReserva(@RequestBody ReservaDTO reservaDTO) {
+    public ResponseEntity<Reserva> createNovaReserva(@RequestBody @Valid ReservaDTO reservaDTO) {
         return ResponseEntity.ok(reservaService.createReserva(reservaDTO));
     }
 
-    // [TODO] reservaUpdateController
+    @PutMapping("/{reservaId}")
+    public ResponseEntity<Reserva> updateReserva(@PathVariable UUID reservaId, @RequestBody @Valid ReservaDTO reservaDTO) {
+        return ResponseEntity.ok(reservaService.updateReserva(reservaId, reservaDTO));
+    }
 
     @DeleteMapping("/{reservaId}")
     public ResponseEntity<Void> deleteReservaById(@PathVariable UUID reservaId) {

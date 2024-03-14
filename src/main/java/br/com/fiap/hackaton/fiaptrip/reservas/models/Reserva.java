@@ -33,4 +33,11 @@ public class Reserva {
         this.dataCheckIn = dataCheckIn;
         this.dataCheckOut = dataCheckOut;
     }
+
+    public void update(Cliente cliente, List<Quarto> quartosList, LocalDate dataCheckIn, LocalDate dataCheckOut) {
+        this.cliente = cliente;
+        this.quartos = quartosList;
+        this.dataCheckIn = dataCheckIn;
+        this.dataCheckOut = dataCheckOut;
+    }
 }

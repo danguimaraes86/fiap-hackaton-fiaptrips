@@ -26,7 +26,6 @@ import java.util.UUID;
 
 import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.gerarReservaDTOMock;
 import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.gerarReservaMock;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -132,10 +131,21 @@ class ReservaControllerTest {
 
     @Nested
     class AlterarReserva {
-        
+
         @Test
         void deveAlterarReserva() throws Exception {
-            fail("não implementado");
+            Reserva reservaMock = gerarReservaMock();
+            ReservaDTO reservaDTO = gerarReservaDTOMock();
+            UUID reservaId = reservaMock.getId();
+            when(reservaService.updateReserva(any(UUID.class), any(ReservaDTO.class)))
+                    .thenReturn(reservaMock);
+
+            mockMvc.perform(put("/reservas/{reservaId}", reservaId)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(convertToJson(reservaDTO)))
+                    .andExpect(status().isOk())
+                    .andExpect(content().json(convertToJson(reservaMock)));
+            verify(reservaService, times(1)).updateReserva(reservaId, reservaDTO);
         }
     }
 

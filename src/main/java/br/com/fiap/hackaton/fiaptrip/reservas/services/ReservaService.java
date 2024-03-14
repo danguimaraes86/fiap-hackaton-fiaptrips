@@ -53,7 +53,19 @@ public class ReservaService {
         return reservaRepository.save(reserva);
     }
 
-    // [TODO] updateReservas
+    public Reserva updateReserva(UUID reservaId, ReservaDTO reservaDTO) {
+        Reserva reserva = reservaRepository.findById(reservaId).orElseThrow(
+                () -> new NoSuchElementException(format("reserva_id [%s] não encontrada", reservaId))
+        );
+        Cliente cliente = clienteService.findClienteByEmail(reservaDTO.clienteEmail());
+        List<Quarto> quartosList = quartoService.findListQuartoById(reservaDTO.quartos());
+        LocalDate dataCheckIn = getLocalDate(reservaDTO.dataCheckIn());
+        LocalDate dataCheckOut = getLocalDate(reservaDTO.dataCheckOut());
+
+        validarDatasQuarto(quartosList, dataCheckIn, dataCheckOut);
+        reserva.update(cliente, quartosList, dataCheckIn, dataCheckOut);
+        return reservaRepository.save(reserva);
+    }
 
     public void deleteReservaById(UUID reservaId) {
         reservaRepository.delete(
@@ -63,7 +75,7 @@ public class ReservaService {
     }
 
     private void validarDatasQuarto(List<Quarto> quartosList, LocalDate dataCheckIn, LocalDate dataCheckOut) {
-        if(dataCheckIn.isBefore(LocalDate.now()) || dataCheckOut.isBefore(LocalDate.now())){
+        if (dataCheckIn.isBefore(LocalDate.now()) || dataCheckOut.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("data_checkIn/data_checkOut não pode ser anterior a data de hoje");
         }
 
