@@ -63,6 +63,13 @@ public class ReservaService {
     }
 
     private void validarDatasQuarto(List<Quarto> quartosList, LocalDate dataCheckIn, LocalDate dataCheckOut) {
+        if(dataCheckIn.isBefore(LocalDate.now()) || dataCheckOut.isBefore(LocalDate.now())){
+            throw new IllegalArgumentException("data_checkIn/data_checkOut não pode ser anterior a data de hoje");
+        }
+
+        if (dataCheckOut.isBefore(dataCheckIn)) {
+            throw new IllegalArgumentException("data_checkOut não pode ser anterior a data_checkIn");
+        }
         quartosList.forEach(quarto -> reservaRepository.findByQuartos_Id(quarto.getId()).forEach(
                 reserva -> {
                     if (dataCheckIn.isAfter(reserva.getDataCheckIn())
