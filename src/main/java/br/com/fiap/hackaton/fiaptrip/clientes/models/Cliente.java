@@ -30,8 +30,6 @@ public class Cliente {
     private String telefone;
     private String email;
     private String endereco;
-//    @OneToMany
-//    private Set<Reservas> reservas;
 
     public Cliente(String nomeComleto, Locale paisOrigem, LocalDate dataNascimento,
                    String cpf, String passaporte, String telefone, String email, String endereco) {
