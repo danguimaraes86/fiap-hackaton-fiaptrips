@@ -4,10 +4,10 @@ import br.com.fiap.hackaton.fiaptrip.quartos.models.Torre;
 import br.com.fiap.hackaton.fiaptrip.quartos.services.TorreService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
+@RequestMapping("/torres")
 public class TorreController {
     private final TorreService torreService;
     public TorreController(TorreService torreService) {
@@ -28,8 +28,8 @@ public class TorreController {
     }
 
     @PostMapping
-    public ResponseEntity<Torre> createTorre() {
-        var torreCreated = torreService.createTorre(new Torre());
+    public ResponseEntity<Torre> createTorre(@RequestBody Torre torre) {
+        var torreCreated = torreService.createTorre(torre);
 
         return ResponseEntity.ok(torreCreated);
     }

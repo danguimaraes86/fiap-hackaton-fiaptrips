@@ -5,7 +5,6 @@ import br.com.fiap.hackaton.fiaptrip.quartos.repositories.TorreRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service
 public class TorreService {
     private final TorreRepository torreRepository;
