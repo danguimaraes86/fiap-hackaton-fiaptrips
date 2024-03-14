@@ -1,4 +1,4 @@
-package br.com.fiap.hackaton.fiaptrip.Quartos.Models.Adjs;
+package br.com.fiap.hackaton.fiaptrip.quartos.models.adjs;
 
 public enum ItemsDoQuarto {
 

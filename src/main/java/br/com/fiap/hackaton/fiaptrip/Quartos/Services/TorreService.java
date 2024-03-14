@@ -1,11 +1,11 @@
-package br.com.fiap.hackaton.fiaptrip.Quartos.Services;
+package br.com.fiap.hackaton.fiaptrip.quartos.services;
 
-import br.com.fiap.hackaton.fiaptrip.Quartos.Models.Torre;
-import br.com.fiap.hackaton.fiaptrip.Quartos.Repositories.TorreRepository;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.Torre;
+
+import br.com.fiap.hackaton.fiaptrip.quartos.repositories.TorreRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service
 public class TorreService {
     private final TorreRepository torreRepository;

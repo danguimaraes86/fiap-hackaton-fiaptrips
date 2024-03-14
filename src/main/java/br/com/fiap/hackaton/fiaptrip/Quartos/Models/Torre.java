@@ -1,4 +1,4 @@
-package br.com.fiap.hackaton.fiaptrip.Quartos.Models;
+package br.com.fiap.hackaton.fiaptrip.quartos.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

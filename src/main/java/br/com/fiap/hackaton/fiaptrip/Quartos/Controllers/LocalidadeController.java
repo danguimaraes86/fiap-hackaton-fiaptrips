@@ -1,11 +1,13 @@
-package br.com.fiap.hackaton.fiaptrip.Quartos.Controllers;
+package br.com.fiap.hackaton.fiaptrip.quartos.controllers;
 
-import br.com.fiap.hackaton.fiaptrip.Quartos.Models.Localidade;
-import br.com.fiap.hackaton.fiaptrip.Quartos.Services.LocalidadeService;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.Localidade;
+
+import br.com.fiap.hackaton.fiaptrip.quartos.services.LocalidadeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/localidades")
 public class LocalidadeController {
     private final LocalidadeService localidadeService;
     public LocalidadeController(LocalidadeService localidadeService) {
@@ -15,7 +17,7 @@ public class LocalidadeController {
 
     // <>--------------- Metodos ---------------<>
     @GetMapping("/{id}")
-    public ResponseEntity<Localidade> getLocalidadeById(Long id) {
+    public ResponseEntity<Localidade> getLocalidadeById(@PathVariable Long id) {
         var localidadeFound = localidadeService.findById(id);
 
         return ResponseEntity.ok(localidadeFound);

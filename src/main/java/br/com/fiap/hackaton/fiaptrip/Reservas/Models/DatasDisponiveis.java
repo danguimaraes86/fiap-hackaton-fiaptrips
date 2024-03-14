@@ -1,7 +1,7 @@
 package br.com.fiap.hackaton.fiaptrip.Reservas.Models;
 
-import br.com.fiap.hackaton.fiaptrip.Quartos.Models.Localidade;
-import br.com.fiap.hackaton.fiaptrip.Quartos.Models.Quarto;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.Localidade;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.Quarto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
