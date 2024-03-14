@@ -1,43 +1,47 @@
-package br.com.fiap.hackaton.fiaptrip.Quartos.Models;
+package br.com.fiap.hackaton.fiaptrip.quartos.models;
 
-import br.com.fiap.hackaton.fiaptrip.Quartos.Models.Adjs.Camas;
-import br.com.fiap.hackaton.fiaptrip.Quartos.Models.Adjs.ItemsDoQuarto;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.dtos.QuartoDTO;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.enums.Amenidades;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.enums.TipoQuarto;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NonNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-@Data
+import static org.springframework.util.ObjectUtils.isEmpty;
+
+
+@Getter
+@NoArgsConstructor
 @Entity
 public class Quarto {
 
     @Id
-    private UUID id;
-    @Column(unique = true)
-    private String Quarto;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String tipoQuarto;
+    private Long quantidadePessoas;
+    private String quantidadeCamas;
+    @ElementCollection
+    private List<Amenidades> amenidades = new ArrayList<>();
 
-    @NonNull
-    @ManyToOne
-    private Torre torre;
-    private String categoriaDeQuarto;
-    @OneToMany
-    private List<Camas> camas;
-    @ManyToMany
-    private List<ItemsDoQuarto> itemsDoQuarto;
-    private int quantidadeDePessoas;
-    private String descricao;
-    private Double precoDaDiaria;
+    public Quarto(TipoQuarto tipoQuarto, List<Amenidades> amenidadesList) {
+        this.tipoQuarto = tipoQuarto.getNome();
+        this.quantidadePessoas = tipoQuarto.getQuantidadePessoas();
+        this.quantidadeCamas = tipoQuarto.getQuantidadeCamas();
+        this.amenidades = amenidadesList;
+    }
 
-    public Quarto(UUID id, String quarto, Torre torre, String categoriaDeQuarto, List<Camas> camas, List<ItemsDoQuarto> itemsDoQuarto, String descricao) {
-        this.id = id;
-        Quarto = quarto;
-        this.torre = torre;
-        this.categoriaDeQuarto = categoriaDeQuarto;
-        this.camas = camas;
-        this.itemsDoQuarto = itemsDoQuarto;
-        this.quantidadeDePessoas = camas.stream().mapToInt(Camas::getLugares).sum();
-        this.descricao = descricao;
+    public void update(QuartoDTO quartoDTO) {
+        if (!isEmpty(quartoDTO.tipoQuarto())) {
+            this.tipoQuarto = quartoDTO.tipoQuarto().getNome();
+            this.quantidadePessoas = quartoDTO.tipoQuarto().getQuantidadePessoas();
+            this.quantidadeCamas = quartoDTO.tipoQuarto().getQuantidadeCamas();
+        }
+        if (!isEmpty(quartoDTO.amenidades())) {
+            this.amenidades = quartoDTO.amenidades();
+        }
     }
 }

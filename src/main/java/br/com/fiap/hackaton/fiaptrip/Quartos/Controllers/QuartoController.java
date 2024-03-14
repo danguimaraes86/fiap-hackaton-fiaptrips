@@ -1,50 +1,63 @@
-package br.com.fiap.hackaton.fiaptrip.Quartos.Controllers;
+package br.com.fiap.hackaton.fiaptrip.quartos.controllers;
 
-import br.com.fiap.hackaton.fiaptrip.Quartos.Models.Quarto;
-import br.com.fiap.hackaton.fiaptrip.Quartos.Services.QuartoService;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.Quarto;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.dtos.QuartoDTO;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.enums.Amenidades;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.enums.TipoQuarto;
+import br.com.fiap.hackaton.fiaptrip.quartos.services.QuartoService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
+@RequiredArgsConstructor
+@RequestMapping("/quartos")
 @RestController
 public class QuartoController {
+
     private final QuartoService quartoService;
-    public QuartoController(QuartoService quartoService) {
-        this.quartoService = quartoService;
-    }
 
-
-    // <>--------------- Metodos ---------------<>
     @GetMapping
-    public ResponseEntity<List<Quarto>> getAllQuartos() {
-        return ResponseEntity.ok().build();
-    }
-    @GetMapping("/{id}")
-    public ResponseEntity<Quarto> getQuartoById(UUID id) {
-        var quartoFound = quartoService.findById(id);
-
-        return ResponseEntity.ok(quartoFound);
-    }
-    @PostMapping
-    public ResponseEntity<Quarto> createQuarto(@RequestBody Quarto quarto) {
-        var quartoCreated = quartoService.createQuarto(quarto);
-
-        return ResponseEntity.ok(quartoCreated);
+    public ResponseEntity<Page<Quarto>> findAllQuartos(Pageable pageable) {
+        return ResponseEntity.ok(quartoService.findAllQuartos(pageable));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Quarto> updateQuarto(@PathVariable UUID id, @RequestBody Quarto quarto) {
-        var quartoUpdated = quartoService.updateQuarto(id, quarto);
-
-        return ResponseEntity.ok(quartoUpdated);
+    @GetMapping("/{quartoId}")
+    public ResponseEntity<Quarto> findQuartoById(@PathVariable Long quartoId) {
+        return ResponseEntity.ok(quartoService.findQuartoById(quartoId));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteQuarto(@PathVariable UUID id) {
-        quartoService.deleteById(id);
+    @GetMapping("/busca")
+    public ResponseEntity<Quarto> findQuartoByTipo(@RequestParam String tipoQuarto) {
+        return ResponseEntity.ok(quartoService.findQuartoByTipo(tipoQuarto));
+    }
 
-        return ResponseEntity.ok("Quarto deletado com sucesso!");
+    @GetMapping("/amenidades")
+    public ResponseEntity<List<Amenidades>> showAllAmenidades() {
+        return ResponseEntity.ok(quartoService.showAllAmenidades());
+    }
+
+    @GetMapping("/tipoquarto")
+    public ResponseEntity<List<TipoQuarto>> showAllTipoQuarto() {
+        return ResponseEntity.ok(quartoService.showAllTipoQuarto());
+    }
+
+    @PostMapping("/novo")
+    public ResponseEntity<Quarto> createQuarto(@RequestBody QuartoDTO quartoDTO) {
+        return ResponseEntity.ok(quartoService.createNovoQuarto(quartoDTO));
+    }
+
+    @PutMapping("/{quartoId}")
+    public ResponseEntity<Quarto> updateQuarto(@PathVariable Long quartoId, @RequestBody QuartoDTO quartoDTO) {
+        return ResponseEntity.ok(quartoService.updateQuarto(quartoId, quartoDTO));
+    }
+
+    @DeleteMapping("/{quartoId}")
+    public ResponseEntity<Void> deleteQuarto(@PathVariable Long quartoId) {
+        quartoService.deleteQuartoById(quartoId);
+        return ResponseEntity.accepted().build();
     }
 }
