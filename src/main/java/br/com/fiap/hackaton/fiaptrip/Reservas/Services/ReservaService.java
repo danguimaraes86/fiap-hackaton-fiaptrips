@@ -1,50 +1,81 @@
-package br.com.fiap.hackaton.fiaptrip.Reservas.Services;
+package br.com.fiap.hackaton.fiaptrip.reservas.services;
 
-import br.com.fiap.hackaton.fiaptrip.Reservas.Models.Reservas;
-import br.com.fiap.hackaton.fiaptrip.Reservas.Repositories.ReservasRepository;
+import br.com.fiap.hackaton.fiaptrip.clientes.models.Cliente;
+import br.com.fiap.hackaton.fiaptrip.clientes.services.ClienteService;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.Quarto;
+import br.com.fiap.hackaton.fiaptrip.quartos.services.QuartoService;
+import br.com.fiap.hackaton.fiaptrip.reservas.models.Reserva;
+import br.com.fiap.hackaton.fiaptrip.reservas.models.dtos.ReservaDTO;
+import br.com.fiap.hackaton.fiaptrip.reservas.repositories.ReservaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.UUID;
+
+import static java.lang.String.format;
+
+@RequiredArgsConstructor
 @Service
 public class ReservaService {
-    private final ReservasRepository reservasRepository;
-    private final DatasDisponiveisServices datasDisponiveisServices;
-    public ReservaService(ReservasRepository reservasRepository, DatasDisponiveisServices datasDisponiveisServices) {
-        this.reservasRepository = reservasRepository;
-        this.datasDisponiveisServices = datasDisponiveisServices;
+
+    private final ReservaRepository reservaRepository;
+    private final ClienteService clienteService;
+    private final QuartoService quartoService;
+
+    public Page<Reserva> findAllReservas(Pageable pageable) {
+        return reservaRepository.findAll(pageable);
     }
 
-    // <>--------------- Metodos ---------------<>
-    public Reservas criarReserva(Reservas reserva) {
-
-        // Verifica se a data está disponível
-        boolean estaDisponivel =
-                datasDisponiveisServices.verificarDisponibilidade(reserva.getDataCheckIn(), reserva.getDataCheckOut());
-        if (!estaDisponivel) throw new RuntimeException("Data não disponível");
-
-        // Indisponibiliza as data
-        datasDisponiveisServices.indisponibilizarDatas(reserva.getDataCheckIn(), reserva.getDataCheckOut());
-
-        // Verifica se a data está disponível - Não Devem estar disponíveis
-        boolean estaDisponivelNaoDeveEstarDispnivel =
-                datasDisponiveisServices.verificarDisponibilidade(reserva.getDataCheckIn(), reserva.getDataCheckOut());
-        if (estaDisponivelNaoDeveEstarDispnivel) throw new RuntimeException("Algum erro ocorreu, tente novamente!");
-
-        return reservasRepository.save(reserva);
+    public Reserva findReservaById(UUID reservaId) {
+        return reservaRepository.findById(reservaId).orElseThrow(
+                () -> new NoSuchElementException(format("reserva_id [%s] não encontrada", reservaId))
+        );
     }
 
-    public Reservas atualizarReserva(Long id, Reservas reserva) {
-        var reservaFound = reservasRepository.findById(id).orElseThrow(() -> new RuntimeException("Reserva não encontrada"));
-
-        reservaFound.setDataCheckIn(reserva.getDataCheckIn());
-        reservaFound.setDataCheckOut(reserva.getDataCheckOut());
-        reservaFound.setItensAdicionais(reserva.getItensAdicionais());
-        reservaFound.calcularPrecoFinal();
-
-        return reservasRepository.save(reservaFound);
+    public Page<Reserva> findReservaByCliente(Pageable pageable, Long clienteId) {
+        return reservaRepository.findAllByCliente_Id(pageable, clienteId);
     }
 
-    public void deletarReserva(Long id) {
-        reservasRepository.deleteById(id);
+    public Reserva createReserva(ReservaDTO reservaDTO) {
+        Cliente cliente = clienteService.findClienteByEmail(reservaDTO.clienteEmail());
+        List<Quarto> quartosList = quartoService.findListQuartoById(reservaDTO.quartos());
+        LocalDate dataCheckIn = getLocalDate(reservaDTO.dataCheckIn());
+        LocalDate dataCheckOut = getLocalDate(reservaDTO.dataCheckOut());
+
+        validarDatasQuarto(quartosList, dataCheckIn, dataCheckOut);
+
+        Reserva reserva = new Reserva(cliente, quartosList, dataCheckIn, dataCheckOut);
+        return reservaRepository.save(reserva);
     }
 
+    //[TODO] updateReservas
+
+    public void deleteReservaById(UUID reservaId) {
+        reservaRepository.delete(
+                reservaRepository.findById(reservaId).orElseThrow(
+                        () -> new NoSuchElementException(format("reserva_id [%s] não encontrada", reservaId))
+                ));
+    }
+
+    private void validarDatasQuarto(List<Quarto> quartosList, LocalDate dataCheckIn, LocalDate dataCheckOut) {
+        quartosList.forEach(quarto -> reservaRepository.findByQuartos_Id(quarto.getId()).forEach(
+                reserva -> {
+                    if (dataCheckIn.isAfter(reserva.getDataCheckIn())
+                            && dataCheckIn.isBefore(reserva.getDataCheckOut())
+                            || dataCheckOut.isAfter(reserva.getDataCheckIn())
+                    ) {
+                        throw new IllegalArgumentException(format("data já está reservada para o quarto %d", quarto.getId()));
+                    }
+                })
+        );
+    }
+
+    private LocalDate getLocalDate(String dataReserva) {
+        return LocalDate.parse(dataReserva);
+    }
 }
