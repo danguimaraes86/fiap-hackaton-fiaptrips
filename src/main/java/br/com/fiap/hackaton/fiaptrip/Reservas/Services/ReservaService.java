@@ -72,9 +72,9 @@ public class ReservaService {
         }
         quartosList.forEach(quarto -> reservaRepository.findByQuartos_Id(quarto.getId()).forEach(
                 reserva -> {
-                    if (dataCheckIn.isAfter(reserva.getDataCheckIn())
-                            && dataCheckIn.isBefore(reserva.getDataCheckOut())
-                            || dataCheckOut.isAfter(reserva.getDataCheckIn())
+                    if (
+                            (dataCheckIn.isAfter(reserva.getDataCheckIn()) && dataCheckIn.isBefore(reserva.getDataCheckOut()))
+                                    || (dataCheckOut.isAfter(reserva.getDataCheckIn()) && dataCheckOut.isBefore(reserva.getDataCheckOut()))
                     ) {
                         throw new IllegalArgumentException(format("data já está reservada para o quarto %d", quarto.getId()));
                     }
