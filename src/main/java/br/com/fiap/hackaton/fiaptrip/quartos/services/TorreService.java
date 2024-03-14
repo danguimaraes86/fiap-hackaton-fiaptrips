@@ -1,7 +1,6 @@
 package br.com.fiap.hackaton.fiaptrip.quartos.services;
 
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Torre;
-
 import br.com.fiap.hackaton.fiaptrip.quartos.repositories.TorreRepository;
 import org.springframework.stereotype.Service;
 

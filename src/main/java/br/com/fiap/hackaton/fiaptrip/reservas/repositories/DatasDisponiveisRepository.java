@@ -1,6 +1,6 @@
-package br.com.fiap.hackaton.fiaptrip.Reservas.Repositories;
+package br.com.fiap.hackaton.fiaptrip.reservas.repositories;
 
-import br.com.fiap.hackaton.fiaptrip.Reservas.Models.DatasDisponiveis;
+import br.com.fiap.hackaton.fiaptrip.reservas.models.DatasDisponiveis;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

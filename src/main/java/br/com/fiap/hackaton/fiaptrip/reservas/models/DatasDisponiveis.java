@@ -1,4 +1,4 @@
-package br.com.fiap.hackaton.fiaptrip.Reservas.Models;
+package br.com.fiap.hackaton.fiaptrip.reservas.models;
 
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Localidade;
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Quarto;
