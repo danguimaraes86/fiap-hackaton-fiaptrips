@@ -4,17 +4,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
 
-@Data
-@Entity
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@Entity
 public class Localidade {
 
     @Id

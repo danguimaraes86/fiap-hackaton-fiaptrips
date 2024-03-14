@@ -5,14 +5,16 @@ import br.com.fiap.hackaton.fiaptrip.adicionais.models.dto.AdicionalDTO;
 import br.com.fiap.hackaton.fiaptrip.adicionais.models.enumerator.TipoAdicional;
 import br.com.fiap.hackaton.fiaptrip.clientes.models.Cliente;
 import br.com.fiap.hackaton.fiaptrip.clientes.models.ClienteDTO;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.Quarto;
+import br.com.fiap.hackaton.fiaptrip.reservas.models.Reserva;
+import br.com.fiap.hackaton.fiaptrip.reservas.models.dtos.ReservaDTO;
 
 import java.time.LocalDate;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 
 public class Generator {
 
-    public static Cliente getClienteMock() {
+    public static Cliente gerarClienteMock() {
         return new Cliente(
                 new Random().nextLong(),
                 "nome completo",
@@ -26,7 +28,7 @@ public class Generator {
         );
     }
 
-    public static ClienteDTO getClienteDtoMock() {
+    public static ClienteDTO gerarClienteDtoMock() {
         return new ClienteDTO(
                 new Random().nextLong(),
                 "nome completo",
@@ -40,12 +42,14 @@ public class Generator {
         );
     }
 
-    public static Adicional gerarAdicional(){
+    public static Adicional gerarAdicionalMock() {
         return new Adicional(new Random().nextLong(), "Novo adicional", 50.0, TipoAdicional.PRODUTO);
     }
 
-    public static AdicionalDTO gerarAdicionalDTO(){
-        return new AdicionalDTO(new Random().nextLong(),"Novo adicionalDTO", 20.0, "PRODUTO");
+    public static AdicionalDTO gerarAdicionalDTOMock() {
+        return new AdicionalDTO(new Random().nextLong(), "Novo adicionalDTO", 20.0, "PRODUTO");
+    }
+
     public static Reserva gerarReservaMock() {
         return new Reserva(
                 UUID.randomUUID(),

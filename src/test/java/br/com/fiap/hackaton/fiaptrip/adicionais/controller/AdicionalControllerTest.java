@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.List;
 import java.util.Random;
 
-import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.gerarAdicional;
+import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.gerarAdicionalMock;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -76,7 +76,7 @@ class AdicionalControllerTest {
 
         @Test
         void deveBuscarAdicionalPorDescricao() throws Exception {
-            Adicional adicionalMock = gerarAdicional();
+            Adicional adicionalMock = gerarAdicionalMock();
             String descricao = adicionalMock.getDescricao();
             AdicionalDTO adicionalDTO = adicionalMock.toAdicionalDTO();
             when(service.findAdicionalByDescricao(anyString()))
@@ -96,7 +96,7 @@ class AdicionalControllerTest {
 
         @Test
         void deveInserirAdicional() throws Exception {
-            Adicional adicionalMock = gerarAdicional();
+            Adicional adicionalMock = gerarAdicionalMock();
             AdicionalDTO adicionalDTO = adicionalMock.toAdicionalDTO();
             when(service.createNovoAdicional(any(AdicionalDTO.class)))
                     .thenReturn(adicionalMock);
@@ -116,7 +116,7 @@ class AdicionalControllerTest {
 
         @Test
         void deveAlterarAdicional() throws Exception {
-            Adicional adicionalMock = gerarAdicional();
+            Adicional adicionalMock = gerarAdicionalMock();
             AdicionalDTO adicionalDTO = adicionalMock.toAdicionalDTO();
             Long adicionalId = adicionalMock.getId();
             when(service.updateAdicional(anyLong(), any(AdicionalDTO.class)))

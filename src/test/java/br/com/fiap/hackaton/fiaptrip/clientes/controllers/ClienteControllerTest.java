@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.List;
 import java.util.Random;
 
-import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.getClienteMock;
+import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.gerarClienteMock;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -79,7 +79,7 @@ class ClienteControllerTest {
 
         @Test
         void deveBuscarClientePorEmail() throws Exception {
-            Cliente clienteMock = getClienteMock();
+            Cliente clienteMock = gerarClienteMock();
             String email = clienteMock.getEmail();
             ClienteDTO clienteDTO = clienteMock.toClienteDTO();
             when(clienteService.findClienteByEmail(anyString()))
@@ -99,7 +99,7 @@ class ClienteControllerTest {
 
         @Test
         void deveInserirCliente() throws Exception {
-            Cliente clienteMock = getClienteMock();
+            Cliente clienteMock = gerarClienteMock();
             ClienteDTO clienteDTO = clienteMock.toClienteDTO();
             when(clienteService.createCliente(any(ClienteDTO.class)))
                     .thenReturn(clienteMock);
@@ -119,7 +119,7 @@ class ClienteControllerTest {
 
         @Test
         void deveAlterarCliente() throws Exception {
-            Cliente clienteMock = getClienteMock();
+            Cliente clienteMock = gerarClienteMock();
             ClienteDTO clienteDTO = clienteMock.toClienteDTO();
             Long clienteId = clienteMock.getId();
             when(clienteService.updateCliente(anyLong(), any(ClienteDTO.class)))

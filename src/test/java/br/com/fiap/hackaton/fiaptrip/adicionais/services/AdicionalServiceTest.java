@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.gerarAdicional;
-import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.gerarAdicionalDTO;
+import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.gerarAdicionalMock;
+import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.gerarAdicionalDTOMock;
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -75,7 +75,7 @@ class AdicionalServiceTest {
 
         @Test
         void deveBuscarAdiconal_porDescricao() {
-            Adicional adicionalMock = gerarAdicional();
+            Adicional adicionalMock = gerarAdicionalMock();
             String descricao = adicionalMock.getDescricao();
             when(repository.findItemServicoAdicionalByDescricaoContainingIgnoreCase(anyString()))
                     .thenReturn(Optional.of(adicionalMock));
@@ -93,8 +93,8 @@ class AdicionalServiceTest {
 
         @Test
         void deveInserirUmNovoAdicional() {
-            Adicional adicionalMock = gerarAdicional();
-            AdicionalDTO adicionalDTO = gerarAdicionalDTO();
+            Adicional adicionalMock = gerarAdicionalMock();
+            AdicionalDTO adicionalDTO = gerarAdicionalDTOMock();
             when(repository.save(any(Adicional.class))).thenReturn(adicionalMock);
             when(repository.findItemServicoAdicionalByDescricaoContainingIgnoreCase(anyString())).thenReturn(Optional.empty());
 
@@ -112,9 +112,9 @@ class AdicionalServiceTest {
 
         @Test
         void deveAlterarAdicional() {
-            Adicional adicionalMock = gerarAdicional();
+            Adicional adicionalMock = gerarAdicionalMock();
             Long adicionalId = adicionalMock.getId();
-            AdicionalDTO adicionalDTO = gerarAdicionalDTO();
+            AdicionalDTO adicionalDTO = gerarAdicionalDTOMock();
             when(repository.findById(anyLong())).thenReturn(Optional.of(adicionalMock));
             when(repository.save(any(Adicional.class))).thenReturn(adicionalMock);
 
@@ -133,7 +133,7 @@ class AdicionalServiceTest {
 
         @Test
         void deveExcluirAdicional() {
-            Adicional adicionalMock = gerarAdicional();
+            Adicional adicionalMock = gerarAdicionalMock();
             Long adicionalId = adicionalMock.getId();
             when(repository.findById(anyLong())).thenReturn(Optional.of(adicionalMock));
             doNothing().when(repository).delete(any(Adicional.class));
@@ -149,7 +149,7 @@ class AdicionalServiceTest {
 
         @Test
         void deveLancarExcecao_buscarAdicinalPorDescricao_NaoEncontrada() {
-            Adicional adicionalMock = gerarAdicional();
+            Adicional adicionalMock = gerarAdicionalMock();
             String descricao = adicionalMock.getDescricao();
             when(repository.findItemServicoAdicionalByDescricaoContainingIgnoreCase(anyString())).thenReturn(Optional.empty());
 
@@ -161,7 +161,7 @@ class AdicionalServiceTest {
 
         @Test
         void deveLancarExcecao_alterarAdicional_naoEncontrado() {
-            Adicional adicionalMock = gerarAdicional();
+            Adicional adicionalMock = gerarAdicionalMock();
             Long adicionalId = adicionalMock.getId();
             AdicionalDTO adicionalDTO = adicionalMock.toAdicionalDTO();
             when(repository.findById(anyLong())).thenReturn(Optional.empty());
@@ -175,7 +175,7 @@ class AdicionalServiceTest {
 
         @Test
         void deveLancarExcecao_deletarAdicional_naoEncontrado() {
-            Adicional adicionalMock = gerarAdicional();
+            Adicional adicionalMock = gerarAdicionalMock();
             Long adicionalId = adicionalMock.getId();
             when(repository.findById(anyLong())).thenReturn(Optional.empty());
 

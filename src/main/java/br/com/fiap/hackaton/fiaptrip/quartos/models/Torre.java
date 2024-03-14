@@ -2,11 +2,15 @@ package br.com.fiap.hackaton.fiaptrip.quartos.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Torre {
 
@@ -18,5 +22,5 @@ public class Torre {
     @ManyToOne
     private Localidade localidade;
     @OneToMany
-    private List<br.com.fiap.hackaton.fiaptrip.quartos.models.Quarto> quartos;
+    private List<Quarto> quartos;
 }

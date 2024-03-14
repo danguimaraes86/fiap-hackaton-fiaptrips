@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.getClienteDtoMock;
-import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.getClienteMock;
+import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.gerarClienteDtoMock;
+import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.gerarClienteMock;
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -74,7 +74,7 @@ public class ClienteServiceTest {
 
         @Test
         void deveBuscarClientes_porEmail() {
-            Cliente clienteMock = getClienteMock();
+            Cliente clienteMock = gerarClienteMock();
             String mockEmail = clienteMock.getEmail();
             when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString()))
                     .thenReturn(Optional.of(clienteMock));
@@ -100,8 +100,8 @@ public class ClienteServiceTest {
 
         @Test
         void deveInserirCliente() {
-            Cliente clienteMock = getClienteMock();
-            ClienteDTO clienteDTO = getClienteDtoMock();
+            Cliente clienteMock = gerarClienteMock();
+            ClienteDTO clienteDTO = gerarClienteDtoMock();
             when(clienteRepository.save(any(Cliente.class))).thenReturn(clienteMock);
             when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString())).thenReturn(Optional.empty());
 
@@ -126,9 +126,9 @@ public class ClienteServiceTest {
 
         @Test
         void deveAtualizarCliente() {
-            Cliente clienteMock = getClienteMock();
+            Cliente clienteMock = gerarClienteMock();
             Long clienteId = clienteMock.getId();
-            ClienteDTO clienteDTO = getClienteDtoMock();
+            ClienteDTO clienteDTO = gerarClienteDtoMock();
             when(clienteRepository.findById(anyLong())).thenReturn(Optional.of(clienteMock));
             when(clienteRepository.save(any(Cliente.class))).thenReturn(clienteMock);
 
@@ -152,7 +152,7 @@ public class ClienteServiceTest {
 
         @Test
         void deveDeletarCliente() {
-            Cliente clienteMock = getClienteMock();
+            Cliente clienteMock = gerarClienteMock();
             Long clienteId = clienteMock.getId();
             when(clienteRepository.findById(anyLong())).thenReturn(Optional.of(clienteMock));
             doNothing().when(clienteRepository).delete(any(Cliente.class));
@@ -168,7 +168,7 @@ public class ClienteServiceTest {
 
         @Test
         void deveLancarExcecao_buscarClientePorEmail_emailNaoEncontrado() {
-            Cliente clienteMock = getClienteMock();
+            Cliente clienteMock = gerarClienteMock();
             String clienteEmail = clienteMock.getEmail();
             when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString())).thenReturn(Optional.empty());
 
@@ -180,8 +180,8 @@ public class ClienteServiceTest {
 
         @Test
         void deveLancarExcecao_inserirCliente_emailJaCadastrado() {
-            Cliente clienteMock = getClienteMock();
-            ClienteDTO clienteDTO = getClienteDtoMock();
+            Cliente clienteMock = gerarClienteMock();
+            ClienteDTO clienteDTO = gerarClienteDtoMock();
             String clienteEmail = clienteMock.getEmail();
             when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString()))
                     .thenReturn(Optional.of(clienteMock));
@@ -229,7 +229,7 @@ public class ClienteServiceTest {
 
         @Test
         void deveLancarExcecao_alterarCliente_naoEncontrado() {
-            Cliente clienteMock = getClienteMock();
+            Cliente clienteMock = gerarClienteMock();
             Long clienteId = clienteMock.getId();
             ClienteDTO clienteDTO = clienteMock.toClienteDTO();
             when(clienteRepository.findById(anyLong())).thenReturn(Optional.empty());
@@ -243,7 +243,7 @@ public class ClienteServiceTest {
 
         @Test
         void deveLancarExcecao_deletarCliente_naoEncontrado() {
-            Cliente clienteMock = getClienteMock();
+            Cliente clienteMock = gerarClienteMock();
             Long clienteId = clienteMock.getId();
             when(clienteRepository.findById(anyLong())).thenReturn(Optional.empty());
 
