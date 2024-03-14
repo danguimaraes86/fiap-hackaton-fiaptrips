@@ -1,4 +1,4 @@
-package br.com.fiap.hackaton.fiaptrip.Quartos.Models;
+package br.com.fiap.hackaton.fiaptrip.quartos.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -18,5 +18,5 @@ public class Torre {
     @ManyToOne
     private Localidade localidade;
     @OneToMany
-    private List<Quarto> quartos;
+    private List<br.com.fiap.hackaton.fiaptrip.quartos.models.Quarto> quartos;
 }

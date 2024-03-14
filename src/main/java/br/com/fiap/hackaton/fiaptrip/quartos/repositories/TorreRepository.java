@@ -1,6 +1,6 @@
-package br.com.fiap.hackaton.fiaptrip.Quartos.Repositories;
+package br.com.fiap.hackaton.fiaptrip.quartos.repositories;
 
-import br.com.fiap.hackaton.fiaptrip.Quartos.Models.Torre;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.Torre;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

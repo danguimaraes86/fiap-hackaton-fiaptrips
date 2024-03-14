@@ -1,8 +1,8 @@
-package br.com.fiap.hackaton.fiaptrip.Reservas.Services;
+package br.com.fiap.hackaton.fiaptrip.reservas.services;
 
-import br.com.fiap.hackaton.fiaptrip.Reservas.Models.DatasDisponiveis;
-import br.com.fiap.hackaton.fiaptrip.Reservas.Repositories.DatasDisponiveisRepository;
-import br.com.fiap.hackaton.fiaptrip.Reservas.Repositories.ReservasRepository;
+import br.com.fiap.hackaton.fiaptrip.reservas.models.DatasDisponiveis;
+import br.com.fiap.hackaton.fiaptrip.reservas.repositories.DatasDisponiveisRepository;
+import br.com.fiap.hackaton.fiaptrip.reservas.repositories.ReservaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

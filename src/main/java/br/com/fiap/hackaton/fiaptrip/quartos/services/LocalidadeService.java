@@ -1,7 +1,7 @@
-package br.com.fiap.hackaton.fiaptrip.Quartos.Services;
+package br.com.fiap.hackaton.fiaptrip.quartos.services;
 
-import br.com.fiap.hackaton.fiaptrip.Quartos.Models.Localidade;
-import br.com.fiap.hackaton.fiaptrip.Quartos.Repositories.LocalidadeRepository;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.Localidade;
+import br.com.fiap.hackaton.fiaptrip.quartos.repositories.LocalidadeRepository;
 import org.springframework.stereotype.Service;
 
 @Service

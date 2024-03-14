@@ -1,4 +1,4 @@
-package br.com.fiap.hackaton.fiaptrip.Reservas.Controllers;
+package br.com.fiap.hackaton.fiaptrip.reservas.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 

@@ -1,5 +1,8 @@
 package br.com.fiap.hackaton.fiaptrip.utilitarios;
 
+import br.com.fiap.hackaton.fiaptrip.adicionais.models.Adicional;
+import br.com.fiap.hackaton.fiaptrip.adicionais.models.dto.AdicionalDTO;
+import br.com.fiap.hackaton.fiaptrip.adicionais.models.enumerator.TipoAdicional;
 import br.com.fiap.hackaton.fiaptrip.clientes.models.Cliente;
 import br.com.fiap.hackaton.fiaptrip.clientes.models.ClienteDTO;
 
@@ -35,5 +38,13 @@ public class Generator {
                 "email",
                 "endereco"
         );
+    }
+
+    public static Adicional gerarAdicional(){
+        return new Adicional(new Random().nextLong(), "Novo adicional", 50.0, TipoAdicional.PRODUTO);
+    }
+
+    public static AdicionalDTO gerarAdicionalDTO(){
+        return new AdicionalDTO(new Random().nextLong(),"Novo adicionalDTO", 20.0, "PRODUTO");
     }
 }

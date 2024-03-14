@@ -1,7 +1,7 @@
-package br.com.fiap.hackaton.fiaptrip.Quartos.Controllers;
+package br.com.fiap.hackaton.fiaptrip.quartos.controllers;
 
-import br.com.fiap.hackaton.fiaptrip.Quartos.Models.Torre;
-import br.com.fiap.hackaton.fiaptrip.Quartos.Services.TorreService;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.Torre;
+import br.com.fiap.hackaton.fiaptrip.quartos.services.TorreService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
