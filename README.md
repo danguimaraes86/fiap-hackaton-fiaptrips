@@ -27,13 +27,13 @@ Esta API faz o BackEnd do serviços.
 --------------------------------------------------------------------------------------------
 ### Torre
 
-| Método | Url          | Descrição               | Modelo de Requisição válido |
-|--------|--------------|-------------------------| ------------------------- |
-| GET    | /torres/{id} | Get Torre Por ID        | [JSON](#createEletro)|
-| PUT    | /torres/{id} | Atualiza Torre Por ID   |  |
-| DELETE | /torres/{id} | Deleta Torre Por ID     | |
-| GET    | /torres      | Get All Torres          | |
-| POST   | /torres      | Cadastra uma nova Torre | |
+| Método | Url          | Descrição               |
+|--------|--------------|-------------------------|
+| GET    | /torres/{id} | Get Torre Por ID        |
+| PUT    | /torres/{id} | Atualiza Torre Por ID   |
+| DELETE | /torres/{id} | Deleta Torre Por ID     |
+| GET    | /torres      | Get All Torres          |
+| POST   | /torres      | Cadastra uma nova Torre |
 
 
 ### Exemplos de entrada
@@ -89,14 +89,14 @@ curl -X POST \
 --------------------------------------------------------------------------------------------
 ### Reservas
 
-| Método | Url                   | Descrição               | Modelo de Requisição válido |
-|--------|-----------------------|-------------------------| ------------------------- |
-| GET    | /reservas/{reservaId} | Get Reserva Por ID      | [JSON](#createPessoa)|
-| PUT    | /reservas/{reservaId} | Atualiza Reserva Por ID | [JSON](#updatepessoa) |
-| DELETE | /reservas/{reservaId} | Deleta Reserva Por ID   | |
-| POST   | /reservas             | Cria nova Reserva       | |
-| GET    | /reservas             | Get All Reservas        | |
-| GET    | /reservas/{clienteID} | Get Reserva Por Cliente | |
+| Método | Url                   | Descrição               |
+|--------|-----------------------|-------------------------|
+| GET    | /reservas/{reservaId} | Get Reserva Por ID      |
+| PUT    | /reservas/{reservaId} | Atualiza Reserva Por ID |
+| DELETE | /reservas/{reservaId} | Deleta Reserva Por ID   |
+| POST   | /reservas             | Cria nova Reserva       |
+| GET    | /reservas             | Get All Reservas        |
+| GET    | /reservas/{clienteID} | Get Reserva Por Cliente |
 
 
 ### Exemplos de entrada
@@ -152,16 +152,16 @@ curl -X POST \
 --------------------------------------------------------------------------------------------
 ### Quartos
 
-| Método | Url                 | Descrição                                              | Modelo de Requisição válido |
-|--------|---------------------|--------------------------------------------------------| ------------------------- |
-| GET    | /quartos/{quartoId} | Get Quarto Por ID                                      | [JSON](#createEndereco)|
-| PUT    | /quartos/{quartoId} | Atualiza Qaurto Por ID                                 | [JSON](#updateEndereco) |
-| DELETE | /quartos/{quartoId} | Deleta Quarto Por ID                                   | |
-| POST   | /quartos/novo       | Cria Novo Quarto                                       | |
-| GET    | /quartos            | Get All Qaurtos                                        | |
-| GET    | /quartos/tipoquarto | Categorias de Quarto Disponiveis ex: "Luxo","Standard" | |
-| GET    | /quartos/busca      | Get Quarto Por Categoria ex: "Luxo","Standard"         | |
-| GET    | /quartos/amenidades | Get Amenidades disponiveis ex: "TV","Poltrona"          | |
+| Método | Url                 | Descrição                                              |
+|--------|---------------------|--------------------------------------------------------|
+| GET    | /quartos/{quartoId} | Get Quarto Por ID                                      |
+| PUT    | /quartos/{quartoId} | Atualiza Qaurto Por ID                                 |
+| DELETE | /quartos/{quartoId} | Deleta Quarto Por ID                                   |
+| POST   | /quartos/novo       | Cria Novo Quarto                                       |
+| GET    | /quartos            | Get All Qaurtos                                        |
+| GET    | /quartos/tipoquarto | Categorias de Quarto Disponiveis ex: "Luxo","Standard" |
+| GET    | /quartos/busca      | Get Quarto Por Categoria ex: "Luxo","Standard"         |
+| GET    | /quartos/amenidades | Get Amenidades disponiveis ex: "TV","Poltrona"         |
 
 
 ### Exemplos de entrada
@@ -217,13 +217,13 @@ curl -X POST \
 --------------------------------------------------------------------------------------------
 ### Localidades
 
-| Método | Url               | Descrição                  | Modelo de Requisição válido |
-|--------|-------------------|----------------------------| ------------------------- |
-| GET    | /localidades/{id} | Get Localidade Por ID      | [JSON](#createEndereco)|
-| PUT    | /localidades/{id} | Atualiza Localidade Por ID | [JSON](#updateEndereco) |
-| DELETE | /localidades/{id} | Deleta Localidade Por ID   | |
-| GET    | /localidades      | Get All Localidades        | |
-| POST   | /localidades      | Cria Localidade            | |
+| Método | Url               | Descrição                  |
+|--------|-------------------|----------------------------|
+| GET    | /localidades/{id} | Get Localidade Por ID      |
+| PUT    | /localidades/{id} | Atualiza Localidade Por ID |
+| DELETE | /localidades/{id} | Deleta Localidade Por ID   |
+| GET    | /localidades      | Get All Localidades        |
+| POST   | /localidades      | Cria Localidade            |
 
 
 ### Exemplos de entrada
@@ -279,13 +279,13 @@ curl -X POST \
 --------------------------------------------------------------------------------------------
 ### Clientes
 
-| Método | Url                   | Descrição               | Modelo de Requisição válido |
-|--------|-----------------------|-------------------------| ------------------------- |
-| PUT    | /clientes/{clienteId} | Atualiza Cliente Por ID | [JSON](#createEndereco)|
-| DELETE | /clientes/{clienteId} | Deleta Cliente Por ID   | [JSON](#updateEndereco) |
-| POST   | /clientes/novo        | Cria Cliente            | |
-| GET    | /clientes             | Get All Clientes        | |
-| GET    | /clientes/busca       | Get Por EMAIL           | |
+| Método | Url                   | Descrição               |
+|--------|-----------------------|-------------------------|
+| PUT    | /clientes/{clienteId} | Atualiza Cliente Por ID |
+| DELETE | /clientes/{clienteId} | Deleta Cliente Por ID   |
+| POST   | /clientes/novo        | Cria Cliente            |
+| GET    | /clientes             | Get All Clientes        |
+| GET    | /clientes/busca       | Get Por EMAIL           |
 
 
 ### Exemplos de entrada
@@ -341,13 +341,13 @@ curl -X POST \
 --------------------------------------------------------------------------------------------
 ### Adicionais
 
-| Método | Url                       | Descrição                  | Modelo de Requisição válido |
-|--------|---------------------------|----------------------------| ------------------------- |
-| PUT    | /Adicionais/{adicionalId} | Edita Adicional Por ID     | [JSON](#createEndereco)|
-| DELETE | /Adicionais/{adicionalId} | Delete Adicional por ID    | [JSON](#updateEndereco) |
-| POST   | /Adicionais/novo          | Cria novo Adicional        | |
-| GET    | /Adicionais               | Get All Adicionais         | |
-| GET    | /Adicionais/busca         | Get Adiconal Por Descrição | |
+| Método | Url                       | Descrição                  |
+|--------|---------------------------|----------------------------|
+| PUT    | /Adicionais/{adicionalId} | Edita Adicional Por ID     |
+| DELETE | /Adicionais/{adicionalId} | Delete Adicional por ID    |
+| POST   | /Adicionais/novo          | Cria novo Adicional        |
+| GET    | /Adicionais               | Get All Adicionais         |
+| GET    | /Adicionais/busca         | Get Adiconal Por Descrição |
 
 
 ### Exemplos de entrada
