@@ -18,7 +18,7 @@ public class LocalidadeController {
 
     // <>--------------- Metodos ---------------<>
     @GetMapping
-    public ResponseEntity<Page<Localidade>> getAllLocalidade(@PathVariable Pageable pageable) {
+    public ResponseEntity<Page<Localidade>> getAllLocalidade(Pageable pageable) {
         var localidadesFound = localidadeService.findAll(pageable);
 
         return ResponseEntity.ok(localidadesFound);

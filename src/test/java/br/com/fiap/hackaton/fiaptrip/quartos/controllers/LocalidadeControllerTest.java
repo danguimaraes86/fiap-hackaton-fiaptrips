@@ -1,6 +1,7 @@
 package br.com.fiap.hackaton.fiaptrip.quartos.controllers;
 
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Localidade;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.Quarto;
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Torre;
 import br.com.fiap.hackaton.fiaptrip.quartos.services.LocalidadeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -13,6 +14,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -61,6 +65,21 @@ class LocalidadeControllerTest {
 
     @Nested
     class BuscarLocalidades {
+        @Test
+        void deveRetornarPaginasLocalidades() throws Exception {
+            Page<Localidade> localidadesMock = new PageImpl<>(List.of(
+                    mock(Localidade.class),
+                    mock(Localidade.class),
+                    mock(Localidade.class)));
+            when(localidadeService.findAll(any(Pageable.class)))
+                    .thenReturn(localidadesMock);
+
+            mockMvc.perform(get("/localidades"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().json(convertToJson(localidadesMock)));
+            verify(localidadeService, times(1))
+                    .findAll(any(Pageable.class));
+        }
 
         @Test
         public void deveRetornarLocalidade() throws Exception {
