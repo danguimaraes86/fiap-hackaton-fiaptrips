@@ -50,25 +50,25 @@ curl -X POST \
 ```
 
 ##### <a id="updateEndereco">PUT - /torres/{id}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">DELETE - /torres/{id}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">GET - /torres</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">POST - /torres</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
@@ -90,37 +90,37 @@ curl -X
 ### Exemplos de entrada
 
 ##### <a id="updateEndereco">GET - /reservas/{reservaId}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">PUT - /reservas/{reservaId}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">DELETE - /reservas/{reservaId}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">POST - /reservas</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">GET - /reservas</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">GET - /reservas/{clienteId}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
@@ -144,50 +144,50 @@ curl -X
 ### Exemplos de entrada
 
 ##### <a id="updateEndereco">GET - /quartos/{quartoId}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 
 ##### <a id="updateEndereco">PUT - /quartos/{quartoId}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">DELETE - /quartos/{quartoId}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">POST - /quartos/novo</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">GET - /quartos</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">GET - /quartos/tipoquarto</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">GET - /quartos/busca</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">GET - /quartos/amenidades</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
@@ -207,31 +207,31 @@ curl -X
 ### Exemplos de entrada
 
 ##### <a id="updateEndereco">GET - /localidades/{id}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">PUT - /localidades/{id}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">DELETE - /localidades/{id}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">GET - /localidades</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">POST - /localidades</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
@@ -252,31 +252,31 @@ curl -X
 ### Exemplos de entrada
 
 ##### <a id="updateEndereco">PUT - /clientes/{clienteId}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">DELETE - /clientes/{clienteId}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">POST - /clientes/novo</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">GET - /clientes</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">GET - /clientes/busca</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
@@ -297,31 +297,31 @@ curl -X
 ### Exemplos de entrada
 
 ##### <a id="updateEndereco">PUT - /adicionais/{adicionalId}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">DELETE - /adicionais/{adicionalId}</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">POST - /adicionais/novo</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X
 ```
 
 ##### <a id="updateEndereco">GET - /adicionais</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
 ##### <a id="updateEndereco">GET - /adicionais/busca</a>
-![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
