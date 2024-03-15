@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "54ad06e5-ec5d-47f3-906f-a5b42cf79291",
+		"name": "Hackaton",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27560229"
+	},
+	"item": [
+		{
+			"name": "Adicionais",
+			"item": [
+				{
+					"name": "findAll Adicionais",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/adicionais",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"adicionais"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create NovoAdicional",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"descricao\": \"massagem\",\n  \"valor\": 5.0,\n  \"tipoAdicional\": \"servico\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/adicionais/novo",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"adicionais",
+								"novo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "findAll Clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/clientes",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create NovoCliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nomeComleto\": \"{{$randomFullName}}\",\n  \"paisOrigem\": \"pt_br\",\n  // \"paisOrigem\": \"en US\",\n  \"dataNascimento\": \"2000-01-01\",\n  \"cpf\": \"11122233344\",\n  \"passaporte\": \"XXX-8765\",\n  \"telefone\": \"55-61-9999-8888\",\n  \"email\": \"{{$randomExampleEmail}}\",\n  \"endereco\": \"{{$randomStreetAddress}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/clientes/novo",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clientes",
+								"novo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Quartos",
+			"item": [
+				{
+					"name": "findAll Amenidades",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/quartos/amenidades",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"quartos",
+								"amenidades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll TipoQuarto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/quartos/tipoquarto",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"quartos",
+								"tipoquarto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll Quartos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/quartos",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"quartos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create NovoQuarto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tipoQuarto\": \"LUXO\",\n  \"amenidades\": [\n    \"TV\",\n    \"AR_CONDICIONADO\",\n    \"FRIGOBAR\",\n    \"BANHEIRA\",\n    \"MESA_ESCRITORIO\",\n    \"VARANDA\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/quartos/novo",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"quartos",
+								"novo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reservas",
+			"item": [
+				{
+					"name": "findAll Reservas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/reservas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reservas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById Reservas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/reservas/970d66b4-16f1-46c0-8c79-b42ebd3a644d",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reservas",
+								"970d66b4-16f1-46c0-8c79-b42ebd3a644d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById Cliente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/reservas/cliente/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reservas",
+								"cliente",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create Reserva",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clienteEmail\": \"Elinore.Wehner@example.com\",\n  \"quartos\": [\n    1\n  ],\n  \"dataCheckIn\": \"2024-04-23\",\n  \"dataCheckOut\": \"2024-04-24\",\n  \"adicionalList\": {\n    \"café\": 1,\n    \"refrigerante\": 2\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/reservas/novo",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reservas",
+								"novo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
