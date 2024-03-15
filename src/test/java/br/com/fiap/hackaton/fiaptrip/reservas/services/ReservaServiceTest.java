@@ -1,5 +1,6 @@
 package br.com.fiap.hackaton.fiaptrip.reservas.services;
 
+import br.com.fiap.hackaton.fiaptrip.adicionais.service.AdicionalService;
 import br.com.fiap.hackaton.fiaptrip.clientes.models.Cliente;
 import br.com.fiap.hackaton.fiaptrip.reservas.services.ReservaService;
 
@@ -38,11 +39,13 @@ public class ReservaServiceTest {
     private QuartoService quartoService;
     @Mock
     private ReservaRepository reservaRepository;
+    @Mock
+    private AdicionalService adicionalService;
 
     @BeforeEach
     void setup() {
         mocks = openMocks(this);
-        reservaService = new ReservaService(reservaRepository, clienteService, quartoService);
+        reservaService = new ReservaService(reservaRepository, clienteService, quartoService, adicionalService);
     }
 
     @AfterEach

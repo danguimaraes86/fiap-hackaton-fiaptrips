@@ -56,7 +56,8 @@ public class Generator {
                 gerarClienteMock(),
                 List.of(new Quarto()),
                 LocalDate.now(),
-                LocalDate.now().plusDays(5)
+                LocalDate.now().plusDays(5),
+                new HashMap<>()
         );
     }
 
@@ -65,7 +66,8 @@ public class Generator {
                 "email aleatorio",
                 new ArrayList<>(Collections.singleton(1L)),
                 LocalDate.now().toString(),
-                LocalDate.now().plusDays(5).toString()
+                LocalDate.now().plusDays(5).toString(),
+                new HashMap<>()
         );
     }
 }

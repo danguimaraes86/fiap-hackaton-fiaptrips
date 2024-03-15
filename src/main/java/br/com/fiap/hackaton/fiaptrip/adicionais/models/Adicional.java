@@ -46,4 +46,9 @@ public class Adicional {
     public AdicionalDTO toAdicionalDTO() {
         return new AdicionalDTO(this.id, this.descricao, this.valor, this.tipoAdicional.name());
     }
+
+    @Override
+    public String toString() {
+        return this.getDescricao();
+    }
 }
