@@ -129,7 +129,7 @@ class LocalidadeControllerTest {
             doNothing().when(localidadeService).deleteByID(anyLong());
 
             mockMvc.perform(delete("/localidades/{id}", localidadeId))
-                    .andExpect(status().isOk());
+                    .andExpect(status().isAccepted());
             verify(localidadeService, times(1))
                     .deleteByID(anyLong());
         }
