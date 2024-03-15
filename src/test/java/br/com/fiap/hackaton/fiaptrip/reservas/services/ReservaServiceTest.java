@@ -1,6 +1,8 @@
 package br.com.fiap.hackaton.fiaptrip.reservas.services;
 
 import br.com.fiap.hackaton.fiaptrip.clientes.models.Cliente;
+import br.com.fiap.hackaton.fiaptrip.reservas.services.ReservaService;
+
 import br.com.fiap.hackaton.fiaptrip.clientes.services.ClienteService;
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Quarto;
 import br.com.fiap.hackaton.fiaptrip.quartos.services.QuartoService;

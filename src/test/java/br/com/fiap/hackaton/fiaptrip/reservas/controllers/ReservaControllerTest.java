@@ -1,5 +1,6 @@
 package br.com.fiap.hackaton.fiaptrip.reservas.controllers;
 
+import br.com.fiap.hackaton.fiaptrip.reservas.controllers.ReservaController;
 import br.com.fiap.hackaton.fiaptrip.reservas.models.Reserva;
 import br.com.fiap.hackaton.fiaptrip.reservas.models.dtos.ReservaDTO;
 import br.com.fiap.hackaton.fiaptrip.reservas.services.ReservaService;
