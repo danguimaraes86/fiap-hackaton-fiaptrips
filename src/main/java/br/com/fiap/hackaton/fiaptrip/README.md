@@ -1,15 +1,18 @@
 # Tech Challenge 
 
-Bem-vindo(a) a documentação oficial das APIs desenvolvidas para o Tech Challenge fase 1. Nesta documentação, você encontrará detalhes abrangentes sobre as APIs de Cadastro de Endereços, Gestão de Pessoas e Gestão de Eletromésticos, que foram desenvolvidas como parte deste projeto. Estas APIs serão responsáveis por gerenciar dados de consumo elétrico de eletrodomésticos, que através de cálculos disponibilizará informações e alertas aos usuários. Essa ponte entre API e usuário será intermediada por um portal que vai consumir esta API e apresentar as informações devidas. No entanto nesta etapa os entregáveis possuem apenas funcionalidades CRUD, aprendidas no decorrer da fase 1 do curso.
+Bem-vindo(a) a documentação oficial da API desenvolvida para o Hackaton. Nesta documentação, 
+você encontrará detalhes abrangentes sobre a API Booking de Hospedagem para Hoteis. 
+Esta API gerencia dados de agendamento de Reservas para Hoteis. Onde o Usuario pode escolher o Hotel desejado na 
+data em que deseja viajar e Agendar sua estadia. 
+Esta API faz o BackEnd do serviços.
 
 ## Tecnologias e Ferramentas
 - Java 17
 - Maven
-- H2 Database
 - Spring Data JPA
-- Validation (Bean Validation with Hibernate validator)
+- PstgreSQL
 - Lombok
-- Spring Boot DevTools
+- Swagger
 - Spring Web
 - Postman
 - IntelliJ
@@ -18,15 +21,15 @@ Bem-vindo(a) a documentação oficial das APIs desenvolvidas para o Tech Challen
 
 ## Explore
 
-### Api – Eletrodomésticos
+### Torre
 
-| Método | Url | Descrição | Modelo de Requisição válido |
-| ------ | --- | ----------- | ------------------------- |
-| POST    | /eletrodomestico | Cadastra um eletrodoméstico | [JSON](#createEletro)|
-| PUT   | /eletrodomestico/{id} | Atualiza um eletrodoméstico com Id específico | [JSON](#updateEletro) |
-| GET    | /eletrodomestico/{id} | Retorna um eletrodoméstico com Id específico | |
-| GET    | /eletrodomestico | Retorna todos os eletrodomésticos cadastrados | |
-| DELETE    | /eletrodomestico/{id} | Deleta um eletrodoméstico com Id específico | |
+| Método | Url          | Descrição               | Modelo de Requisição válido |
+|--------|--------------|-------------------------| ------------------------- |
+| GET    | /torres/{id} | Get Torre Por ID        | [JSON](#createEletro)|
+| PUT    | /torres/{id} | Atualiza Torre Por ID   |  |
+| DELETE | /torres/{id} | Deleta Torre Por ID     | |
+| GET    | /torres      | Get All Torres          | |
+| POST   | /torres      | Cadastra uma nova Torre | |
 
 ### Exemplos de entrada
 
@@ -49,15 +52,16 @@ Bem-vindo(a) a documentação oficial das APIs desenvolvidas para o Tech Challen
  "fabricacao": "2019-12-09"
 }
 ```
-### Api – Pessoas
+### Reservas
 
-| Método | Url | Descrição | Modelo de Requisição válido |
-| ------ | --- | ----------- | ------------------------- |
-| POST    | /pessoa | Cadastra uma pessoa | [JSON](#createPessoa)|
-| PUT   | /pessoa/{id} | Atualiza uma pessoa com Id específico | [JSON](#updatepessoa) |
-| GET    | /pessoa/{id} | Retorna uma pessoa com Id específico | |
-| GET    | /pessoa | Retorna todos as pessoas cadastrados | |
-| DELETE    | /pessoa/{id} | Deleta uma pessoa com Id específico | |
+| Método | Url                   | Descrição               | Modelo de Requisição válido |
+|--------|-----------------------|-------------------------| ------------------------- |
+| GET    | /reservas/{reservaId} | Get Reserva Por ID      | [JSON](#createPessoa)|
+| PUT    | /reservas/{reservaId} | Atualiza Reserva Por ID | [JSON](#updatepessoa) |
+| DELETE | /reservas/{reservaId} | Deleta Reserva Por ID   | |
+| POST   | /reservas             | Cria nova Reserva       | |
+| GET    | /reservas             | Get All Reservas        | |
+| GET    | /reservas/{clienteID} | Get Reserva Por Cliente | |
 
 ### Exemplos de entrada
 
@@ -80,15 +84,18 @@ Bem-vindo(a) a documentação oficial das APIs desenvolvidas para o Tech Challen
  "parentesco": "Irmão"
 }
 ```
-### Api – Endereços
+### Quartos
 
-| Método | Url | Descrição | Modelo de Requisição válido |
-| ------ | --- | ----------- | ------------------------- |
-| POST    | /enderecos | Cadastra um endereço | [JSON](#createEndereco)|
-| PUT   | /enderecos/{id} | Atualiza um endereço com Id específico | [JSON](#updateEndereco) |
-| GET    | /enderecos/{id} | Retorna um endereço com Id específico | |
-| GET    | /enderecos | Retorna todos os endereços cadastrados | |
-| DELETE    | /enderecos/{id} | Deleta um endereço com Id específico | |
+| Método | Url                 | Descrição                                              | Modelo de Requisição válido |
+|--------|---------------------|--------------------------------------------------------| ------------------------- |
+| GET    | /quartos/{quartoId} | Get Quarto Por ID                                      | [JSON](#createEndereco)|
+| PUT    | /quartos/{quartoId} | Atualiza Qaurto Por ID                                 | [JSON](#updateEndereco) |
+| DELETE | /quartos/{quartoId} | Deleta Quarto Por ID                                   | |
+| POST   | /quartos/novo       | Cria Novo Quarto                                       | |
+| GET    | /quartos            | Get All Qaurtos                                        | |
+| GET    | /quartos/tipoquarto | Categorias de Quarto Disponiveis ex: "Luxo","Standard" | |
+| GET    | /quartos/busca      | Get Quarto Por Categoria ex: "Luxo","Standard"         | |
+| GET    | /quartos/amenidades | Get Amenidades disponiveis ex: "TV","Poltrona"          | |
 
 ### Exemplos de entrada
 
@@ -116,5 +123,112 @@ Bem-vindo(a) a documentação oficial das APIs desenvolvidas para o Tech Challen
 }
 ```
 
+### Localidades
+
+| Método | Url               | Descrição                  | Modelo de Requisição válido |
+|--------|-------------------|----------------------------| ------------------------- |
+| GET    | /localidades/{id} | Get Localidade Por ID      | [JSON](#createEndereco)|
+| PUT    | /localidades/{id} | Atualiza Localidade Por ID | [JSON](#updateEndereco) |
+| DELETE | /localidades/{id} | Deleta Localidade Por ID   | |
+| GET    | /localidades      | Get All Localidades        | |
+| POST   | /localidades      | Cria Localidade            | |
+
+### Exemplos de entrada
+
+##### <a id="createEndereco"> POST - /enderecos</a>
+```json
+{
+ "nomeInstalacao": "Casa de Campo",
+ "rua": "Rua Princesa Isabel",
+ "numero": "70",
+ "bairro": "Urbano Caldera",
+ "cidade": "Santos",
+ "estado": "São Paulo"
+}
+```
+
+##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+```json
+{
+ "nomeInstalacao": "Escritório",
+ "rua": "Rua Edson Arantes",
+ "numero": "100",
+ "bairro": "Urbano Caldera",
+ "cidade": "Santos",
+ "estado": "São Paulo"
+}
+```
+
+### Clientes
+
+| Método | Url                   | Descrição               | Modelo de Requisição válido |
+|--------|-----------------------|-------------------------| ------------------------- |
+| PUT    | /clientes/{clienteId} | Atualiza Cliente Por ID | [JSON](#createEndereco)|
+| DELETE | /clientes/{clienteId} | Deleta Cliente Por ID   | [JSON](#updateEndereco) |
+| POST   | /clientes/novo        | Cria Cliente            | |
+| GET    | /clientes             | Get All Clientes        | |
+| GET    | /clientes/busca       | Get Por EMAIL           | |
+
+### Exemplos de entrada
+
+##### <a id="createEndereco"> POST - /enderecos</a>
+```json
+{
+ "nomeInstalacao": "Casa de Campo",
+ "rua": "Rua Princesa Isabel",
+ "numero": "70",
+ "bairro": "Urbano Caldera",
+ "cidade": "Santos",
+ "estado": "São Paulo"
+}
+```
+
+##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+```json
+{
+ "nomeInstalacao": "Escritório",
+ "rua": "Rua Edson Arantes",
+ "numero": "100",
+ "bairro": "Urbano Caldera",
+ "cidade": "Santos",
+ "estado": "São Paulo"
+}
+```
+
+### Adicionais   ////////  A FAZER
+
+| Método | Url                       | Descrição                  | Modelo de Requisição válido |
+|--------|---------------------------|----------------------------| ------------------------- |
+| PUT    | /Adicionais/{adicionalId} | Edita Adicional Por ID     | [JSON](#createEndereco)|
+| DELETE | /Adicionais/{adicionalId} | Delete Adicional por ID    | [JSON](#updateEndereco) |
+| POST   | /Adicionais/novo          | Cria novo Adicional        | |
+| GET    | /Adicionais               | Get All Adicionais         | |
+| GET    | /Adicionais/busca         | Get Adiconal Por Descrição | |
+
+### Exemplos de entrada
+
+##### <a id="createEndereco"> POST - /enderecos</a>
+```json
+{
+ "nomeInstalacao": "Casa de Campo",
+ "rua": "Rua Princesa Isabel",
+ "numero": "70",
+ "bairro": "Urbano Caldera",
+ "cidade": "Santos",
+ "estado": "São Paulo"
+}
+```
+
+##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+```json
+{
+ "nomeInstalacao": "Escritório",
+ "rua": "Rua Edson Arantes",
+ "numero": "100",
+ "bairro": "Urbano Caldera",
+ "cidade": "Santos",
+ "estado": "São Paulo"
+}
+```
 
 
