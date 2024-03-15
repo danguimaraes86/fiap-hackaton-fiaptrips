@@ -4,6 +4,7 @@ import br.com.fiap.hackaton.fiaptrip.quartos.models.dtos.QuartoDTO;
 import br.com.fiap.hackaton.fiaptrip.quartos.models.enums.Amenidades;
 import br.com.fiap.hackaton.fiaptrip.quartos.models.enums.TipoQuarto;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

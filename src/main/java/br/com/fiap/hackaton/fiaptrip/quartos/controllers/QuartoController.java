@@ -56,8 +56,8 @@ public class QuartoController {
     }
 
     @DeleteMapping("/{quartoId}")
-    public ResponseEntity<Void> deleteQuarto(@PathVariable Long quartoId) {
+    public ResponseEntity<String> deleteQuarto(@PathVariable Long quartoId) {
         quartoService.deleteQuartoById(quartoId);
-        return ResponseEntity.accepted().build();
+        return ResponseEntity.accepted().body("Quarto deletada com sucesso!");
     }
 }

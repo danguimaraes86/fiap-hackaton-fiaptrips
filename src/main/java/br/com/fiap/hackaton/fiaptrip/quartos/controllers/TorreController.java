@@ -45,6 +45,6 @@ public class TorreController {
     public ResponseEntity<String> deleteTorre(@PathVariable Long id) {
         torreService.deleteByID(id);
 
-        return ResponseEntity.ok("Torre deletada com sucesso!");
+        return ResponseEntity.accepted().body("Torre deletada com sucesso!");
     }
 }

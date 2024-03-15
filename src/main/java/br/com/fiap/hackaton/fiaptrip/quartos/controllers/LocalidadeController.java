@@ -40,6 +40,6 @@ public class LocalidadeController {
     public ResponseEntity<String> deleteLocalidade(@PathVariable Long id) {
         localidadeService.deleteByID(id);
 
-        return ResponseEntity.ok("Localidade deletada com sucesso!");
+        return ResponseEntity.accepted().body("Localidade deletada com sucesso!");
     }
 }
