@@ -38,7 +38,7 @@ Esta API faz o BackEnd do serviços.
 
 ### Exemplos de entrada
 
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">GET - /torres/{id}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
 curl -X POST \
@@ -49,40 +49,28 @@ curl -X POST \
   }'
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">PUT - /torres/{id}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">DELETE - /torres/{id}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">GET - /torres</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
+```
+
+##### <a id="updateEndereco">POST - /torres</a>
+![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+```bash
+curl -X 
 ```
 
 
@@ -96,56 +84,45 @@ curl -X POST \
 | DELETE | /reservas/{reservaId} | Deleta Reserva Por ID   |
 | POST   | /reservas             | Cria nova Reserva       |
 | GET    | /reservas             | Get All Reservas        |
-| GET    | /reservas/{clienteID} | Get Reserva Por Cliente |
+| GET    | /reservas/{clienteId} | Get Reserva Por Cliente |
 
 
 ### Exemplos de entrada
 
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">GET - /reservas/{reservaId}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">PUT - /reservas/{reservaId}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">DELETE - /reservas/{reservaId}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">POST - /reservas</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
+```
+
+##### <a id="updateEndereco">GET - /reservas</a>
+![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+```bash
+curl -X 
+```
+
+##### <a id="updateEndereco">GET - /reservas/{clienteId}</a>
+![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+```bash
+curl -X 
 ```
 
 
@@ -166,53 +143,54 @@ curl -X POST \
 
 ### Exemplos de entrada
 
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">GET - /quartos/{quartoId}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
 
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">PUT - /quartos/{quartoId}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">DELETE - /quartos/{quartoId}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">POST - /quartos/novo</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
+##### <a id="updateEndereco">GET - /quartos</a>
+![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+```bash
+curl -X 
+```
+
+##### <a id="updateEndereco">GET - /quartos/tipoquarto</a>
+![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+```bash
+curl -X 
+```
+
+##### <a id="updateEndereco">GET - /quartos/busca</a>
+![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+```bash
+curl -X 
+```
+
+##### <a id="updateEndereco">GET - /quartos/amenidades</a>
+![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+```bash
+curl -X 
+```
 
 --------------------------------------------------------------------------------------------
 ### Localidades
@@ -228,51 +206,34 @@ curl -X POST \
 
 ### Exemplos de entrada
 
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">GET - /localidades/{id}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">PUT - /localidades/{id}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">DELETE - /localidades/{id}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">GET - /localidades</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
+```
+
+##### <a id="updateEndereco">POST - /localidades</a>
+![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+```bash
+curl -X 
 ```
 
 
@@ -290,51 +251,34 @@ curl -X POST \
 
 ### Exemplos de entrada
 
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">PUT - /clientes/{clienteId}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">DELETE - /clientes/{clienteId}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">POST - /clientes/novo</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">GET - /clientes</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
+```
+
+##### <a id="updateEndereco">GET - /clientes/busca</a>
+![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+```bash
+curl -X 
 ```
 
 
@@ -343,59 +287,41 @@ curl -X POST \
 
 | Método | Url                       | Descrição                  |
 |--------|---------------------------|----------------------------|
-| PUT    | /Adicionais/{adicionalId} | Edita Adicional Por ID     |
-| DELETE | /Adicionais/{adicionalId} | Delete Adicional por ID    |
-| POST   | /Adicionais/novo          | Cria novo Adicional        |
-| GET    | /Adicionais               | Get All Adicionais         |
-| GET    | /Adicionais/busca         | Get Adiconal Por Descrição |
+| PUT    | /adicionais/{adicionalId} | Edita Adicional Por ID     |
+| DELETE | /adicionais/{adicionalId} | Delete Adicional por ID    |
+| POST   | /adicionais/novo          | Cria novo Adicional        |
+| GET    | /adicionais               | Get All Adicionais         |
+| GET    | /adicionais/busca         | Get Adiconal Por Descrição |
 
 
 ### Exemplos de entrada
 
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">PUT - /adicionais/{adicionalId}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">DELETE - /adicionais/{adicionalId}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">POST - /adicionais/novo</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X
 ```
 
-
-##### <a id="updateEndereco">PUT - /enderecos/{id}</a>
+##### <a id="updateEndereco">GET - /adicionais</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl -X 
 ```
 
+##### <a id="updateEndereco">GET - /adicionais/busca</a>
+![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
+```bash
+curl -X 
+```
