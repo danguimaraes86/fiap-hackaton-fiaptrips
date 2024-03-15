@@ -2,9 +2,15 @@ package br.com.fiap.hackaton.fiaptrip.quartos.services;
 
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Torre;
 import br.com.fiap.hackaton.fiaptrip.quartos.repositories.TorreRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
+import static java.lang.String.format;
+
 @Service
 public class TorreService {
     private final TorreRepository torreRepository;
@@ -14,8 +20,8 @@ public class TorreService {
 
 
     // <>--------------- Metodos ---------------<>
-    public List<Torre> findAll() {
-        return torreRepository.findAll();
+    public Page<Torre> findAll(Pageable pageable){
+        return torreRepository.findAll(pageable);
     }
     public Torre findByID(Long id) {
         return torreRepository.findById(id).orElseThrow(() -> new RuntimeException("Torre não encontrada"));
@@ -33,6 +39,8 @@ public class TorreService {
         return torreRepository.save(torre);
     }
     public void deleteByID(Long id) {
-        torreRepository.deleteById(id);
+        torreRepository.delete(
+                torreRepository.findById(id).orElseThrow(
+                        () -> new NoSuchElementException(format("torre_id [%d] não encontrado", id))));
     }
 }

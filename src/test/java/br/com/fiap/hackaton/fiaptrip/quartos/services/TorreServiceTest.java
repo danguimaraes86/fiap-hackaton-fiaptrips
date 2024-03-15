@@ -1,171 +1,152 @@
-//package br.com.fiap.hackaton.fiaptrip.quartos.services;
-//
-//import br.com.fiap.hackaton.fiaptrip.clientes.models.Cliente;
-//import br.com.fiap.hackaton.fiaptrip.clientes.models.ClienteDTO;
-//import br.com.fiap.hackaton.fiaptrip.quartos.repositories.TorreRepository;
-//import org.junit.jupiter.api.AfterEach;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Nested;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.Mock;
-//import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.PageImpl;
-//import org.springframework.data.domain.Pageable;
-//
-//import java.util.Collections;
-//import java.util.List;
-//import java.util.NoSuchElementException;
-//import java.util.Optional;
-//
-//import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.getClienteDtoMock;
-//import static br.com.fiap.hackaton.fiaptrip.utilitarios.Generator.getClienteMock;
-//import static java.lang.String.format;
-//import static org.assertj.core.api.Assertions.assertThat;
-//import static org.assertj.core.api.Assertions.assertThatThrownBy;
-//import static org.mockito.ArgumentMatchers.any;
-//import static org.mockito.Mockito.*;
-//import static org.mockito.MockitoAnnotations.openMocks;
-//
-//public class TorreServiceTest {
-//
-//    private AutoCloseable mocks;
-//    private TorreService torreService;
-//    @Mock
-//    private TorreRepository torreRepository;
-//
-//    @BeforeEach
-//    void setup() {
-//        mocks = openMocks(this);
-//        torreService = new TorreService(torreRepository);
-//    }
-//
-//    @AfterEach
-//    void tearDown() throws Exception {
-//        mocks.close();
-//    }
-//
-//    @Nested
-//    class BuscarClientes {
-//
-//        @Test
-//        void deveBuscarClientes_retornaPageableVazio() {
-//            Page<Cliente> clientesMock = new PageImpl<>(Collections.emptyList());
-//            when(clienteRepository.findAll(any(Pageable.class))).thenReturn(clientesMock);
-//
-//            Page<Cliente> clientes = clienteService.findAllClientes(Pageable.unpaged());
-//            verify(clienteRepository, times(1)).findAll(Pageable.unpaged());
-//            assertThat(clientes).isInstanceOf(Page.class);
-//            assertThat(clientes.getContent()).isEmpty();
-//        }
-//
-//        @Test
-//        void deveBuscarClientes_retornaPageable() {
-//            Page<Cliente> clientesMock = new PageImpl<>(List.of(
-//                    mock(Cliente.class),
-//                    mock(Cliente.class),
-//                    mock(Cliente.class)));
-//            when(clienteRepository.findAll(any(Pageable.class))).thenReturn(clientesMock);
-//
-//            Page<Cliente> clientes = clienteService.findAllClientes(Pageable.unpaged());
-//            verify(clienteRepository, times(1)).findAll(Pageable.unpaged());
-//            assertThat(clientes).isInstanceOf(Page.class);
-//            assertThat(clientes.getContent()).isNotEmpty().hasSize(clientesMock.getSize());
-//        }
-//
-//        @Test
-//        void deveBuscarClientes_porEmail() {
-//            Cliente clienteMock = getClienteMock();
-//            String mockEmail = clienteMock.getEmail();
-//            when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString()))
-//                    .thenReturn(Optional.of(clienteMock));
-//
-//            Cliente clienteByEmail = clienteService.findClienteByEmail(mockEmail);
-//            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(mockEmail);
-//
-//            assertThat(clienteByEmail).isNotNull().isEqualTo(clienteMock);
-//            assertThat(clienteByEmail.getId()).isEqualTo(clienteMock.getId());
-//            assertThat(clienteByEmail.getNomeComleto()).isEqualTo(clienteMock.getNomeComleto());
-//            assertThat(clienteByEmail.getPaisOrigem()).isEqualTo(clienteMock.getPaisOrigem());
-//            assertThat(clienteByEmail.getDataNascimento()).isEqualTo(clienteMock.getDataNascimento());
-//            assertThat(clienteByEmail.getCpf()).isEqualTo(clienteMock.getCpf());
-//            assertThat(clienteByEmail.getPassaporte()).isEqualTo(clienteMock.getPassaporte());
-//            assertThat(clienteByEmail.getTelefone()).isEqualTo(clienteMock.getTelefone());
-//            assertThat(clienteByEmail.getEmail()).isEqualTo(clienteMock.getEmail());
-//            assertThat(clienteByEmail.getEndereco()).isEqualTo(clienteMock.getEndereco());
-//        }
-//    }
-//
-//    @Nested
-//    class InserirClientes {
-//
-//        @Test
-//        void deveInserirCliente() {
-//            Cliente clienteMock = getClienteMock();
-//            ClienteDTO clienteDTO = getClienteDtoMock();
-//            when(clienteRepository.save(any(Cliente.class))).thenReturn(clienteMock);
-//            when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString())).thenReturn(Optional.empty());
-//
-//            Cliente cliente = clienteService.createCliente(clienteDTO);
-//            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(anyString());
-//            verify(clienteRepository, times(1)).save(any(Cliente.class));
-//
-//            assertThat(cliente).isNotNull();
-//            assertThat(cliente.getNomeComleto()).isEqualTo(clienteMock.getNomeComleto());
-//            assertThat(cliente.getPaisOrigem()).isEqualTo(clienteMock.getPaisOrigem());
-//            assertThat(cliente.getDataNascimento()).isEqualTo(clienteMock.getDataNascimento());
-//            assertThat(cliente.getCpf()).isEqualTo(clienteMock.getCpf());
-//            assertThat(cliente.getPassaporte()).isEqualTo(clienteMock.getPassaporte());
-//            assertThat(cliente.getTelefone()).isEqualTo(clienteMock.getTelefone());
-//            assertThat(cliente.getEmail()).isEqualTo(clienteMock.getEmail());
-//            assertThat(cliente.getEndereco()).isEqualTo(clienteMock.getEndereco());
-//        }
-//    }
-//
-//    @Nested
-//    class AtualizarClientes {
-//
-//        @Test
-//        void deveAtualizarCliente() {
-//            Cliente clienteMock = getClienteMock();
-//            Long clienteId = clienteMock.getId();
-//            ClienteDTO clienteDTO = getClienteDtoMock();
-//            when(clienteRepository.findById(anyLong())).thenReturn(Optional.of(clienteMock));
-//            when(clienteRepository.save(any(Cliente.class))).thenReturn(clienteMock);
-//
-//            Cliente cliente = clienteService.updateCliente(clienteId, clienteDTO);
-//            verify(clienteRepository, times(1)).findById(anyLong());
-//            verify(clienteRepository, times(1)).save(any(Cliente.class));
-//
-//            assertThat(cliente).isNotNull();
-//            assertThat(cliente.getNomeComleto()).isEqualTo(clienteMock.getNomeComleto());
-//            assertThat(cliente.getPaisOrigem()).isEqualTo(clienteMock.getPaisOrigem());
-//            assertThat(cliente.getDataNascimento()).isEqualTo(clienteMock.getDataNascimento());
-//            assertThat(cliente.getCpf()).isEqualTo(clienteMock.getCpf());
-//            assertThat(cliente.getPassaporte()).isEqualTo(clienteMock.getPassaporte());
-//            assertThat(cliente.getEmail()).isEqualTo(clienteMock.getEmail());
-//            assertThat(cliente.getEndereco()).isEqualTo(clienteMock.getEndereco());
-//        }
-//    }
-//
-//    @Nested
-//    class DeletarClientes {
-//
-//        @Test
-//        void deveDeletarCliente() {
-//            Cliente clienteMock = getClienteMock();
-//            Long clienteId = clienteMock.getId();
-//            when(clienteRepository.findById(anyLong())).thenReturn(Optional.of(clienteMock));
-//            doNothing().when(clienteRepository).delete(any(Cliente.class));
-//
-//            clienteService.deleteCliente(clienteId);
-//            verify(clienteRepository, times(1)).findById(clienteId);
-//            verify(clienteRepository, times(1)).delete(any(Cliente.class));
-//        }
-//    }
-//
-//    @Nested
-//    class Exceptions {
-//
+package br.com.fiap.hackaton.fiaptrip.quartos.services;
+
+import br.com.fiap.hackaton.fiaptrip.clientes.models.Cliente;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.Torre;
+import br.com.fiap.hackaton.fiaptrip.quartos.repositories.TorreRepository;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+
+import static br.com.fiap.hackaton.fiaptrip.quartos.adjs.MetodosAuxiliaresTestes.getTorreMock;
+import static java.lang.String.format;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.openMocks;
+import static org.springframework.test.web.servlet.result.StatusResultMatchersExtensionsKt.isEqualTo;
+
+public class TorreServiceTest {
+
+    private AutoCloseable mocks;
+    private TorreService torreService;
+    @Mock
+    private TorreRepository torreRepository;
+
+    @BeforeEach
+    void setup() {
+        mocks = openMocks(this);
+        torreService = new TorreService(torreRepository);
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        mocks.close();
+    }
+
+    @Nested
+    class BuscarTorres {
+
+        @Test
+        void deveBuscarTorres_retornaPageableVazio() {
+            Page<Torre> torresMock = new PageImpl<>(Collections.emptyList());
+            when(torreRepository.findAll(any(Pageable.class))).thenReturn(torresMock);
+
+            Page<Torre> torresFound = torreService.findAll(Pageable.unpaged());
+            verify(torreRepository, times(1)).findAll(Pageable.unpaged());
+            assertThat(torresFound).isInstanceOf(Page.class);
+            assertThat(torresFound.getContent()).isEmpty();
+        }
+
+        @Test
+        void deveBuscarTorres_retornaPageable() {
+            Page<Torre> torresMock = new PageImpl<>(List.of(
+                    mock(Torre.class),
+                    mock(Torre.class),
+                    mock(Torre.class)));
+            when(torreRepository.findAll(any(Pageable.class))).thenReturn(torresMock);
+
+            Page<Torre> torresFound = torreService.findAll(Pageable.unpaged());
+            verify(torreRepository, times(1)).findAll(Pageable.unpaged());
+            assertThat(torresFound).isInstanceOf(Page.class);
+            assertThat(torresFound.getContent()).isNotEmpty().hasSize(torresMock.getSize());
+        }
+
+        @Test
+        void deveBuscarTorresById() {
+            Torre torreMock = getTorreMock();
+            Long torreID = torreMock.getId();
+            when(torreRepository.findById(anyLong()))
+                    .thenReturn(Optional.of(torreMock));
+
+            Torre torreFound = torreService.findByID(torreID);
+            verify(torreRepository, times(1)).findById(torreID);
+
+            assertThat(torreFound).isNotNull().isEqualTo(torreMock);
+            assertThat(torreFound.getId()).isEqualTo(torreMock.getId());
+            assertThat(torreFound.getLocalidade()).isEqualTo(torreMock.getLocalidade());
+            assertThat(torreFound.getQuartos()).isEqualTo(torreMock.getQuartos());
+        }
+    }
+
+    @Nested
+    class InserirTorres {
+
+        @Test
+        void deveInserirTorres() {
+            Torre torreMock = getTorreMock();
+            when(torreRepository.save(any(Torre.class))).thenReturn(torreMock);
+
+            Torre torreCreated = torreService.createTorre(torreMock);
+            verify(torreRepository, times(1)).save(any(Torre.class));
+
+            assertThat(torreCreated).isNotNull().isEqualTo(torreMock);
+            assertThat(torreCreated.getId()).isEqualTo(torreMock.getId());
+            assertThat(torreCreated.getLocalidade()).isEqualTo(torreMock.getLocalidade());
+            assertThat(torreCreated.getQuartos()).isEqualTo(torreMock.getQuartos());
+        }
+    }
+
+    @Nested
+    class AtualizarTorres {
+
+        @Test
+        void deveAtualizarTorres() {
+            Torre torreMock = getTorreMock();
+            Long torreID = torreMock.getId();
+            when(torreRepository.findById(anyLong())).thenReturn(Optional.of(torreMock));
+            when(torreRepository.save(any(Torre.class))).thenReturn(torreMock);
+
+            Torre torreUpdated = torreService.updateTorre(torreID, torreMock);
+            verify(torreRepository, times(1)).findById(torreID);
+            verify(torreRepository, times(1)).save(any(Torre.class));
+
+            assertThat(torreUpdated).isNotNull().isEqualTo(torreMock);
+            assertThat(torreUpdated.getId()).isEqualTo(torreMock.getId());
+            assertThat(torreUpdated.getLocalidade()).isEqualTo(torreMock.getLocalidade());
+            assertThat(torreUpdated.getQuartos()).isEqualTo(torreMock.getQuartos());
+        }
+    }
+
+    @Nested
+    class DeletarTorres {
+
+        @Test
+        void deveDeletarTorre() {
+            Torre torreMock = getTorreMock();
+            Long torreId = torreMock.getId();
+            when(torreRepository.findById(anyLong())).thenReturn(Optional.of(torreMock));
+            doNothing().when(torreRepository).delete(any(Torre.class));
+
+            torreService.deleteByID(torreId);
+            verify(torreRepository, times(1)).findById(torreId);
+            verify(torreRepository, times(1)).delete(any(Torre.class));
+        }
+    }
+
+    @Nested
+    class Exceptions {
+
 //        @Test
 //        void deveLancarExcecao_buscarClientePorEmail_emailNaoEncontrado() {
 //            Cliente clienteMock = getClienteMock();
@@ -177,7 +158,7 @@
 //                    .hasMessage(format("cliente_email [%s] não encontrado", clienteEmail));
 //            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(anyString());
 //        }
-//
+
 //        @Test
 //        void deveLancarExcecao_inserirCliente_emailJaCadastrado() {
 //            Cliente clienteMock = getClienteMock();
@@ -192,7 +173,7 @@
 //            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(anyString());
 //            verify(clienteRepository, never()).save(any(Cliente.class));
 //        }
-//
+
 //        @Test
 //        void deveLancarExcecao_inserirCliente_brasileiroSemCpf() {
 //            ClienteDTO clienteDTO = new ClienteDTO(
@@ -209,7 +190,7 @@
 //            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(anyString());
 //            verify(clienteRepository, never()).save(any(Cliente.class));
 //        }
-//
+
 //        @Test
 //        void deveLancarExcecao_inserirCliente_estrangeiroSemPassaporte() {
 //            ClienteDTO clienteDTO = new ClienteDTO(
@@ -226,7 +207,7 @@
 //            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(anyString());
 //            verify(clienteRepository, never()).save(any(Cliente.class));
 //        }
-//
+
 //        @Test
 //        void deveLancarExcecao_alterarCliente_naoEncontrado() {
 //            Cliente clienteMock = getClienteMock();
@@ -240,7 +221,7 @@
 //            verify(clienteRepository, times(1)).findById(anyLong());
 //            verify(clienteRepository, never()).save(any(Cliente.class));
 //        }
-//
+
 //        @Test
 //        void deveLancarExcecao_deletarCliente_naoEncontrado() {
 //            Cliente clienteMock = getClienteMock();
@@ -253,5 +234,5 @@
 //            verify(clienteRepository, times(1)).findById(anyLong());
 //            verify(clienteRepository, never()).delete(any(Cliente.class));
 //        }
-//    }
-//}
+    }
+}

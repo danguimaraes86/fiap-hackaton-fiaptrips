@@ -2,6 +2,8 @@ package br.com.fiap.hackaton.fiaptrip.quartos.controllers;
 
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Torre;
 import br.com.fiap.hackaton.fiaptrip.quartos.services.TorreService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -16,8 +18,10 @@ public class TorreController {
 
     // <>--------------- Metodos ---------------<>
     @GetMapping
-    public ResponseEntity<List<Torre>> getAllTorres() {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Page<Torre>> getAllTorres(Pageable pageable) {
+        var torresFounds = torreService.findAll(pageable);
+
+        return ResponseEntity.ok(torresFounds);
     }
 
     @GetMapping("/{id}")
