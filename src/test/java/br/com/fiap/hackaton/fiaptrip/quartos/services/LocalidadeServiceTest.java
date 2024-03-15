@@ -1,157 +1,151 @@
-//package br.com.fiap.hackaton.fiaptrip.quartos.services;
-//
-//import br.com.fiap.hackaton.fiaptrip.quartos.repositories.LocalidadeRepository;
-//import org.junit.jupiter.api.AfterEach;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Nested;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.Mock;
-//
-//import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
-//import static org.mockito.Mockito.verify;
-//import static org.mockito.Mockito.when;
-//import static org.mockito.MockitoAnnotations.openMocks;
-//
-//public class LocalidadeServiceTest {
-//
-//    private AutoCloseable mocks;
-//    private LocalidadeService localidadeService;
-//    @Mock
-//    private LocalidadeRepository localidadeRepository;
-//
-//    @BeforeEach
-//    void setup() {
-//        mocks = openMocks(this);
-//        localidadeService = new LocalidadeService(localidadeRepository);
-//    }
-//
-//    @AfterEach
-//    void tearDown() throws Exception {
-//        mocks.close();
-//    }
-//
-//    @Nested
-//    class BuscarClientes {
-//
-//        @Test
-//        void deveBuscarClientes_retornaPageableVazio() {
-//            Page<Cliente> clientesMock = new PageImpl<>(Collections.emptyList());
-//            when(clienteRepository.findAll(any(Pageable.class))).thenReturn(clientesMock);
-//
-//            Page<Cliente> clientes = clienteService.findAllClientes(Pageable.unpaged());
-//            verify(clienteRepository, times(1)).findAll(Pageable.unpaged());
-//            assertThat(clientes).isInstanceOf(Page.class);
-//            assertThat(clientes.getContent()).isEmpty();
-//        }
-//
-//        @Test
-//        void deveBuscarClientes_retornaPageable() {
-//            Page<Cliente> clientesMock = new PageImpl<>(List.of(
-//                    mock(Cliente.class),
-//                    mock(Cliente.class),
-//                    mock(Cliente.class)));
-//            when(clienteRepository.findAll(any(Pageable.class))).thenReturn(clientesMock);
-//
-//            Page<Cliente> clientes = clienteService.findAllClientes(Pageable.unpaged());
-//            verify(clienteRepository, times(1)).findAll(Pageable.unpaged());
-//            assertThat(clientes).isInstanceOf(Page.class);
-//            assertThat(clientes.getContent()).isNotEmpty().hasSize(clientesMock.getSize());
-//        }
-//
-//        @Test
-//        void deveBuscarClientes_porEmail() {
-//            Cliente clienteMock = getClienteMock();
-//            String mockEmail = clienteMock.getEmail();
-//            when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString()))
-//                    .thenReturn(Optional.of(clienteMock));
-//
-//            Cliente clienteByEmail = clienteService.findClienteByEmail(mockEmail);
-//            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(mockEmail);
-//
-//            assertThat(clienteByEmail).isNotNull().isEqualTo(clienteMock);
-//            assertThat(clienteByEmail.getId()).isEqualTo(clienteMock.getId());
-//            assertThat(clienteByEmail.getNomeComleto()).isEqualTo(clienteMock.getNomeComleto());
-//            assertThat(clienteByEmail.getPaisOrigem()).isEqualTo(clienteMock.getPaisOrigem());
-//            assertThat(clienteByEmail.getDataNascimento()).isEqualTo(clienteMock.getDataNascimento());
-//            assertThat(clienteByEmail.getCpf()).isEqualTo(clienteMock.getCpf());
-//            assertThat(clienteByEmail.getPassaporte()).isEqualTo(clienteMock.getPassaporte());
-//            assertThat(clienteByEmail.getTelefone()).isEqualTo(clienteMock.getTelefone());
-//            assertThat(clienteByEmail.getEmail()).isEqualTo(clienteMock.getEmail());
-//            assertThat(clienteByEmail.getEndereco()).isEqualTo(clienteMock.getEndereco());
-//        }
-//    }
-//
-//    @Nested
-//    class InserirClientes {
-//
-//        @Test
-//        void deveInserirCliente() {
-//            Cliente clienteMock = getClienteMock();
-//            ClienteDTO clienteDTO = getClienteDtoMock();
-//            when(clienteRepository.save(any(Cliente.class))).thenReturn(clienteMock);
-//            when(clienteRepository.findClienteByEmailContainingIgnoreCase(anyString())).thenReturn(Optional.empty());
-//
-//            Cliente cliente = clienteService.createCliente(clienteDTO);
-//            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(anyString());
-//            verify(clienteRepository, times(1)).save(any(Cliente.class));
-//
-//            assertThat(cliente).isNotNull();
-//            assertThat(cliente.getNomeComleto()).isEqualTo(clienteMock.getNomeComleto());
-//            assertThat(cliente.getPaisOrigem()).isEqualTo(clienteMock.getPaisOrigem());
-//            assertThat(cliente.getDataNascimento()).isEqualTo(clienteMock.getDataNascimento());
-//            assertThat(cliente.getCpf()).isEqualTo(clienteMock.getCpf());
-//            assertThat(cliente.getPassaporte()).isEqualTo(clienteMock.getPassaporte());
-//            assertThat(cliente.getTelefone()).isEqualTo(clienteMock.getTelefone());
-//            assertThat(cliente.getEmail()).isEqualTo(clienteMock.getEmail());
-//            assertThat(cliente.getEndereco()).isEqualTo(clienteMock.getEndereco());
-//        }
-//    }
-//
-//    @Nested
-//    class AtualizarClientes {
-//
-//        @Test
-//        void deveAtualizarCliente() {
-//            Cliente clienteMock = getClienteMock();
-//            Long clienteId = clienteMock.getId();
-//            ClienteDTO clienteDTO = getClienteDtoMock();
-//            when(clienteRepository.findById(anyLong())).thenReturn(Optional.of(clienteMock));
-//            when(clienteRepository.save(any(Cliente.class))).thenReturn(clienteMock);
-//
-//            Cliente cliente = clienteService.updateCliente(clienteId, clienteDTO);
-//            verify(clienteRepository, times(1)).findById(anyLong());
-//            verify(clienteRepository, times(1)).save(any(Cliente.class));
-//
-//            assertThat(cliente).isNotNull();
-//            assertThat(cliente.getNomeComleto()).isEqualTo(clienteMock.getNomeComleto());
-//            assertThat(cliente.getPaisOrigem()).isEqualTo(clienteMock.getPaisOrigem());
-//            assertThat(cliente.getDataNascimento()).isEqualTo(clienteMock.getDataNascimento());
-//            assertThat(cliente.getCpf()).isEqualTo(clienteMock.getCpf());
-//            assertThat(cliente.getPassaporte()).isEqualTo(clienteMock.getPassaporte());
-//            assertThat(cliente.getEmail()).isEqualTo(clienteMock.getEmail());
-//            assertThat(cliente.getEndereco()).isEqualTo(clienteMock.getEndereco());
-//        }
-//    }
-//
-//    @Nested
-//    class DeletarClientes {
-//
-//        @Test
-//        void deveDeletarCliente() {
-//            Cliente clienteMock = getClienteMock();
-//            Long clienteId = clienteMock.getId();
-//            when(clienteRepository.findById(anyLong())).thenReturn(Optional.of(clienteMock));
-//            doNothing().when(clienteRepository).delete(any(Cliente.class));
-//
-//            clienteService.deleteCliente(clienteId);
-//            verify(clienteRepository, times(1)).findById(clienteId);
-//            verify(clienteRepository, times(1)).delete(any(Cliente.class));
-//        }
-//    }
-//
-//    @Nested
-//    class Exceptions {
-//
+package br.com.fiap.hackaton.fiaptrip.quartos.services;
+
+import br.com.fiap.hackaton.fiaptrip.quartos.models.Localidade;
+import br.com.fiap.hackaton.fiaptrip.quartos.repositories.LocalidadeRepository;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import static br.com.fiap.hackaton.fiaptrip.quartos.adjs.MetodosAuxiliaresTestes.getLocalidadeMock;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.openMocks;
+
+public class LocalidadeServiceTest {
+
+    private AutoCloseable mocks;
+    private LocalidadeService localidadeService;
+    @Mock
+    private LocalidadeRepository localidadeRepository;
+
+    @BeforeEach
+    void setup() {
+        mocks = openMocks(this);
+        localidadeService = new LocalidadeService(localidadeRepository);
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        mocks.close();
+    }
+
+    @Nested
+    class BuscarLocalidades {
+
+        @Test
+        void deveBuscarLocalidades_retornaPageableVazio() {
+            Page<Localidade> localidadesMock = new PageImpl<>(Collections.emptyList());
+            when(localidadeRepository.findAll(any(Pageable.class))).thenReturn(localidadesMock);
+
+            Page<Localidade> localidades = localidadeService.findAll(Pageable.unpaged());
+            verify(localidadeRepository, times(1)).findAll(Pageable.unpaged());
+            assertThat(localidades).isInstanceOf(Page.class);
+            assertThat(localidades.getContent()).isEmpty();
+        }
+
+        @Test
+        void deveBuscarLocalidade_retornaListLocalidade() {
+            Page<Localidade> localidadesMock = new PageImpl<>(List.of(
+                    mock(Localidade.class),
+                    mock(Localidade.class),
+                    mock(Localidade.class)));
+            when(localidadeRepository.findAll(any(Pageable.class))).thenReturn(localidadesMock);
+
+            Page<Localidade> localidades = localidadeService.findAll(Pageable.unpaged());
+            verify(localidadeRepository, times(1)).findAll(any(Pageable.class));
+            assertThat(localidades).isInstanceOf(Page.class);
+            assertThat(localidades.getContent()).isNotEmpty().hasSize(localidadesMock.getSize());
+        }
+
+        @Test
+        void deveBuscarLocalidadesPorID() {
+            Localidade localidadeMock = getLocalidadeMock();
+            Long localidadeID = localidadeMock.getId();
+            when(localidadeRepository.findById(anyLong()))
+                    .thenReturn(Optional.of(localidadeMock));
+
+            Localidade localidadeFound = localidadeService.findById(localidadeID);
+            verify(localidadeRepository, times(1))
+                    .findById(localidadeID);
+
+            assertThat(localidadeFound).isNotNull().isEqualTo(localidadeMock);
+            assertThat(localidadeFound.getId()).isEqualTo(localidadeMock.getId());
+            assertThat(localidadeFound.getNome()).isEqualTo(localidadeMock.getNome());
+            assertThat(localidadeFound.getEndereco()).isEqualTo(localidadeMock.getEndereco());
+            assertThat(localidadeFound.getTorres()).isEqualTo(localidadeMock.getTorres());
+        }
+    }
+
+    @Nested
+    class InserirLocalidade {
+
+        @Test
+        void deveInserirLocalidade() {
+            Localidade localidadeMock = getLocalidadeMock();
+            when(localidadeRepository.save(any(Localidade.class))).thenReturn(localidadeMock);
+
+            Localidade localidadeCreated = localidadeService.createLocalidade(localidadeMock);
+            verify(localidadeRepository, times(1)).save(any(Localidade.class));
+
+            assertThat(localidadeCreated).isNotNull().isEqualTo(localidadeMock);
+            assertThat(localidadeCreated.getId()).isEqualTo(localidadeMock.getId());
+            assertThat(localidadeCreated.getNome()).isEqualTo(localidadeMock.getNome());
+            assertThat(localidadeCreated.getEndereco()).isEqualTo(localidadeMock.getEndereco());
+            assertThat(localidadeCreated.getTorres()).isEqualTo(localidadeMock.getTorres());
+        }
+    }
+
+    @Nested
+    class AtualizarLocalidade {
+
+        @Test
+        void deveAtualizarLocalidade() {
+            Localidade localidadeMock = getLocalidadeMock();
+            Long localidadeId = localidadeMock.getId();
+            when(localidadeRepository.findById(anyLong())).thenReturn(Optional.of(localidadeMock));
+            when(localidadeRepository.save(any(Localidade.class))).thenReturn(localidadeMock);
+
+            Localidade localidadeUpdated = localidadeService.updateLocalidade(localidadeId, localidadeMock);
+            verify(localidadeRepository, times(1)).findById(anyLong());
+            verify(localidadeRepository, times(1)).save(any(Localidade.class));
+
+            assertThat(localidadeUpdated).isNotNull().isEqualTo(localidadeMock);
+            assertThat(localidadeUpdated.getId()).isEqualTo(localidadeMock.getId());
+            assertThat(localidadeUpdated.getNome()).isEqualTo(localidadeMock.getNome());
+            assertThat(localidadeUpdated.getEndereco()).isEqualTo(localidadeMock.getEndereco());
+            assertThat(localidadeUpdated.getTorres()).isEqualTo(localidadeMock.getTorres());
+        }
+    }
+
+    @Nested
+    class DeletarClientes {
+
+        @Test
+        void deveDeletarCliente() {
+            Localidade localidadeMock = getLocalidadeMock();
+            Long localidadeId = localidadeMock.getId();
+            when(localidadeRepository.findById(anyLong())).thenReturn(Optional.of(localidadeMock));
+            doNothing().when(localidadeRepository).delete(any(Localidade.class));
+
+            localidadeService.deleteByID(localidadeId);
+            verify(localidadeRepository, times(1)).findById(localidadeId);
+            verify(localidadeRepository, times(1)).delete(any(Localidade.class));
+        }
+    }
+
+    @Nested
+    class Exceptions {
+
 //        @Test
 //        void deveLancarExcecao_buscarClientePorEmail_emailNaoEncontrado() {
 //            Cliente clienteMock = getClienteMock();
@@ -163,7 +157,7 @@
 //                    .hasMessage(format("cliente_email [%s] não encontrado", clienteEmail));
 //            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(anyString());
 //        }
-//
+
 //        @Test
 //        void deveLancarExcecao_inserirCliente_emailJaCadastrado() {
 //            Cliente clienteMock = getClienteMock();
@@ -178,7 +172,7 @@
 //            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(anyString());
 //            verify(clienteRepository, never()).save(any(Cliente.class));
 //        }
-//
+
 //        @Test
 //        void deveLancarExcecao_inserirCliente_brasileiroSemCpf() {
 //            ClienteDTO clienteDTO = new ClienteDTO(
@@ -195,7 +189,7 @@
 //            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(anyString());
 //            verify(clienteRepository, never()).save(any(Cliente.class));
 //        }
-//
+
 //        @Test
 //        void deveLancarExcecao_inserirCliente_estrangeiroSemPassaporte() {
 //            ClienteDTO clienteDTO = new ClienteDTO(
@@ -212,7 +206,7 @@
 //            verify(clienteRepository, times(1)).findClienteByEmailContainingIgnoreCase(anyString());
 //            verify(clienteRepository, never()).save(any(Cliente.class));
 //        }
-//
+
 //        @Test
 //        void deveLancarExcecao_alterarCliente_naoEncontrado() {
 //            Cliente clienteMock = getClienteMock();
@@ -226,7 +220,7 @@
 //            verify(clienteRepository, times(1)).findById(anyLong());
 //            verify(clienteRepository, never()).save(any(Cliente.class));
 //        }
-//
+
 //        @Test
 //        void deveLancarExcecao_deletarCliente_naoEncontrado() {
 //            Cliente clienteMock = getClienteMock();
@@ -239,5 +233,5 @@
 //            verify(clienteRepository, times(1)).findById(anyLong());
 //            verify(clienteRepository, never()).delete(any(Cliente.class));
 //        }
-//    }
-//}
+    }
+}

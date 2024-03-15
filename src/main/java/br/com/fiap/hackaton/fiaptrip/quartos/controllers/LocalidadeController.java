@@ -2,6 +2,8 @@ package br.com.fiap.hackaton.fiaptrip.quartos.controllers;
 
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Localidade;
 import br.com.fiap.hackaton.fiaptrip.quartos.services.LocalidadeService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,12 @@ public class LocalidadeController {
 
 
     // <>--------------- Metodos ---------------<>
+    @GetMapping
+    public ResponseEntity<Page<Localidade>> getAllLocalidade(@PathVariable Pageable pageable) {
+        var localidadesFound = localidadeService.findAll(pageable);
+
+        return ResponseEntity.ok(localidadesFound);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Localidade> getLocalidadeById(@PathVariable Long id) {
         var localidadeFound = localidadeService.findById(id);
