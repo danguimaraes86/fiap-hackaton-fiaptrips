@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface AdicionalRepository extends JpaRepository<Adicional, Long> {
-    Optional<Adicional> findItemServicoAdicionalByDescricaoContainingIgnoreCase(String descricao);
+    Optional<Adicional> findAdicionalByDescricaoContainingIgnoreCase(String descricao);
 }

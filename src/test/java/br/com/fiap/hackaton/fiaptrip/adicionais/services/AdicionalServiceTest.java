@@ -77,11 +77,11 @@ class AdicionalServiceTest {
         void deveBuscarAdiconal_porDescricao() {
             Adicional adicionalMock = gerarAdicionalMock();
             String descricao = adicionalMock.getDescricao();
-            when(repository.findItemServicoAdicionalByDescricaoContainingIgnoreCase(anyString()))
+            when(repository.findAdicionalByDescricaoContainingIgnoreCase(anyString()))
                     .thenReturn(Optional.of(adicionalMock));
 
             Adicional adicionalByDescricao = service.findAdicionalByDescricao(descricao);
-            verify(repository, times(1)).findItemServicoAdicionalByDescricaoContainingIgnoreCase(descricao);
+            verify(repository, times(1)).findAdicionalByDescricaoContainingIgnoreCase(descricao);
 
             assertThat(adicionalByDescricao.getDescricao()).isNotNull().isEqualTo(descricao);
             assertThat(adicionalByDescricao.getId()).isEqualTo(adicionalMock.getId());
@@ -96,7 +96,7 @@ class AdicionalServiceTest {
             Adicional adicionalMock = gerarAdicionalMock();
             AdicionalDTO adicionalDTO = gerarAdicionalDTOMock();
             when(repository.save(any(Adicional.class))).thenReturn(adicionalMock);
-            when(repository.findItemServicoAdicionalByDescricaoContainingIgnoreCase(anyString())).thenReturn(Optional.empty());
+            when(repository.findAdicionalByDescricaoContainingIgnoreCase(anyString())).thenReturn(Optional.empty());
 
             Adicional adicional = service.createNovoAdicional(adicionalDTO);
             verify(repository, times(1)).save(any(Adicional.class));
@@ -151,12 +151,12 @@ class AdicionalServiceTest {
         void deveLancarExcecao_buscarAdicinalPorDescricao_NaoEncontrada() {
             Adicional adicionalMock = gerarAdicionalMock();
             String descricao = adicionalMock.getDescricao();
-            when(repository.findItemServicoAdicionalByDescricaoContainingIgnoreCase(anyString())).thenReturn(Optional.empty());
+            when(repository.findAdicionalByDescricaoContainingIgnoreCase(anyString())).thenReturn(Optional.empty());
 
             assertThatThrownBy(() -> service.findAdicionalByDescricao(descricao))
                     .isInstanceOf(NoSuchElementException.class)
                     .hasMessage(format("adicional [%s] não encontrado", descricao));
-            verify(repository, times(1)).findItemServicoAdicionalByDescricaoContainingIgnoreCase(anyString());
+            verify(repository, times(1)).findAdicionalByDescricaoContainingIgnoreCase(anyString());
         }
 
         @Test
