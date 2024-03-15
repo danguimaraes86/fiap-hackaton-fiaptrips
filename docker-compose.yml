@@ -12,7 +12,28 @@ services:
       - fiaptrip:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - fiaptrip
     restart: unless-stopped
+
+  fiaptrip-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: fiaptrip-app:latest
+    container_name: fiaptrip-app
+    environment:
+      DB_HOST: "fiaptrip-db:5432"
+      DB_NAME: "fiaptrip"
+    ports:
+      - "3000:3000"
+    networks:
+      - fiaptrip
+    depends_on:
+      - fiaptrip-db
+
+networks:
+  fiaptrip:
 
 volumes:
   fiaptrip:
