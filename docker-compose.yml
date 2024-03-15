@@ -22,9 +22,6 @@ services:
       dockerfile: Dockerfile
     image: fiaptrip-app:latest
     container_name: fiaptrip-app
-    environment:
-      DB_HOST: "fiaptrip-db:5432"
-      DB_NAME: "fiaptrip"
     ports:
       - "3000:3000"
     networks:
