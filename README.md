@@ -77,14 +77,14 @@ curl -X
 --------------------------------------------------------------------------------------------
 ### Reservas
 
-| Método | Url                   | Descrição               |
-|--------|-----------------------|-------------------------|
-| GET    | /reservas/{reservaId} | Get Reserva Por ID      |
-| PUT    | /reservas/{reservaId} | Atualiza Reserva Por ID |
-| DELETE | /reservas/{reservaId} | Deleta Reserva Por ID   |
-| POST   | /reservas             | Cria nova Reserva       |
-| GET    | /reservas             | Get All Reservas        |
-| GET    | /reservas/{clienteId} | Get Reserva Por Cliente |
+| Método | Url                           | Descrição                  |
+|--------|-------------------------------|----------------------------|
+| GET    | /reservas/{reservaId}         | Get Reserva Por ID         |
+| PUT    | /reservas/{reservaId}         | Atualiza Reserva Por ID    |
+| DELETE | /reservas/{reservaId}         | Deleta Reserva Por ID      |
+| POST   | /reservas                     | Cria nova Reserva          |
+| GET    | /reservas                     | Get All Reservas           |
+| GET    | /reservas/cliente/{clienteId} | Get Reserva Por Cliente ID |
 
 
 ### Exemplos de entrada
@@ -92,7 +92,7 @@ curl -X
 ##### <a id="updateEndereco">GET - /reservas/{reservaId}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/reservas/970d66b4-16f1-46c0-8c79-b42ebd3a644d'
 ```
 
 ##### <a id="updateEndereco">PUT - /reservas/{reservaId}</a>
@@ -104,25 +104,39 @@ curl -X
 ##### <a id="updateEndereco">DELETE - /reservas/{reservaId}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+
 ```
 
 ##### <a id="updateEndereco">POST - /reservas</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/reservas/novo' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "clienteEmail": "Elinore.Wehner@example.com",
+  "quartos": [
+    1
+  ],
+  "dataCheckIn": "2024-04-23",
+  "dataCheckOut": "2024-04-24",
+  "adicionalList": {
+    "café": 1,
+    "refrigerante": 2
+  }
+}'
 ```
 
-##### <a id="updateEndereco">GET - /reservas</a>
+##### <a id="updateEndereco">GET - /reservas</a> 
+
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/reservas'
 ```
 
-##### <a id="updateEndereco">GET - /reservas/{clienteId}</a>
+##### <a id="updateEndereco">GET - /reservas/cliente/{clienteId}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/reservas/cliente/2'
 ```
 
 
@@ -135,7 +149,7 @@ curl -X
 | PUT    | /quartos/{quartoId} | Atualiza Qaurto Por ID                                 |
 | DELETE | /quartos/{quartoId} | Deleta Quarto Por ID                                   |
 | POST   | /quartos/novo       | Cria Novo Quarto                                       |
-| GET    | /quartos            | Get All Qaurtos                                        |
+| GET    | /quartos            | Get All Quartos                                        |
 | GET    | /quartos/tipoquarto | Categorias de Quarto Disponiveis ex: "Luxo","Standard" |
 | GET    | /quartos/busca      | Get Quarto Por Categoria ex: "Luxo","Standard"         |
 | GET    | /quartos/amenidades | Get Amenidades disponiveis ex: "TV","Poltrona"         |
@@ -165,19 +179,31 @@ curl -X
 ##### <a id="updateEndereco">POST - /quartos/novo</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/quartos/novo' \
+--header 'Content-Type: application/json' \
+--data '{
+  "tipoQuarto": "LUXO",
+  "amenidades": [
+    "TV",
+    "AR_CONDICIONADO",
+    "FRIGOBAR",
+    "BANHEIRA",
+    "MESA_ESCRITORIO",
+    "VARANDA"
+  ]
+}'
 ```
 
 ##### <a id="updateEndereco">GET - /quartos</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/quartos'
 ```
 
 ##### <a id="updateEndereco">GET - /quartos/tipoquarto</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/quartos/tipoquarto'
 ```
 
 ##### <a id="updateEndereco">GET - /quartos/busca</a>
@@ -189,7 +215,7 @@ curl -X
 ##### <a id="updateEndereco">GET - /quartos/amenidades</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/quartos/amenidades'
 ```
 
 --------------------------------------------------------------------------------------------
@@ -266,13 +292,25 @@ curl -X
 ##### <a id="updateEndereco">POST - /clientes/novo</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/clientes/novo' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "nomeComleto": "Mr. Brandy Durgan",
+  "paisOrigem": "pt_br",
+  
+  "dataNascimento": "2000-01-01",
+  "cpf": "11122233344",
+  "passaporte": "XXX-8765",
+  "telefone": "55-61-9999-8888",
+  "email": "Gail.Ziemann@example.com",
+  "endereco": "182 Kohler Drive"
+}'
 ```
 
 ##### <a id="updateEndereco">GET - /clientes</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/clientes'
 ```
 
 ##### <a id="updateEndereco">GET - /clientes/busca</a>
@@ -311,13 +349,19 @@ curl -X
 ##### <a id="updateEndereco">POST - /adicionais/novo</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X
+curl --location 'localhost:3000/adicionais/novo' \
+--header 'Content-Type: application/json' \
+--data '{
+  "descricao": "massagem",
+  "valor": 5.0,
+  "tipoAdicional": "servico"
+}'
 ```
 
 ##### <a id="updateEndereco">GET - /adicionais</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/adicionais'
 ```
 
 ##### <a id="updateEndereco">GET - /adicionais/busca</a>
