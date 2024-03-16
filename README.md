@@ -20,6 +20,34 @@ Esta API faz o BackEnd do serviços.
 - GitHub
 
 
+## Como inicar o projeto
+
+Para inicar o projeto, utilize o `maven`. Caso não tenha o Maven instalado, você pode utilizar o wrapper que
+acompanha o projeto. Neste caso, entre na pasta raiz da Hackathon e utilize o comando `./mvnw`.
+É necessário estar com `Docker` rodando para conexão com banco de dados.
+
+| Comando                 | Descrição                       | Requisitos                  |
+|-------------------------|---------------------------------|-----------------------------|
+| `docker-compose up -d`  | Subir os serviços da aplicação  | Docker instalado na máquina |
+| `./mvn spring-boot:run` | Roda a aplicação localmente     | Postgres rodando            |
+| `./mvn test`            | Realização dos Testes Unitários |                             |
+
+## Testes
+
+### Comandos
+
+Para realizar os testes, utilize o `maven`. Caso não tenha o Maven instalado, você pode utilizar o wrapper que
+acompanha o projeto. Neste caso, entre na pasta raiz da Hackathon e utilize o comando `./mvnw`.
+
+| Comando                     | Descrição                                                  | Requisitos                  |
+|-----------------------------|------------------------------------------------------------|-----------------------------|
+| `./mvnw test`               | Realização dos Testes Unitários                            | Nenhum                      |
+
+### Relatórios
+
+Após a execução dos testes, os relatórios gerados pelo JaCoCo estarão disponíveis na pasta `/target/site/jacoco/index.html`.
+
+
 --------------------------------------------------------------------------------------------
 ## Explore
 

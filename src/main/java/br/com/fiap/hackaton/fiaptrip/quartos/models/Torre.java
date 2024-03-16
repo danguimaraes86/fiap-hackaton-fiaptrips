@@ -8,9 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,7 +18,6 @@ public class Torre {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(unique = true)
     private String nome;
     @NotNull
     @ManyToOne
@@ -32,8 +28,7 @@ public class Torre {
         this.localidade = localidade;
     }
 
-
-    public TorreDTO toTorreDTO(){
+    public TorreDTO toTorreDTO() {
         return new TorreDTO(this.nome, this.localidade.getId());
     }
 }
