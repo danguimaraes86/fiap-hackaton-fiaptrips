@@ -13,6 +13,10 @@ Esta API faz o BackEnd do serviços.
 - Daniel Reis de Medeiros Guimarães
 - Rafael Souza Araujo
 
+## Link do Repositório
+
+- [Repositório Fiap Hackaton](https://github.com/danguimaraes86/fiap-hackaton-fiaptrips)
+
 ## Tecnologias e Ferramentas
 - Java 17
 - Maven
