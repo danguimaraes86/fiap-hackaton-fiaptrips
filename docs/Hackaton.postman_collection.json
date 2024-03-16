@@ -7,16 +7,35 @@
 	},
 	"item": [
 		{
-			"name": "Adicionais",
+			"name": "Torres",
 			"item": [
 				{
-					"name": "updateAdicional",
+					"name": "getTorreByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/torres/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"torres",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateTorreByID",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"descricao\": \"massagem\",\r\n    \"valor\": 10.0,\r\n    \"tipoAdicional\": \"servico\"\r\n}",
+							"raw": "{\r\n    \"nome\":\"Torre C\",\r\n    \"localidade\":\"\",\r\n    \"quartos\":{\r\n        \r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -24,13 +43,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/adicionais/1",
+							"raw": "localhost:3000/torres/1",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"adicionais",
+								"torres",
 								"1"
 							]
 						}
@@ -38,18 +57,18 @@
 					"response": []
 				},
 				{
-					"name": "deleteAdicionalByID",
+					"name": "deleteTorreByID",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/adicionais/1",
+							"raw": "localhost:3000/torres/1",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"adicionais",
+								"torres",
 								"1"
 							]
 						}
@@ -57,13 +76,31 @@
 					"response": []
 				},
 				{
-					"name": "create NovoAdicional",
+					"name": "getAllTorres",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/torres",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"torres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createTorre",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"descricao\": \"massagem\",\n    \"valor\": 5.0,\n    \"tipoAdicional\": \"servico\"\n}",
+							"raw": "{\r\n    \"nome\":\"Torre B\",\r\n    \"localidade\":\"\",\r\n    \"quartos\":{\r\n        \r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -71,57 +108,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/adicionais/novo",
+							"raw": "localhost:3000/torres",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"adicionais",
-								"novo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "findAll Adicionais",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/adicionais",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"adicionais"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "findAdicionalPorDescricao",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/adicionais/busca?descricao=massagem",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"adicionais",
-								"busca"
-							],
-							"query": [
-								{
-									"key": "descricao",
-									"value": "massagem"
-								}
+								"torres"
 							]
 						}
 					},
@@ -130,16 +123,35 @@
 			]
 		},
 		{
-			"name": "Clientes",
+			"name": "Reservas",
 			"item": [
 				{
-					"name": "updateClienteByID",
+					"name": "findById Reservas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/reservas/970d66b4-16f1-46c0-8c79-b42ebd3a644d",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reservas",
+								"970d66b4-16f1-46c0-8c79-b42ebd3a644d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Reserva",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nomeComleto\": \"{{$randomFullName}}\",\r\n    \"paisOrigem\": \"pt_br\",\r\n    // \"paisOrigem\": \"en US\",\r\n    \"dataNascimento\": \"2000-01-01\",\r\n    \"cpf\": \"88866699945\",\r\n    \"passaporte\": \"XXX-8765\",\r\n    \"telefone\": \"55-61-9999-8888\",\r\n    \"email\": \"{{$randomExampleEmail}}\",\r\n    \"endereco\": \"{{$randomStreetAddress}}\"\r\n}",
+							"raw": "{\r\n    \"clienteEmail\": \"elinore.Wehner@example.com\",\r\n    \"quartos\": [\r\n        1\r\n    ],\r\n    \"dataCheckIn\": \"2024-04-23\",\r\n    \"dataCheckOut\": \"2024-04-24\",\r\n    \"adicionalList\": {\r\n        \"café\": 5,\r\n        \"refrigerante\": 2\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -147,46 +159,46 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/clientes/1",
+							"raw": "localhost:3000/reservas/970d66b4-16f1-46c0-8c79-b42ebd3a644d",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"clientes",
-								"1"
+								"reservas",
+								"970d66b4-16f1-46c0-8c79-b42ebd3a644d"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "deleteClienteByID",
+					"name": "Delete Reserva",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/clientes/1",
+							"raw": "localhost:3000/reservas/970d66b4-16f1-46c0-8c79-b42ebd3a644d",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"clientes",
-								"1"
+								"reservas",
+								"970d66b4-16f1-46c0-8c79-b42ebd3a644d"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "create NovoCliente",
+					"name": "create Reserva",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nomeComleto\": \"{{$randomFullName}}\",\n  \"paisOrigem\": \"pt_br\",\n  // \"paisOrigem\": \"en US\",\n  \"dataNascimento\": \"2000-01-01\",\n  \"cpf\": \"11122233344\",\n  \"passaporte\": \"XXX-8765\",\n  \"telefone\": \"55-61-9999-8888\",\n  \"email\": \"{{$randomExampleEmail}}\",\n  \"endereco\": \"{{$randomStreetAddress}}\"\n}",
+							"raw": "{\n  \"clienteEmail\": \"Elinore.Wehner@example.com\",\n  \"quartos\": [\n    1\n  ],\n  \"dataCheckIn\": \"2024-04-23\",\n  \"dataCheckOut\": \"2024-04-24\",\n  \"adicionalList\": {\n    \"café\": 1,\n    \"refrigerante\": 2\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -194,13 +206,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/clientes/novo",
+							"raw": "localhost:3000/reservas/novo",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"clientes",
+								"reservas",
 								"novo"
 							]
 						}
@@ -208,43 +220,38 @@
 					"response": []
 				},
 				{
-					"name": "findAll Clientes",
+					"name": "findAll Reservas",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/clientes",
+							"raw": "localhost:3000/reservas",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"clientes"
+								"reservas"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "findClienteByEmail",
+					"name": "findById Cliente",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/clientes/busca?email=Bulah_Reichel41@example.com",
+							"raw": "localhost:3000/reservas/cliente/2",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"clientes",
-								"busca"
-							],
-							"query": [
-								{
-									"key": "email",
-									"value": "Bulah_Reichel41@example.com"
-								}
+								"reservas",
+								"cliente",
+								"2"
 							]
 						}
 					},
@@ -433,35 +440,34 @@
 			]
 		},
 		{
-			"name": "Reservas",
+			"name": "Localidades",
 			"item": [
 				{
-					"name": "findById Reservas",
+					"name": "getLocalidadesByID",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/reservas/970d66b4-16f1-46c0-8c79-b42ebd3a644d",
+							"raw": "localhost:3000/localidades",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"reservas",
-								"970d66b4-16f1-46c0-8c79-b42ebd3a644d"
+								"localidades"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "update Reserva",
+					"name": "updateLocalidadeByID",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"clienteEmail\": \"elinore.Wehner@example.com\",\r\n    \"quartos\": [\r\n        1\r\n    ],\r\n    \"dataCheckIn\": \"2024-04-23\",\r\n    \"dataCheckOut\": \"2024-04-24\",\r\n    \"adicionalList\": {\r\n        \"café\": 5,\r\n        \"refrigerante\": 2\r\n    }\r\n}",
+							"raw": "{\r\n    \"nome\":\"Ibis Interlagos\",\r\n    \"endereco\":\"Av. Interlagos, 5111\",\r\n    \"torres\":{\r\n        \r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -469,46 +475,63 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/reservas/970d66b4-16f1-46c0-8c79-b42ebd3a644d",
+							"raw": "localhost:3000/localidades/1",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"reservas",
-								"970d66b4-16f1-46c0-8c79-b42ebd3a644d"
+								"localidades",
+								"1"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete Reserva",
+					"name": "deleteLocalidadeByID",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/reservas/970d66b4-16f1-46c0-8c79-b42ebd3a644d",
+							"raw": "localhost:3000/localidades",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"reservas",
-								"970d66b4-16f1-46c0-8c79-b42ebd3a644d"
+								"localidades"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "create Reserva",
+					"name": "getAllLocalidades",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/localidades",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"localidades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createLocalidade",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"clienteEmail\": \"Elinore.Wehner@example.com\",\n  \"quartos\": [\n    1\n  ],\n  \"dataCheckIn\": \"2024-04-23\",\n  \"dataCheckOut\": \"2024-04-24\",\n  \"adicionalList\": {\n    \"café\": 1,\n    \"refrigerante\": 2\n  }\n}",
+							"raw": "{\r\n    \"nome\":\"Ibis Interlagos\",\r\n    \"endereco\":\"Av. Interlagos, 5847\",\r\n    \"torres\":{\r\n        \r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -516,13 +539,92 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/reservas/novo",
+							"raw": "localhost:3000/localidades",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"reservas",
+								"localidades"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "updateClienteByID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomeComleto\": \"{{$randomFullName}}\",\r\n    \"paisOrigem\": \"pt_br\",\r\n    // \"paisOrigem\": \"en US\",\r\n    \"dataNascimento\": \"2000-01-01\",\r\n    \"cpf\": \"88866699945\",\r\n    \"passaporte\": \"XXX-8765\",\r\n    \"telefone\": \"55-61-9999-8888\",\r\n    \"email\": \"{{$randomExampleEmail}}\",\r\n    \"endereco\": \"{{$randomStreetAddress}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/clientes/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteClienteByID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/clientes/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create NovoCliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nomeComleto\": \"{{$randomFullName}}\",\n  \"paisOrigem\": \"pt_br\",\n  // \"paisOrigem\": \"en US\",\n  \"dataNascimento\": \"2000-01-01\",\n  \"cpf\": \"11122233344\",\n  \"passaporte\": \"XXX-8765\",\n  \"telefone\": \"55-61-9999-8888\",\n  \"email\": \"{{$randomExampleEmail}}\",\n  \"endereco\": \"{{$randomStreetAddress}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/clientes/novo",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clientes",
 								"novo"
 							]
 						}
@@ -530,38 +632,166 @@
 					"response": []
 				},
 				{
-					"name": "findAll Reservas",
+					"name": "findAll Clientes",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/reservas",
+							"raw": "localhost:3000/clientes",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"reservas"
+								"clientes"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "findById Cliente",
+					"name": "findClienteByEmail",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/reservas/cliente/2",
+							"raw": "localhost:3000/clientes/busca?email=Bulah_Reichel41@example.com",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"reservas",
-								"cliente",
-								"2"
+								"clientes",
+								"busca"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "Bulah_Reichel41@example.com"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Adicionais",
+			"item": [
+				{
+					"name": "updateAdicional",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"massagem\",\r\n    \"valor\": 10.0,\r\n    \"tipoAdicional\": \"servico\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/adicionais/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"adicionais",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAdicionalByID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/adicionais/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"adicionais",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create NovoAdicional",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"descricao\": \"massagem\",\n    \"valor\": 5.0,\n    \"tipoAdicional\": \"servico\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/adicionais/novo",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"adicionais",
+								"novo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll Adicionais",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/adicionais",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"adicionais"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAdicionalPorDescricao",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/adicionais/busca?descricao=massagem",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"adicionais",
+								"busca"
+							],
+							"query": [
+								{
+									"key": "descricao",
+									"value": "massagem"
+								}
 							]
 						}
 					},
