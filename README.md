@@ -58,6 +58,11 @@ acompanha o projeto. Neste caso, entre na pasta raiz da Hackathon e utilize o co
 Após a execução dos testes, os relatórios gerados pelo JaCoCo estarão disponíveis na pasta `/target/site/jacoco/index.html`.
 
 
+## Diagramas
+![aplicacao.png](docs%2Faplicacao.png)
+![database.png](docs%2Fdatabase.png)
+![test-coverage.png](docs%2Ftest-coverage.png)
+
 --------------------------------------------------------------------------------------------
 ## Explore
 
