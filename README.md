@@ -32,11 +32,11 @@ Para inicar o projeto, utilize o `maven`. Caso não tenha o Maven instalado, voc
 acompanha o projeto. Neste caso, entre na pasta raiz da Hackathon e utilize o comando `./mvnw`.
 É necessário estar com `Docker` rodando para conexão com banco de dados.
 
-| Comando                 | Descrição                       | Requisitos                  |
-|-------------------------|---------------------------------|-----------------------------|
-| `docker-compose up -d`  | Subir os serviços da aplicação  | Docker instalado na máquina |
-| `./mvn spring-boot:run` | Roda a aplicação localmente     | Postgres rodando            |
-| `./mvn test`            | Realização dos Testes Unitários |                             |
+| Comando                  | Descrição                       | Requisitos                  |
+|--------------------------|---------------------------------|-----------------------------|
+| `docker-compose up -d`   | Subir os serviços da aplicação  | Docker instalado na máquina |
+| `./mvnw spring-boot:run` | Roda a aplicação localmente     | Postgres rodando            |
+| `./mvnw test`            | Realização dos Testes Unitários |                             |
 
 ## Testes
 
