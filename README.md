@@ -6,6 +6,13 @@ Esta API gerencia dados de agendamento de Reservas para Hoteis. Onde o Usuario p
 data em que deseja viajar e Agendar sua estadia. 
 Esta API faz o BackEnd do serviços.
 
+## Integrantes
+
+- Felipe Ferreira de Paula
+- João Pedro Gomes
+- Daniel Reis de Medeiros Guimarães
+- Rafael Souza Araujo
+
 ## Tecnologias e Ferramentas
 - Java 17
 - Maven
@@ -18,7 +25,6 @@ Esta API faz o BackEnd do serviços.
 - IntelliJ
 - Git
 - GitHub
-
 
 ## Como inicar o projeto
 
