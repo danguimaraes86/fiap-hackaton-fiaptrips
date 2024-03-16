@@ -17,7 +17,7 @@ Esta API faz o BackEnd do serviços.
 - Java 17
 - Maven
 - Spring Data JPA
-- PstgreSQL
+- PostgreSQL
 - Lombok
 - Swagger
 - Spring Web
