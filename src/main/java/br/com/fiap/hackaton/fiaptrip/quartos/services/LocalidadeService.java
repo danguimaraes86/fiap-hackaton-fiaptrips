@@ -36,8 +36,7 @@ public class LocalidadeService {
         var localidadeFound = localidadeRepository.findById((long) id).orElseThrow(() -> new RuntimeException("Localidade não encontrada"));
 
         localidadeFound.setNome(localidade.getNome());
-
-        localidadeFound.setTorres(localidade.getTorres());
+        localidadeFound.setEndereco(localidade.getEndereco());
 
         return localidadeRepository.save(localidade);
     }

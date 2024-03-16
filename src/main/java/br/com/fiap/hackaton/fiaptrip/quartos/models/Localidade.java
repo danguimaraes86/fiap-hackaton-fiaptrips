@@ -1,9 +1,6 @@
 package br.com.fiap.hackaton.fiaptrip.quartos.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,10 +16,14 @@ import java.util.Set;
 public class Localidade {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(unique = true)
     private String nome;
     private String endereco;
-    @OneToMany
-    private Set<Torre> torres;
+
+    public Localidade(String nome, String endereco) {
+        this.nome = nome;
+        this.endereco = endereco;
+    }
 }

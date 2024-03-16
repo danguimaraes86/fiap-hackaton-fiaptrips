@@ -1,6 +1,7 @@
 package br.com.fiap.hackaton.fiaptrip.quartos.services;
 
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Torre;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.dtos.TorreDTO;
 import br.com.fiap.hackaton.fiaptrip.quartos.repositories.TorreRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,8 +15,10 @@ import static java.lang.String.format;
 @Service
 public class TorreService {
     private final TorreRepository torreRepository;
-    public TorreService(TorreRepository torreRepository) {
+    private final LocalidadeService localidadeService;
+    public TorreService(TorreRepository torreRepository, LocalidadeService localidadeService) {
         this.torreRepository = torreRepository;
+        this.localidadeService = localidadeService;
     }
 
 
@@ -26,17 +29,19 @@ public class TorreService {
     public Torre findByID(Long id) {
         return torreRepository.findById(id).orElseThrow(() -> new RuntimeException("Torre não encontrada"));
     }
-    public Torre createTorre(Torre torre) {
+    public Torre createTorre(TorreDTO torreDTO) {
+        var localidade = localidadeService.findById(torreDTO.localidadeId());
+
+        Torre torre = new Torre(torreDTO.nome(), localidade);
+
         return torreRepository.save(torre);
     }
-    public Torre updateTorre(Long id, Torre torre) {
+    public Torre updateTorre(Long id, TorreDTO torreDTO) {
         var torreFound = torreRepository.findById(id).orElseThrow(() -> new RuntimeException("Torre não encontrada"));
 
-        torreFound.setNome(torre.getNome());
-        torreFound.setLocalidade(torre.getLocalidade());
-        torreFound.setQuartos(torre.getQuartos());
+        torreFound.setNome(torreDTO.nome());
 
-        return torreRepository.save(torre);
+        return torreRepository.save(torreFound);
     }
     public void deleteByID(Long id) {
         torreRepository.delete(

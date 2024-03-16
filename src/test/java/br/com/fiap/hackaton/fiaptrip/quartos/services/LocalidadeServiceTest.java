@@ -82,7 +82,6 @@ public class LocalidadeServiceTest {
             assertThat(localidadeFound.getId()).isEqualTo(localidadeMock.getId());
             assertThat(localidadeFound.getNome()).isEqualTo(localidadeMock.getNome());
             assertThat(localidadeFound.getEndereco()).isEqualTo(localidadeMock.getEndereco());
-            assertThat(localidadeFound.getTorres()).isEqualTo(localidadeMock.getTorres());
         }
     }
 
@@ -101,7 +100,6 @@ public class LocalidadeServiceTest {
             assertThat(localidadeCreated.getId()).isEqualTo(localidadeMock.getId());
             assertThat(localidadeCreated.getNome()).isEqualTo(localidadeMock.getNome());
             assertThat(localidadeCreated.getEndereco()).isEqualTo(localidadeMock.getEndereco());
-            assertThat(localidadeCreated.getTorres()).isEqualTo(localidadeMock.getTorres());
         }
     }
 
@@ -123,7 +121,6 @@ public class LocalidadeServiceTest {
             assertThat(localidadeUpdated.getId()).isEqualTo(localidadeMock.getId());
             assertThat(localidadeUpdated.getNome()).isEqualTo(localidadeMock.getNome());
             assertThat(localidadeUpdated.getEndereco()).isEqualTo(localidadeMock.getEndereco());
-            assertThat(localidadeUpdated.getTorres()).isEqualTo(localidadeMock.getTorres());
         }
     }
 

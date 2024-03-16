@@ -1,6 +1,7 @@
 package br.com.fiap.hackaton.fiaptrip.quartos.controllers;
 
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Torre;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.dtos.TorreDTO;
 import br.com.fiap.hackaton.fiaptrip.quartos.services.TorreService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,15 +33,15 @@ public class TorreController {
     }
 
     @PostMapping
-    public ResponseEntity<Torre> createTorre(@RequestBody Torre torre) {
-        var torreCreated = torreService.createTorre(torre);
+    public ResponseEntity<Torre> createTorre(@RequestBody TorreDTO torreDTO) {
+        var torreCreated = torreService.createTorre(torreDTO);
 
         return ResponseEntity.ok(torreCreated);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Torre> updateTorre(@PathVariable Long id, @RequestBody Torre torre) {
-        var torreUpdated = torreService.updateTorre(id, torre);
+    public ResponseEntity<Torre> updateTorre(@PathVariable Long id, @RequestBody TorreDTO torreDTO) {
+        var torreUpdated = torreService.updateTorre(id, torreDTO);
 
         return ResponseEntity.ok(torreUpdated);
     }

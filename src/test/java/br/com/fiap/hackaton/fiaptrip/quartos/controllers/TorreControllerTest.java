@@ -3,6 +3,7 @@ package br.com.fiap.hackaton.fiaptrip.quartos.controllers;
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Localidade;
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Quarto;
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Torre;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.dtos.TorreDTO;
 import br.com.fiap.hackaton.fiaptrip.quartos.services.TorreService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -99,7 +100,7 @@ class TorreControllerTest {
         @Test
         void deveInserirTorre() throws Exception {
             Torre torreMock = getTorreMock();
-            when(torreService.createTorre(any(Torre.class)))
+            when(torreService.createTorre(any(TorreDTO.class)))
                     .thenReturn(torreMock);
 
             mockMvc.perform(post("/torres")
@@ -108,7 +109,7 @@ class TorreControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(content().json(convertToJson(torreMock)));
             verify(torreService, times(1))
-                    .createTorre(any(Torre.class));
+                    .createTorre(any(TorreDTO.class));
         }
     }
 
@@ -118,17 +119,18 @@ class TorreControllerTest {
         @Test
         void deveAlterarTorre() throws Exception {
             Torre torreMock = getTorreMock();
+            TorreDTO torreDTO = torreMock.toTorreDTO();
             Long torreID = torreMock.getId();
-            when(torreService.updateTorre(anyLong(), any(Torre.class)))
+            when(torreService.updateTorre(anyLong(), any(TorreDTO.class)))
                     .thenReturn(torreMock);
 
             mockMvc.perform(put("/torres/{id}", torreID)
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(convertToJson(torreMock)))
+                            .content(convertToJson(torreDTO)))
                     .andExpect(status().isOk())
                     .andExpect(content().json(convertToJson(torreMock)));
             verify(torreService, times(1))
-                    .updateTorre(anyLong(), any(Torre.class));
+                    .updateTorre(anyLong(), any(TorreDTO.class));
         }
     }
 

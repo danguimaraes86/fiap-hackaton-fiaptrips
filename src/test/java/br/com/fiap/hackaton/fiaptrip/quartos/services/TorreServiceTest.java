@@ -2,6 +2,7 @@ package br.com.fiap.hackaton.fiaptrip.quartos.services;
 
 import br.com.fiap.hackaton.fiaptrip.clientes.models.Cliente;
 import br.com.fiap.hackaton.fiaptrip.quartos.models.Torre;
+import br.com.fiap.hackaton.fiaptrip.quartos.models.dtos.TorreDTO;
 import br.com.fiap.hackaton.fiaptrip.quartos.repositories.TorreRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,11 +33,13 @@ public class TorreServiceTest {
     private TorreService torreService;
     @Mock
     private TorreRepository torreRepository;
+    @Mock
+    private LocalidadeService localidadeService;
 
     @BeforeEach
     void setup() {
         mocks = openMocks(this);
-        torreService = new TorreService(torreRepository);
+        torreService = new TorreService(torreRepository, localidadeService);
     }
 
     @AfterEach
@@ -85,7 +88,6 @@ public class TorreServiceTest {
             assertThat(torreFound).isNotNull().isEqualTo(torreMock);
             assertThat(torreFound.getId()).isEqualTo(torreMock.getId());
             assertThat(torreFound.getLocalidade()).isEqualTo(torreMock.getLocalidade());
-            assertThat(torreFound.getQuartos()).isEqualTo(torreMock.getQuartos());
         }
     }
 
@@ -95,15 +97,15 @@ public class TorreServiceTest {
         @Test
         void deveInserirTorres() {
             Torre torreMock = getTorreMock();
+            TorreDTO torreDTO = torreMock.toTorreDTO();
             when(torreRepository.save(any(Torre.class))).thenReturn(torreMock);
 
-            Torre torreCreated = torreService.createTorre(torreMock);
+            Torre torreCreated = torreService.createTorre(torreDTO);
             verify(torreRepository, times(1)).save(any(Torre.class));
 
             assertThat(torreCreated).isNotNull().isEqualTo(torreMock);
             assertThat(torreCreated.getId()).isEqualTo(torreMock.getId());
             assertThat(torreCreated.getLocalidade()).isEqualTo(torreMock.getLocalidade());
-            assertThat(torreCreated.getQuartos()).isEqualTo(torreMock.getQuartos());
         }
     }
 
@@ -113,18 +115,18 @@ public class TorreServiceTest {
         @Test
         void deveAtualizarTorres() {
             Torre torreMock = getTorreMock();
+            TorreDTO torreDTO = torreMock.toTorreDTO();
             Long torreID = torreMock.getId();
             when(torreRepository.findById(anyLong())).thenReturn(Optional.of(torreMock));
             when(torreRepository.save(any(Torre.class))).thenReturn(torreMock);
 
-            Torre torreUpdated = torreService.updateTorre(torreID, torreMock);
+            Torre torreUpdated = torreService.updateTorre(torreID, torreDTO);
             verify(torreRepository, times(1)).findById(torreID);
             verify(torreRepository, times(1)).save(any(Torre.class));
 
             assertThat(torreUpdated).isNotNull().isEqualTo(torreMock);
             assertThat(torreUpdated.getId()).isEqualTo(torreMock.getId());
             assertThat(torreUpdated.getLocalidade()).isEqualTo(torreMock.getLocalidade());
-            assertThat(torreUpdated.getQuartos()).isEqualTo(torreMock.getQuartos());
         }
     }
 

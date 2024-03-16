@@ -17,12 +17,7 @@ public class MetodosAuxiliaresTestes {
         return new Localidade(
                 new Random().nextLong(),
                 "Localidade Teste",
-                "Rua teste abençoado, 25 - São Paulo",
-                new HashSet<>(List.of(
-                        new Torre(),
-                        new Torre()
-                ))
-        );
+                "Rua teste abençoado, 25 - São Paulo");
     }
     public static Quarto getQuartoMock() {
         return new Quarto(
@@ -35,10 +30,6 @@ public class MetodosAuxiliaresTestes {
         return new Torre(
                 7L,
                 "Torre Teste",
-                getLocalidadeMock(),
-                new ArrayList<>(List.of(
-                        getQuartoMock(),
-                        getQuartoMock()
-                )));
+                getLocalidadeMock());
     }
 }

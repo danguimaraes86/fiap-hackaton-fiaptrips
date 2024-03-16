@@ -41,36 +41,40 @@ Esta API faz o BackEnd do serviços.
 ##### <a>GET - /torres/{id}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
-curl -X POST \
-  https://api.example.com/endpoint \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "key": "value"
-  }'
+curl --location 'localhost:3000/torres/1'
 ```
 
 ##### <a>PUT - /torres/{id}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location --request PUT 'localhost:3000/torres/1' \
+--header 'Content-Type: application/json' \
+--data '{
+    "nome":"Torre C"
+}'
 ```
 
 ##### <a>DELETE - /torres/{id}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location --request DELETE 'localhost:3000/torres/1'
 ```
 
 ##### <a>GET - /torres</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/torres'
 ```
 
 ##### <a>POST - /torres</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/torres' \
+--header 'Content-Type: application/json' \
+--data '{
+    "nome":"Torre B",
+    "localidadeId":1
+}'
 ```
 
 
@@ -257,31 +261,42 @@ curl --location 'localhost:3000/quartos/amenidades'
 ##### <a>GET - /localidades/{id}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/localidades/1'
 ```
 
 ##### <a>PUT - /localidades/{id}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location --request PUT 'localhost:3000/localidades/1' \
+--header 'Content-Type: application/json' \
+--data '{
+    "id":1,
+    "nome":"Ibis Interlagos",
+    "endereco":"Av. Interlagos, 5111"
+}'
 ```
 
 ##### <a>DELETE - /localidades/{id}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location --request DELETE 'localhost:3000/localidades/1'
 ```
 
 ##### <a>GET - /localidades</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/localidades'
 ```
 
 ##### <a>POST - /localidades</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/localidades' \
+--header 'Content-Type: application/json' \
+--data '{
+    "nome":"Ibis Interlagos",
+    "endereco":"Av. Interlagos, 5847"
+}'
 ```
 
 
