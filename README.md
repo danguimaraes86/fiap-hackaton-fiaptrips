@@ -38,7 +38,7 @@ Esta API faz o BackEnd do serviços.
 
 ### Exemplos de entrada
 
-##### <a id="updateEndereco">GET - /torres/{id}</a>
+##### <a>GET - /torres/{id}</a>
 ![Uses Curl](https://img.shields.io/badge/Curl-Uses-green)
 ```bash
 curl -X POST \
@@ -49,25 +49,25 @@ curl -X POST \
   }'
 ```
 
-##### <a id="updateEndereco">PUT - /torres/{id}</a>
+##### <a>PUT - /torres/{id}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
-##### <a id="updateEndereco">DELETE - /torres/{id}</a>
+##### <a>DELETE - /torres/{id}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
-##### <a id="updateEndereco">GET - /torres</a>
+##### <a>GET - /torres</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
-##### <a id="updateEndereco">POST - /torres</a>
+##### <a>POST - /torres</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
@@ -89,25 +89,38 @@ curl -X
 
 ### Exemplos de entrada
 
-##### <a id="updateEndereco">GET - /reservas/{reservaId}</a>
+##### <a>GET - /reservas/{reservaId}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl --location 'localhost:3000/reservas/970d66b4-16f1-46c0-8c79-b42ebd3a644d'
 ```
 
-##### <a id="updateEndereco">PUT - /reservas/{reservaId}</a>
+##### <a>PUT - /reservas/{reservaId}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location --request PUT 'localhost:3000/reservas/970d66b4-16f1-46c0-8c79-b42ebd3a644d' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "clienteEmail": "elinore.Wehner@example.com",
+    "quartos": [
+        1
+    ],
+    "dataCheckIn": "2024-04-23",
+    "dataCheckOut": "2024-04-24",
+    "adicionalList": {
+        "café": 5,
+        "refrigerante": 2
+    }
+}'
 ```
 
-##### <a id="updateEndereco">DELETE - /reservas/{reservaId}</a>
+##### <a>DELETE - /reservas/{reservaId}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-
+curl --location --request DELETE 'localhost:3000/reservas/970d66b4-16f1-46c0-8c79-b42ebd3a644d'
 ```
 
-##### <a id="updateEndereco">POST - /reservas</a>
+##### <a>POST - /reservas</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl --location 'localhost:3000/reservas/novo' \
@@ -126,14 +139,13 @@ curl --location 'localhost:3000/reservas/novo' \
 }'
 ```
 
-##### <a id="updateEndereco">GET - /reservas</a> 
-
+##### <a>GET - /reservas</a> 
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl --location 'localhost:3000/reservas'
 ```
 
-##### <a id="updateEndereco">GET - /reservas/cliente/{clienteId}</a>
+##### <a>GET - /reservas/cliente/{clienteId}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl --location 'localhost:3000/reservas/cliente/2'
@@ -157,26 +169,36 @@ curl --location 'localhost:3000/reservas/cliente/2'
 
 ### Exemplos de entrada
 
-##### <a id="updateEndereco">GET - /quartos/{quartoId}</a>
+##### <a>GET - /quartos/{quartoId}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/quartos/1'
 ```
 
 
-##### <a id="updateEndereco">PUT - /quartos/{quartoId}</a>
+##### <a>PUT - /quartos/{quartoId}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location --request PUT 'localhost:3000/quartos/1' \
+--header 'Content-Type: application/json' \
+--data '{
+    "tipoQuarto": "LUXO",
+    "amenidades": [
+        "AR_CONDICIONADO",
+        "FRIGOBAR",
+        "BANHEIRA",
+        "VARANDA"
+    ]
+}'
 ```
 
-##### <a id="updateEndereco">DELETE - /quartos/{quartoId}</a>
+##### <a>DELETE - /quartos/{quartoId}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location --request DELETE 'localhost:3000/quartos/1'
 ```
 
-##### <a id="updateEndereco">POST - /quartos/novo</a>
+##### <a>POST - /quartos/novo</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl --location 'localhost:3000/quartos/novo' \
@@ -194,25 +216,25 @@ curl --location 'localhost:3000/quartos/novo' \
 }'
 ```
 
-##### <a id="updateEndereco">GET - /quartos</a>
+##### <a>GET - /quartos</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl --location 'localhost:3000/quartos'
 ```
 
-##### <a id="updateEndereco">GET - /quartos/tipoquarto</a>
+##### <a>GET - /quartos/tipoquarto</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl --location 'localhost:3000/quartos/tipoquarto'
 ```
 
-##### <a id="updateEndereco">GET - /quartos/busca</a>
+##### <a>GET - /quartos/busca</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/quartos/busca?tipoQuarto=LUXO'
 ```
 
-##### <a id="updateEndereco">GET - /quartos/amenidades</a>
+##### <a>GET - /quartos/amenidades</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl --location 'localhost:3000/quartos/amenidades'
@@ -232,31 +254,31 @@ curl --location 'localhost:3000/quartos/amenidades'
 
 ### Exemplos de entrada
 
-##### <a id="updateEndereco">GET - /localidades/{id}</a>
+##### <a>GET - /localidades/{id}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
-##### <a id="updateEndereco">PUT - /localidades/{id}</a>
+##### <a>PUT - /localidades/{id}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
-##### <a id="updateEndereco">DELETE - /localidades/{id}</a>
+##### <a>DELETE - /localidades/{id}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
-##### <a id="updateEndereco">GET - /localidades</a>
+##### <a>GET - /localidades</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
 ```
 
-##### <a id="updateEndereco">POST - /localidades</a>
+##### <a>POST - /localidades</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl -X 
@@ -277,19 +299,31 @@ curl -X
 
 ### Exemplos de entrada
 
-##### <a id="updateEndereco">PUT - /clientes/{clienteId}</a>
+##### <a>PUT - /clientes/{clienteId}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location --request PUT 'localhost:3000/clientes/1' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "nomeComleto": "Carroll Gottlieb",
+    "paisOrigem": "pt_br",
+    
+    "dataNascimento": "2000-01-01",
+    "cpf": "88866699945",
+    "passaporte": "XXX-8765",
+    "telefone": "55-61-9999-8888",
+    "email": "Alejandrin39@example.com",
+    "endereco": "224 Koelpin Ports"
+}'
 ```
 
-##### <a id="updateEndereco">DELETE - /clientes/{clienteId}</a>
+##### <a>DELETE - /clientes/{clienteId}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location --request DELETE 'localhost:3000/clientes/1'
 ```
 
-##### <a id="updateEndereco">POST - /clientes/novo</a>
+##### <a>POST - /clientes/novo</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl --location 'localhost:3000/clientes/novo' \
@@ -307,16 +341,16 @@ curl --location 'localhost:3000/clientes/novo' \
 }'
 ```
 
-##### <a id="updateEndereco">GET - /clientes</a>
+##### <a>GET - /clientes</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl --location 'localhost:3000/clientes'
 ```
 
-##### <a id="updateEndereco">GET - /clientes/busca</a>
+##### <a>GET - /clientes/busca</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location 'localhost:3000/clientes/busca?email=Bulah_Reichel41%40example.com'
 ```
 
 
@@ -334,16 +368,22 @@ curl -X
 
 ### Exemplos de entrada
 
-##### <a id="updateEndereco">PUT - /adicionais/{adicionalId}</a>
+##### <a>PUT - /adicionais/{adicionalId}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location --request PUT 'localhost:3000/adicionais/1' \
+--header 'Content-Type: application/json' \
+--data '{
+    "descricao": "massagem",
+    "valor": 10.0,
+    "tipoAdicional": "servico"
+}'
 ```
 
-##### <a id="updateEndereco">DELETE - /adicionais/{adicionalId}</a>
+##### <a>DELETE - /adicionais/{adicionalId}</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
+curl --location --request DELETE 'localhost:3000/adicionais/1'
 ```
 
 ##### <a id="updateEndereco">POST - /adicionais/novo</a>
@@ -358,14 +398,13 @@ curl --location 'localhost:3000/adicionais/novo' \
 }'
 ```
 
-##### <a id="updateEndereco">GET - /adicionais</a>
+##### <a>GET - /adicionais</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
 curl --location 'localhost:3000/adicionais'
 ```
 
-##### <a id="updateEndereco">GET - /adicionais/busca</a>
+##### <a>GET - /adicionais/busca</a>
 ![Uses Curl](images/Curl-Uses-green.svg)
 ```bash
-curl -X 
-```
+curl --location 'localhost:3000/adicionais/busca?descricao=massagem'```
